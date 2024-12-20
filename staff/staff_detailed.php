@@ -217,7 +217,7 @@ if ($userRole !== 'Staff') {
                                                                         }
                                                                         ?>
                                                                         <div class="card-header">
-                                                                            <h5 class="card-header-text">Créditos de
+                                                                            <h5 class="card-header-text">Días de
                                                                                 Permiso</h5>
                                                                             <?php if (($userRole === 'Admin' || $userRole === 'Manager') && !($userRole === 'Manager' && $designation === 'Administrator')): ?>
                                                                                 <button data-toggle="modal"
@@ -302,7 +302,22 @@ if ($userRole !== 'Staff') {
                                                                                                                             scope="row">
                                                                                                                             Género
                                                                                                                         </th>
-                                                                                                                        <td><?php echo htmlspecialchars($row['gender']); ?>
+                                                                                                                        <td>
+                                                                                                                            <?php
+                                                                                                                            function traducirGenero($genero)
+                                                                                                                            {
+                                                                                                                                if ($genero == "Male") {
+                                                                                                                                    return "Hombre";
+                                                                                                                                } elseif ($genero == "Female") {
+                                                                                                                                    return "Mujer";
+                                                                                                                                } else {
+                                                                                                                                    return $genero; // Si no es ni "Male" ni "Female", se devuelve el valor original
+                                                                                                                                }
+                                                                                                                            }
+
+                                                                                                                            $generoTraducido = traducirGenero($row['gender']);
+                                                                                                                            echo htmlspecialchars($generoTraducido);
+                                                                                                                            ?>
                                                                                                                         </td>
                                                                                                                     </tr>
                                                                                                                     <tr>
@@ -312,7 +327,37 @@ if ($userRole !== 'Staff') {
                                                                                                                             de
                                                                                                                             Creación
                                                                                                                         </th>
-                                                                                                                        <td><?php echo htmlspecialchars(date('jS F, Y', strtotime($row['date_created']))); ?>
+                                                                                                                        <td>
+                                                                                                                            <?php
+                                                                                                                            // Función para traducir la fecha al español usando DateTime
+                                                                                                                            function traducirFecha($fecha)
+                                                                                                                            {
+                                                                                                                                $meses = [
+                                                                                                                                    'January' => 'Enero',
+                                                                                                                                    'February' => 'Febrero',
+                                                                                                                                    'March' => 'Marzo',
+                                                                                                                                    'April' => 'Abril',
+                                                                                                                                    'May' => 'Mayo',
+                                                                                                                                    'June' => 'Junio',
+                                                                                                                                    'July' => 'Julio',
+                                                                                                                                    'August' => 'Agosto',
+                                                                                                                                    'September' => 'Septiembre',
+                                                                                                                                    'October' => 'Octubre',
+                                                                                                                                    'November' => 'Noviembre',
+                                                                                                                                    'December' => 'Diciembre',
+                                                                                                                                ];
+
+                                                                                                                                $date = new DateTime($fecha);
+                                                                                                                                $date->setTimezone(new DateTimeZone('America/Lima')); // Zona horaria de Pachacamac, Lima, Peru
+                                                                                                                                $mesIngles = $date->format('F');
+                                                                                                                                $mesEspañol = $meses[$mesIngles];
+
+                                                                                                                                return $date->format('d \d\e ') . $mesEspañol . $date->format(' \d\e Y');
+                                                                                                                            }
+
+                                                                                                                            $fechaTraducida = traducirFecha($row['date_created']);
+                                                                                                                            echo htmlspecialchars($fechaTraducida);
+                                                                                                                            ?>
                                                                                                                         </td>
                                                                                                                     </tr>
                                                                                                                     <tr>
@@ -381,7 +426,24 @@ if ($userRole !== 'Staff') {
                                                                                                                             scope="row">
                                                                                                                             Rol
                                                                                                                         </th>
-                                                                                                                        <td><?php echo htmlspecialchars($row['role']); ?>
+                                                                                                                        <td>
+                                                                                                                            <?php
+                                                                                                                            // Función para traducir los roles al español
+                                                                                                                            function traducirRol($rol)
+                                                                                                                            {
+                                                                                                                                $roles = [
+                                                                                                                                    'Admin' => 'Administrador',
+                                                                                                                                    'Staff' => 'Personal',
+                                                                                                                                    'Manager' => 'Gerente',
+                                                                                                                                ];
+                                                                                                                                return $roles[$rol] ?? $rol;
+                                                                                                                            }
+
+                                                                                                                            // Llamada a la función con el valor correcto del rol
+                                                                                                                            $rolTraducido = traducirRol($row['role']);
+                                                                                                                            echo htmlspecialchars($rolTraducido);
+                                                                                                                            echo "Rol del usuario: " . $session_role;
+                                                                                                                            ?>
                                                                                                                         </td>
                                                                                                                     </tr>
                                                                                                                     <tr>
@@ -450,7 +512,7 @@ if ($userRole !== 'Staff') {
                                                                         <div class="row m-b-20">
                                                                             <div class="col-md-12">
                                                                                 <h5 class="text-center txt-primary">
-                                                                                    Gestionar Créditos de Permiso de
+                                                                                    Gestionar Días de Permiso de
                                                                                     <strong><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']); ?></strong>
                                                                                 </h5>
                                                                             </div>
@@ -475,7 +537,7 @@ if ($userRole !== 'Staff') {
                                                                                             de Permiso</span>
                                                                                     </div>
                                                                                     <span class="text"
-                                                                                        style="margin-left: 15px;">Créditos
+                                                                                        style="margin-left: 15px;">Días
                                                                                         de Permiso</span>
                                                                                 </li>
                                                                                 <?php while ($leaveType = mysqli_fetch_assoc($leaveTypesResult)): ?>

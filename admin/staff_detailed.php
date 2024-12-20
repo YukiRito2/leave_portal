@@ -98,13 +98,13 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                         </div>
                                                                     </div>
                                                                     <?php if ($session_id == $get_id): ?>
-                                                                        <div class="pull-right cover-btn">
-                                                                            <button type="button"
-                                                                                class="btn btn-primary m-r-10 m-b-5"
-                                                                                data-toggle="modal"
-                                                                                data-target="#change-password-dialog">
-                                                                                Cambiar Contraseña</button>
-                                                                        </div>
+                                                                    <div class="pull-right cover-btn">
+                                                                        <button type="button"
+                                                                            class="btn btn-primary m-r-10 m-b-5"
+                                                                            data-toggle="modal"
+                                                                            data-target="#change-password-dialog">
+                                                                            Cambiar Contraseña</button>
+                                                                    </div>
                                                                     <?php endif; ?>
                                                                 </div>
                                                             </div>
@@ -174,25 +174,25 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                             <h5 class="card-header-text">Supervisor
                                                                                 Asignado</h5>
                                                                             <?php if ($userRole === 'Admin'): ?>
-                                                                                <button data-toggle="modal"
-                                                                                    data-target="#edit-supervisor"
-                                                                                    type="button"
-                                                                                    class="btn btn-sm btn-primary waves-effect waves-light f-right">
-                                                                                    <i class="icofont icofont-settings"></i>
-                                                                                </button>
+                                                                            <button data-toggle="modal"
+                                                                                data-target="#edit-supervisor"
+                                                                                type="button"
+                                                                                class="btn btn-sm btn-primary waves-effect waves-light f-right">
+                                                                                <i class="icofont icofont-settings"></i>
+                                                                            </button>
                                                                             <?php endif; ?>
                                                                         </div>
                                                                         <ul class="list-group">
                                                                             <?php if ($supervisor): ?>
-                                                                                <li
-                                                                                    class="list-group-item justify-content-between">
-                                                                                    <?php echo htmlspecialchars($supervisor['first_name'] . ' ' . $supervisor['middle_name'] . ' ' . $supervisor['last_name']); ?>
-                                                                                </li>
+                                                                            <li
+                                                                                class="list-group-item justify-content-between">
+                                                                                <?php echo htmlspecialchars($supervisor['first_name'] . ' ' . $supervisor['middle_name'] . ' ' . $supervisor['last_name']); ?>
+                                                                            </li>
                                                                             <?php else: ?>
-                                                                                <li
-                                                                                    class="list-group-item justify-content-between">
-                                                                                    No supervisor asignado.
-                                                                                </li>
+                                                                            <li
+                                                                                class="list-group-item justify-content-between">
+                                                                                No supervisor asignado.
+                                                                            </li>
                                                                             <?php endif; ?>
                                                                         </ul>
                                                                     </div>
@@ -217,15 +217,15 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                         }
                                                                         ?>
                                                                         <div class="card-header">
-                                                                            <h5 class="card-header-text">Créditos de
+                                                                            <h5 class="card-header-text">Días de
                                                                                 Permiso</h5>
                                                                             <?php if ($userRole === 'Admin'): ?>
-                                                                                <button data-toggle="modal"
-                                                                                    data-target="#edit-leave-type"
-                                                                                    type="button"
-                                                                                    class="btn btn-sm btn-primary waves-effect waves-light f-right">
-                                                                                    <i class="icofont icofont-settings"></i>
-                                                                                </button>
+                                                                            <button data-toggle="modal"
+                                                                                data-target="#edit-leave-type"
+                                                                                type="button"
+                                                                                class="btn btn-sm btn-primary waves-effect waves-light f-right">
+                                                                                <i class="icofont icofont-settings"></i>
+                                                                            </button>
                                                                             <?php endif; ?>
                                                                         </div>
                                                                         <div class="card-block table-border-style">
@@ -240,23 +240,23 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <?php if (!empty($assignedLeaveTypes)): ?>
-                                                                                            <?php foreach ($assignedLeaveTypes as $leaveType): ?>
-                                                                                                <tr>
-                                                                                                    <td><?php echo htmlspecialchars($leaveType['leave_type']); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo htmlspecialchars($leaveType['assign_days']); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo htmlspecialchars($leaveType['available_days']); ?>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            <?php endforeach; ?>
+                                                                                        <?php foreach ($assignedLeaveTypes as $leaveType): ?>
+                                                                                        <tr>
+                                                                                            <td><?php echo htmlspecialchars($leaveType['leave_type']); ?>
+                                                                                            </td>
+                                                                                            <td><?php echo htmlspecialchars($leaveType['assign_days']); ?>
+                                                                                            </td>
+                                                                                            <td><?php echo htmlspecialchars($leaveType['available_days']); ?>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <?php endforeach; ?>
                                                                                         <?php else: ?>
-                                                                                            <tr>
-                                                                                                <td colspan="3"
-                                                                                                    class="text-center">No
-                                                                                                    se han asignado tipos de
-                                                                                                    permiso.</td>
-                                                                                            </tr>
+                                                                                        <tr>
+                                                                                            <td colspan="3"
+                                                                                                class="text-center">No
+                                                                                                se han asignado tipos de
+                                                                                                permiso.</td>
+                                                                                        </tr>
                                                                                         <?php endif; ?>
                                                                                     </tbody>
                                                                                 </table>
@@ -302,7 +302,22 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                                                             scope="row">
                                                                                                                             Género
                                                                                                                         </th>
-                                                                                                                        <td><?php echo htmlspecialchars($row['gender']); ?>
+                                                                                                                        <td>
+                                                                                                                            <?php
+                                                                                                                            function traducirGenero($genero)
+                                                                                                                            {
+                                                                                                                                if ($genero == "Male") {
+                                                                                                                                    return "Hombre";
+                                                                                                                                } elseif ($genero == "Female") {
+                                                                                                                                    return "Mujer";
+                                                                                                                                } else {
+                                                                                                                                    return $genero; // Si no es ni "Male" ni "Female", se devuelve el valor original
+                                                                                                                                }
+                                                                                                                            }
+
+                                                                                                                            $generoTraducido = traducirGenero($row['gender']);
+                                                                                                                            echo htmlspecialchars($generoTraducido);
+                                                                                                                            ?>
                                                                                                                         </td>
                                                                                                                     </tr>
                                                                                                                     <tr>
@@ -312,7 +327,37 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                                                             de
                                                                                                                             Creación
                                                                                                                         </th>
-                                                                                                                        <td><?php echo htmlspecialchars(date('jS F, Y', strtotime($row['date_created']))); ?>
+                                                                                                                        <td>
+                                                                                                                            <?php
+                                                                                                                            // Función para traducir la fecha al español usando DateTime
+                                                                                                                            function traducirFecha($fecha)
+                                                                                                                            {
+                                                                                                                                $meses = [
+                                                                                                                                    'January' => 'Enero',
+                                                                                                                                    'February' => 'Febrero',
+                                                                                                                                    'March' => 'Marzo',
+                                                                                                                                    'April' => 'Abril',
+                                                                                                                                    'May' => 'Mayo',
+                                                                                                                                    'June' => 'Junio',
+                                                                                                                                    'July' => 'Julio',
+                                                                                                                                    'August' => 'Agosto',
+                                                                                                                                    'September' => 'Septiembre',
+                                                                                                                                    'October' => 'Octubre',
+                                                                                                                                    'November' => 'Noviembre',
+                                                                                                                                    'December' => 'Diciembre',
+                                                                                                                                ];
+
+                                                                                                                                $date = new DateTime($fecha);
+                                                                                                                                $date->setTimezone(new DateTimeZone('America/Lima')); // Zona horaria de Pachacamac, Lima, Peru
+                                                                                                                                $mesIngles = $date->format('F');
+                                                                                                                                $mesEspañol = $meses[$mesIngles];
+
+                                                                                                                                return $date->format('d \d\e ') . $mesEspañol . $date->format(' \d\e Y');
+                                                                                                                            }
+
+                                                                                                                            $fechaTraducida = traducirFecha($row['date_created']);
+                                                                                                                            echo htmlspecialchars($fechaTraducida);
+                                                                                                                            ?>
                                                                                                                         </td>
                                                                                                                     </tr>
                                                                                                                     <tr>
@@ -381,7 +426,23 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                                                             scope="row">
                                                                                                                             Rol
                                                                                                                         </th>
-                                                                                                                        <td><?php echo htmlspecialchars($row['role']); ?>
+                                                                                                                        <td>
+                                                                                                                            <?php
+                                                                                                                            // Función para traducir los roles al español
+                                                                                                                            function traducirRol($rol)
+                                                                                                                            {
+                                                                                                                                $roles = [
+                                                                                                                                    'Admin' => 'Administrador',
+                                                                                                                                    'Staff' => 'Personal',
+                                                                                                                                    'Manager' => 'Gerente',
+                                                                                                                                ];
+                                                                                                                                return $roles[$rol] ?? $rol;
+                                                                                                                            }
+
+                                                                                                                            // Llamada a la función con el valor correcto del rol
+                                                                                                                            $rolTraducido = traducirRol($row['role']);
+                                                                                                                            echo htmlspecialchars($rolTraducido);
+                                                                                                                            ?>
                                                                                                                         </td>
                                                                                                                     </tr>
                                                                                                                     <tr>
@@ -451,7 +512,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                 <div class="row m-b-20">
                                                                     <div class="col-md-12">
                                                                         <h5 class="text-center txt-primary">Gestionar
-                                                                            Créditos de Permiso de
+                                                                            Días de Permiso de
                                                                             <strong><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']); ?></strong>
                                                                         </h5>
                                                                     </div>
@@ -475,34 +536,34 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                     Permiso</span>
                                                                             </div>
                                                                             <span class="text"
-                                                                                style="margin-left: 15px;">Créditos de
+                                                                                style="margin-left: 15px;">Días de
                                                                                 Permiso</span>
                                                                         </li>
                                                                         <?php while ($leaveType = mysqli_fetch_assoc($leaveTypesResult)): ?>
-                                                                            <?php
+                                                                        <?php
                                                                             $isChecked = array_key_exists($leaveType['id'], $assignedLeaveTypes);
                                                                             $isDisabled = $isChecked && $assignedLeaveTypes[$leaveType['id']] != $leaveType['assign_days'];
                                                                             ?>
-                                                                            <li
-                                                                                class="list-group-item justify-content-between">
-                                                                                <div class="checkbox-fade fade-in-primary">
-                                                                                    <label>
-                                                                                        <input type="checkbox"
-                                                                                            name="leaveTypes[]"
-                                                                                            value="<?php echo $leaveType['id']; ?>"
-                                                                                            <?php echo $isChecked ? 'checked' : ''; ?>
-                                                                                            <?php echo $isDisabled ? 'disabled' : ''; ?>>
-                                                                                        <span class="cr">
-                                                                                            <i
-                                                                                                class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                                                        </span>
-                                                                                    </label>
-                                                                                    <span class="text"
-                                                                                        style="margin-left: 15px;"><?php echo $leaveType['leave_type']; ?></span>
-                                                                                </div>
-                                                                                <span
-                                                                                    class="badge badge-inverse-info"><?php echo $leaveType['assign_days']; ?></span>
-                                                                            </li>
+                                                                        <li
+                                                                            class="list-group-item justify-content-between">
+                                                                            <div class="checkbox-fade fade-in-primary">
+                                                                                <label>
+                                                                                    <input type="checkbox"
+                                                                                        name="leaveTypes[]"
+                                                                                        value="<?php echo $leaveType['id']; ?>"
+                                                                                        <?php echo $isChecked ? 'checked' : ''; ?>
+                                                                                        <?php echo $isDisabled ? 'disabled' : ''; ?>>
+                                                                                    <span class="cr">
+                                                                                        <i
+                                                                                            class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                                                                    </span>
+                                                                                </label>
+                                                                                <span class="text"
+                                                                                    style="margin-left: 15px;"><?php echo $leaveType['leave_type']; ?></span>
+                                                                            </div>
+                                                                            <span
+                                                                                class="badge badge-inverse-info"><?php echo $leaveType['assign_days']; ?></span>
+                                                                        </li>
                                                                         <?php endwhile; ?>
                                                                     </ul>
                                                                 </div>
@@ -706,130 +767,193 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-        gtag('config', 'UA-23581568-13');
+    gtag('config', 'UA-23581568-13');
     </script>
 
     <script>
-        document.getElementById('selectAllLeaveTypes').addEventListener('change', function() {
-            var checkboxes = document.querySelectorAll('input[name="leaveTypes[]"]');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = this.checked;
-            }.bind(this));
-        });
+    document.getElementById('selectAllLeaveTypes').addEventListener('change', function() {
+        var checkboxes = document.querySelectorAll('input[name="leaveTypes[]"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = this.checked;
+        }.bind(this));
+    });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var checkboxes = document.querySelectorAll('input[name="leaveTypes[]"]');
-            var saveButton = document.getElementById('saveLeaveTypesBtn');
-            var initialCheckedStates = Array.from(checkboxes).map(checkbox => checkbox.checked);
+    document.addEventListener('DOMContentLoaded', function() {
+        var checkboxes = document.querySelectorAll('input[name="leaveTypes[]"]');
+        var saveButton = document.getElementById('saveLeaveTypesBtn');
+        var initialCheckedStates = Array.from(checkboxes).map(checkbox => checkbox.checked);
 
-            // Function to check for changes and enable/disable the Save button
-            function checkForChanges() {
-                var currentCheckedStates = Array.from(checkboxes).map(checkbox => checkbox.checked);
-                var hasChanges = !initialCheckedStates.every((state, index) => state === currentCheckedStates[
-                    index]);
+        // Function to check for changes and enable/disable the Save button
+        function checkForChanges() {
+            var currentCheckedStates = Array.from(checkboxes).map(checkbox => checkbox.checked);
+            var hasChanges = !initialCheckedStates.every((state, index) => state === currentCheckedStates[
+                index]);
 
-                if (hasChanges) {
-                    saveButton.classList.remove('btn-disabled');
-                    saveButton.classList.add('btn-primary');
-                } else {
-                    saveButton.classList.remove('btn-primary');
-                    saveButton.classList.add('btn-disabled');
-                }
-                saveButton.disabled = !hasChanges;
+            if (hasChanges) {
+                saveButton.classList.remove('btn-disabled');
+                saveButton.classList.add('btn-primary');
+            } else {
+                saveButton.classList.remove('btn-primary');
+                saveButton.classList.add('btn-disabled');
             }
+            saveButton.disabled = !hasChanges;
+        }
 
-            // Disable the Save button on page load
-            saveButton.classList.remove('btn-primary');
-            saveButton.classList.add('btn-disabled');
-            saveButton.disabled = true;
+        // Disable the Save button on page load
+        saveButton.classList.remove('btn-primary');
+        saveButton.classList.add('btn-disabled');
+        saveButton.disabled = true;
 
-            // Event listener for checkbox changes
-            checkboxes.forEach(function(checkbox) {
-                checkbox.addEventListener('change', checkForChanges);
-            });
-
-            // Event listener for the "Select All" checkbox
-            document.getElementById('selectAllLeaveTypes').addEventListener('change', function(event) {
-                checkboxes.forEach(function(checkbox) {
-                    if (!checkbox.disabled) {
-                        checkbox.checked = event.target.checked;
-                    }
-                });
-                checkForChanges();
-            });
-
-            // Check for changes when the modal is opened
-            $('#edit-leave-type').on('shown.bs.modal', function() {
-                initialCheckedStates = Array.from(checkboxes).map(checkbox => checkbox.checked);
-                checkForChanges();
-            });
+        // Event listener for checkbox changes
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', checkForChanges);
         });
 
-
-        document.getElementById('saveLeaveTypesBtn').addEventListener('click', function(event) {
-            event.preventDefault(); // prevent the default form submission
-
-            // $('#edit-leave-type').modal('hide');
-
-            // Validate if at least one leave type is selected
-            var checkboxes = document.querySelectorAll('input[name="leaveTypes[]"]');
-            var isChecked = false;
+        // Event listener for the "Select All" checkbox
+        document.getElementById('selectAllLeaveTypes').addEventListener('change', function(event) {
             checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    isChecked = true;
+                if (!checkbox.disabled) {
+                    checkbox.checked = event.target.checked;
                 }
             });
+            checkForChanges();
+        });
 
-            if (!isChecked) {
+        // Check for changes when the modal is opened
+        $('#edit-leave-type').on('shown.bs.modal', function() {
+            initialCheckedStates = Array.from(checkboxes).map(checkbox => checkbox.checked);
+            checkForChanges();
+        });
+    });
+
+
+    document.getElementById('saveLeaveTypesBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // prevent the default form submission
+
+        // $('#edit-leave-type').modal('hide');
+
+        // Validate if at least one leave type is selected
+        var checkboxes = document.querySelectorAll('input[name="leaveTypes[]"]');
+        var isChecked = false;
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                isChecked = true;
+            }
+        });
+
+        if (!isChecked) {
+            $('.modal').css('z-index', '1050');
+            Swal.fire({
+                icon: 'warning',
+                text: 'Please select at least one leave type',
+                confirmButtonColor: '#ffc107',
+                confirmButtonText: 'OK',
+                didClose: () => {
+                    // Restore the z-index of the modal
+                    $('.modal').css('z-index', '');
+                }
+            });
+            return;
+        }
+
+        console.log("DATA HERE PASSED")
+
+        // If validation passes, proceed with form submission
+        var formData = new FormData();
+        formData.append('employeeId', <?php echo $employeeId; ?>);
+        formData.append('action', 'assign-leave-types');
+
+        // Append selected leave types to formData
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                formData.append('leaveTypes[]', checkbox.value);
+            }
+        });
+
+        // Log the formData to the console
+        for (var pair of formData.entries()) {
+            console.log("DATA TO BACKEND HERE: " + pair[0] + ': ' + pair[1]);
+        }
+
+        fetch('staff_functions.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.text())
+            .then(data => {
                 $('.modal').css('z-index', '1050');
                 Swal.fire({
-                    icon: 'warning',
-                    text: 'Please select at least one leave type',
-                    confirmButtonColor: '#ffc107',
+                    icon: 'success',
+                    text: 'Leave types updated successfully!',
+                    confirmButtonColor: '#01a9ac',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('.modal').css('z-index', '');
+                        location.reload();
+                    }
+                });
+            }).catch(error => {
+                console.error('Error:', error);
+                $('.modal').css('z-index', '1050');
+                Swal.fire({
+                    icon: 'error',
+                    text: 'An error occurred while updating leave types',
+                    confirmButtonColor: '#eb3422',
                     confirmButtonText: 'OK',
                     didClose: () => {
                         // Restore the z-index of the modal
                         $('.modal').css('z-index', '');
                     }
                 });
-                return;
-            }
+            });
+    });
 
-            console.log("DATA HERE PASSED")
+    // Assign supervisor
+    document.getElementById('assignSupervisorBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // prevent the default form submission
 
-            // If validation passes, proceed with form submission
-            var formData = new FormData();
-            formData.append('employeeId', <?php echo $employeeId; ?>);
-            formData.append('action', 'assign-leave-types');
+        // $('#edit-supervisor').modal('hide');
 
-            // Append selected leave types to formData
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    formData.append('leaveTypes[]', checkbox.value);
+        var supervisorId = document.querySelector('select[name="supervisor"]').value;
+        var employeeId = <?php echo $employeeId; ?>; // Assume $employeeId is set and contains the employee's ID
+
+        if (!supervisorId) {
+            $('.modal').css('z-index', '1050');
+            Swal.fire({
+                icon: 'warning',
+                text: 'Please select a supervisor',
+                confirmButtonColor: '#ffc107',
+                confirmButtonText: 'OK',
+                didClose: () => {
+                    // Restore the z-index of the modal
+                    $('.modal').css('z-index', '');
                 }
             });
+            return;
+        }
 
-            // Log the formData to the console
-            for (var pair of formData.entries()) {
-                console.log("DATA TO BACKEND HERE: " + pair[0] + ': ' + pair[1]);
-            }
+        var formData = new FormData();
+        formData.append('employeeId', employeeId);
+        formData.append('supervisorId', supervisorId);
+        formData.append('action', 'assign-supervisor');
 
-            fetch('staff_functions.php', {
-                    method: 'POST',
-                    body: formData
-                }).then(response => response.text())
-                .then(data => {
+        fetch('staff_functions.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
                     $('.modal').css('z-index', '1050');
                     Swal.fire({
                         icon: 'success',
-                        text: 'Leave types updated successfully!',
+                        text: 'Supervisor assigned successfully!',
                         confirmButtonColor: '#01a9ac',
                         confirmButtonText: 'OK'
                     }).then((result) => {
@@ -838,84 +962,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                             location.reload();
                         }
                     });
-                }).catch(error => {
-                    console.error('Error:', error);
-                    $('.modal').css('z-index', '1050');
-                    Swal.fire({
-                        icon: 'error',
-                        text: 'An error occurred while updating leave types',
-                        confirmButtonColor: '#eb3422',
-                        confirmButtonText: 'OK',
-                        didClose: () => {
-                            // Restore the z-index of the modal
-                            $('.modal').css('z-index', '');
-                        }
-                    });
-                });
-        });
-
-        // Assign supervisor
-        document.getElementById('assignSupervisorBtn').addEventListener('click', function(event) {
-            event.preventDefault(); // prevent the default form submission
-
-            // $('#edit-supervisor').modal('hide');
-
-            var supervisorId = document.querySelector('select[name="supervisor"]').value;
-            var employeeId = <?php echo $employeeId; ?>; // Assume $employeeId is set and contains the employee's ID
-
-            if (!supervisorId) {
-                $('.modal').css('z-index', '1050');
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Please select a supervisor',
-                    confirmButtonColor: '#ffc107',
-                    confirmButtonText: 'OK',
-                    didClose: () => {
-                        // Restore the z-index of the modal
-                        $('.modal').css('z-index', '');
-                    }
-                });
-                return;
-            }
-
-            var formData = new FormData();
-            formData.append('employeeId', employeeId);
-            formData.append('supervisorId', supervisorId);
-            formData.append('action', 'assign-supervisor');
-
-            fetch('staff_functions.php', {
-                    method: 'POST',
-                    body: formData
-                }).then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        $('.modal').css('z-index', '1050');
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Supervisor assigned successfully!',
-                            confirmButtonColor: '#01a9ac',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $('.modal').css('z-index', '');
-                                location.reload();
-                            }
-                        });
-                    } else {
-                        $('.modal').css('z-index', '1050');
-                        Swal.fire({
-                            icon: 'error',
-                            text: 'An error occurred while assigning supervisor',
-                            confirmButtonColor: '#eb3422',
-                            confirmButtonText: 'OK',
-                            didClose: () => {
-                                // Restore the z-index of the modal
-                                $('.modal').css('z-index', '');
-                            }
-                        });
-                    }
-                }).catch(error => {
-                    console.error('Error:', error);
+                } else {
                     $('.modal').css('z-index', '1050');
                     Swal.fire({
                         icon: 'error',
@@ -927,78 +974,92 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                             $('.modal').css('z-index', '');
                         }
                     });
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                $('.modal').css('z-index', '1050');
+                Swal.fire({
+                    icon: 'error',
+                    text: 'An error occurred while assigning supervisor',
+                    confirmButtonColor: '#eb3422',
+                    confirmButtonText: 'OK',
+                    didClose: () => {
+                        // Restore the z-index of the modal
+                        $('.modal').css('z-index', '');
+                    }
                 });
-        });
+            });
+    });
     </script>
 
     <script type="text/javascript">
-        $('#change_password').click(function(event) {
-            event.preventDefault();
-            $('.modal').css('z-index', '1050');
+    $('#change_password').click(function(event) {
+        event.preventDefault();
+        $('.modal').css('z-index', '1050');
 
-            (async () => {
-                var data = {
-                    old_password: $('#old_password').val(),
-                    new_password: $('#new_password').val(),
-                    confirm_password: $('#confirm_password').val(),
-                    action: "change_password",
-                };
+        (async () => {
+            var data = {
+                old_password: $('#old_password').val(),
+                new_password: $('#new_password').val(),
+                confirm_password: $('#confirm_password').val(),
+                action: "change_password",
+            };
 
-                if (data.old_password.trim() === '' || data.new_password.trim() === '' || data
-                    .confirm_password.trim() === '') {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Please fill in all fields.',
-                        confirmButtonColor: '#ffc107',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-
-                if (data.new_password !== data.confirm_password) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'New password and confirmation password do not match.',
-                        confirmButtonColor: '#ffc107',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-
-                $.ajax({
-                    url: 'password_functions.php',
-                    type: 'post',
-                    data: data,
-                    success: function(response) {
-                        response = JSON.parse(response);
-                        if (response.status == 'success') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Password Reset Successfully',
-                                text: 'Your password has been changed successfully. Kindly login again',
-                                confirmButtonColor: '#01a9ac',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $('.md-close').trigger('click');
-                                    window.location = '../logout.php';
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                text: response.message,
-                                confirmButtonColor: '#eb3422',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-                    }
+            if (data.old_password.trim() === '' || data.new_password.trim() === '' || data
+                .confirm_password.trim() === '') {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Please fill in all fields.',
+                    confirmButtonColor: '#ffc107',
+                    confirmButtonText: 'OK'
                 });
-            })()
-        });
+                return;
+            }
+
+            if (data.new_password !== data.confirm_password) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'New password and confirmation password do not match.',
+                    confirmButtonColor: '#ffc107',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            $.ajax({
+                url: 'password_functions.php',
+                type: 'post',
+                data: data,
+                success: function(response) {
+                    response = JSON.parse(response);
+                    if (response.status == 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Password Reset Successfully',
+                            text: 'Your password has been changed successfully. Kindly login again',
+                            confirmButtonColor: '#01a9ac',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('.md-close').trigger('click');
+                                window.location = '../logout.php';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            text: response.message,
+                            confirmButtonColor: '#eb3422',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                }
+            });
+        })()
+    });
     </script>
 
 </body>
