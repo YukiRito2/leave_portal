@@ -1,4 +1,4 @@
-<?php include('../includes/header.php')?>
+<?php include('../includes/header.php') ?>
 <?php
 // Check if the user is logged in
 if (!isset($_SESSION['slogin']) || !isset($_SESSION['srole'])) {
@@ -17,18 +17,18 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
 
 <body>
     <!-- Pre-loader start -->
-    <?php include('../includes/loader.php')?>
+    <?php include('../includes/loader.php') ?>
     <!-- Pre-loader end -->
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
 
-            <?php include('../includes/topbar.php')?>
+            <?php include('../includes/topbar.php') ?>
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <?php $page_name = "new_staff"; ?>
-                    <?php include('../includes/sidebar.php')?>
+                    <?php include('../includes/sidebar.php') ?>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <!-- Main-body start -->
@@ -54,16 +54,16 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                             <div class="col-sm-12">
                                                 <!-- Basic Inputs Validation start -->
                                                 <?php
-                            // Check if the edit parameter is set and fetch the record from the database
-                            if (isset($_GET['edit']) && $_GET['edit'] == 1 && isset($_GET['id'])) {
-                                $id = $_GET['id'];
-                                $stmt = mysqli_prepare($conn, "SELECT * FROM tblemployees WHERE emp_id = ?");
-                                mysqli_stmt_bind_param($stmt, "i", $id);
-                                mysqli_stmt_execute($stmt);
-                                $result = mysqli_stmt_get_result($stmt);
-                                $row = mysqli_fetch_assoc($result);
-                            }
-                            ?>
+                                                // Check if the edit parameter is set and fetch the record from the database
+                                                if (isset($_GET['edit']) && $_GET['edit'] == 1 && isset($_GET['id'])) {
+                                                    $id = $_GET['id'];
+                                                    $stmt = mysqli_prepare($conn, "SELECT * FROM tblemployees WHERE emp_id = ?");
+                                                    mysqli_stmt_bind_param($stmt, "i", $id);
+                                                    mysqli_stmt_execute($stmt);
+                                                    $result = mysqli_stmt_get_result($stmt);
+                                                    $row = mysqli_fetch_assoc($result);
+                                                }
+                                                ?>
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <div class="row">
@@ -181,40 +181,40 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                             class="js-example-disabled-results col-sm-12"
                                                                             name="department" id="department" required>
                                                                             <?php
-                                                        // Check if we are coming from an edit page and $selected_department_id is not empty
-                                                        if (!empty($row['department'])) {
-                                                            // Query the database to get the department details
-                                                            $stmt = mysqli_prepare($conn, "SELECT id, department_name FROM tbldepartments WHERE id = ?");
-                                                            mysqli_stmt_bind_param($stmt, "i", $row['department']);
-                                                            mysqli_stmt_execute($stmt);
-                                                            mysqli_stmt_bind_result($stmt, $id, $name);
-                                                            mysqli_stmt_fetch($stmt);
-                                                            mysqli_stmt_close($stmt);
-                                                            // Output the selected option
-                                                            echo '<option value="' . $id . '" selected>' . $name . '</option>';
-                                                            // Output the rest of the options
-                                                            $stmt = mysqli_prepare($conn, "SELECT id, department_name, department_desc FROM tbldepartments");
-                                                            mysqli_stmt_execute($stmt);
-                                                            mysqli_stmt_store_result($stmt);
-                                                            mysqli_stmt_bind_result($stmt, $id, $name, $description);
-                                                            while (mysqli_stmt_fetch($stmt)) {
-                                                                echo '<option value="' . $id . '">' . $name . '</option>';
-                                                            }
-                                                            mysqli_stmt_close($stmt);
-                                                        } else {
-                                                            // Output the first option as "Select department" and disabled
-                                                            echo '<option value="" disabled selected>Seleccionar departamento</option>';
-                                                            // Output the rest of the options
-                                                            $stmt = mysqli_prepare($conn, "SELECT id, department_name, department_desc FROM tbldepartments");
-                                                            mysqli_stmt_execute($stmt);
-                                                            mysqli_stmt_store_result($stmt);
-                                                            mysqli_stmt_bind_result($stmt, $id, $name, $description);
-                                                            while (mysqli_stmt_fetch($stmt)) {
-                                                                echo '<option value="' . $id . '">' . $name . '</option>';
-                                                            }
-                                                            mysqli_stmt_close($stmt);
-                                                        }
-                                                        ?>
+                                                                            // Check if we are coming from an edit page and $selected_department_id is not empty
+                                                                            if (!empty($row['department'])) {
+                                                                                // Query the database to get the department details
+                                                                                $stmt = mysqli_prepare($conn, "SELECT id, department_name FROM tbldepartments WHERE id = ?");
+                                                                                mysqli_stmt_bind_param($stmt, "i", $row['department']);
+                                                                                mysqli_stmt_execute($stmt);
+                                                                                mysqli_stmt_bind_result($stmt, $id, $name);
+                                                                                mysqli_stmt_fetch($stmt);
+                                                                                mysqli_stmt_close($stmt);
+                                                                                // Output the selected option
+                                                                                echo '<option value="' . $id . '" selected>' . $name . '</option>';
+                                                                                // Output the rest of the options
+                                                                                $stmt = mysqli_prepare($conn, "SELECT id, department_name, department_desc FROM tbldepartments");
+                                                                                mysqli_stmt_execute($stmt);
+                                                                                mysqli_stmt_store_result($stmt);
+                                                                                mysqli_stmt_bind_result($stmt, $id, $name, $description);
+                                                                                while (mysqli_stmt_fetch($stmt)) {
+                                                                                    echo '<option value="' . $id . '">' . $name . '</option>';
+                                                                                }
+                                                                                mysqli_stmt_close($stmt);
+                                                                            } else {
+                                                                                // Output the first option as "Select department" and disabled
+                                                                                echo '<option value="" disabled selected>Seleccionar departamento</option>';
+                                                                                // Output the rest of the options
+                                                                                $stmt = mysqli_prepare($conn, "SELECT id, department_name, department_desc FROM tbldepartments");
+                                                                                mysqli_stmt_execute($stmt);
+                                                                                mysqli_stmt_store_result($stmt);
+                                                                                mysqli_stmt_bind_result($stmt, $id, $name, $description);
+                                                                                while (mysqli_stmt_fetch($stmt)) {
+                                                                                    echo '<option value="' . $id . '">' . $name . '</option>';
+                                                                                }
+                                                                                mysqli_stmt_close($stmt);
+                                                                            }
+                                                                            ?>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -249,34 +249,34 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                     </div>
                                                                 </div>
                                                                 <?php if (!isset($row) || empty($row)): ?>
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-12">
-                                                                        <label for="userName-2" class="block">Contraseña
-                                                                            *</label>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-12">
+                                                                            <label for="userName-2" class="block">Contraseña
+                                                                                *</label>
+                                                                        </div>
+                                                                        <div class="col-sm-12">
+                                                                            <input type="password" placeholder="**********"
+                                                                                id="password" name="password"
+                                                                                autocomplete="off" class="form-control">
+                                                                            <?php if (isset($row) && !empty($row)): ?>
+                                                                                <label for="userName" class="block"
+                                                                                    style="font-style: italic; font-size: 12px;">Deja
+                                                                                    esto en blanco si no deseas cambiar la
+                                                                                    contraseña</label>
+                                                                            <?php endif; ?>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
-                                                                        <input type="password" placeholder="**********"
-                                                                            id="password" name="password"
-                                                                            autocomplete="off" class="form-control">
-                                                                        <?php if (isset($row) && !empty($row)): ?>
-                                                                        <label for="userName" class="block"
-                                                                            style="font-style: italic; font-size: 12px;">Deja
-                                                                            esto en blanco si no deseas cambiar la
-                                                                            contraseña</label>
-                                                                        <?php endif; ?>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-12">
+                                                                            <label for="userName-2" class="block">Confirmar
+                                                                                Contraseña *</label>
+                                                                        </div>
+                                                                        <div class="col-sm-12">
+                                                                            <input type="password" placeholder="**********"
+                                                                                id="c_password" name="c_password"
+                                                                                autocomplete="off" class="form-control">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-12">
-                                                                        <label for="userName-2" class="block">Confirmar
-                                                                            Contraseña *</label>
-                                                                    </div>
-                                                                    <div class="col-sm-12">
-                                                                        <input type="password" placeholder="**********"
-                                                                            id="c_password" name="c_password"
-                                                                            autocomplete="off" class="form-control">
-                                                                    </div>
-                                                                </div>
                                                                 <?php endif; ?>
                                                                 <h4 class="sub-title">¿Es Supervisor? *</h4>
                                                                 <div class="form-group row">
@@ -323,14 +323,14 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                 </label>
                                                                             </div>
                                                                             <?php if ($session_role == 'Admin'): ?>
-                                                                            <div class="radio radiofill radio-inline">
-                                                                                <label>
-                                                                                    <input type="radio" name="role"
-                                                                                        value="Admin"
-                                                                                        <?php echo (isset($row['role']) && $row['role'] === 'Admin') ? 'checked="checked"' : ''; ?>>
-                                                                                    <i class="helper"></i>Administrador
-                                                                                </label>
-                                                                            </div>
+                                                                                <div class="radio radiofill radio-inline">
+                                                                                    <label>
+                                                                                        <input type="radio" name="role"
+                                                                                            value="Admin"
+                                                                                            <?php echo (isset($row['role']) && $row['role'] === 'Admin') ? 'checked="checked"' : ''; ?>>
+                                                                                        <i class="helper"></i>Administrador
+                                                                                    </label>
+                                                                                </div>
                                                                             <?php endif; ?>
                                                                         </div>
                                                                     </div>
@@ -342,11 +342,11 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                             <label class="col-sm-5"></label>
                                                             <div class="col-sm-5">
                                                                 <?php if (isset($row) && !empty($row)): ?>
-                                                                <button id="staff-update" type="submit"
-                                                                    class="btn btn-primary m-b-0">Actualizar</button>
+                                                                    <button id="staff-update" type="submit"
+                                                                        class="btn btn-primary m-b-0">Actualizar</button>
                                                                 <?php else: ?>
-                                                                <button id="staff-add" type="submit"
-                                                                    class="btn btn-primary m-b-0">Enviar</button>
+                                                                    <button id="staff-add" type="submit"
+                                                                        class="btn btn-primary m-b-0">Enviar</button>
                                                                 <?php endif; ?>
                                                             </div>
                                                         </div>
@@ -368,27 +368,172 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
         </div>
 
         <!-- Required Jquery -->
-        <?php include('../includes/scripts.php')?>
+        <?php include('../includes/scripts.php') ?>
         <script>
-        window.dataLayer = window.dataLayer || [];
+            window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-        gtag('config', 'UA-23581568-13');
+            gtag('config', 'UA-23581568-13');
         </script>
         <script>
-        $(document).ready(function() {
-            $('#staff-update').click(function(event) {
+            $(document).ready(function() {
+                $('#staff-update').click(function(event) {
+                    event.preventDefault(); // prevent the default form submission
+                    (async () => {
+
+                        var editId = $('#edit_id').val();
+
+                        var requiredFields = ['firstname', 'lastname', 'contact', 'designation',
+                            'department', 'email', 'staff_id'
+                        ];
+                        var formData = new FormData();
+                        var isValid = true;
+
+                        for (var i = 0; i < requiredFields.length; i++) {
+                            var field = requiredFields[i];
+                            var value = $('#' + field).val();
+
+                            // Check if the field is empty
+                            if (value.trim() === '') {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    text: 'Please fill in all required fields',
+                                    confirmButtonColor: '#ffc107',
+                                    confirmButtonText: 'OK'
+                                });
+                                isValid = false;
+                                break; // Stop further validation
+                            }
+
+                            // Append the field to the form data
+                            formData.append(field, value);
+                        }
+
+                        if (!isValid) {
+                            return; // Don't proceed if there are empty fields
+                        }
+
+                        // Validate gender
+                        var selectedGender = $('input[name="gender"]:checked').val();
+                        if (!selectedGender) {
+                            Swal.fire({
+                                icon: 'warning',
+                                text: 'Please select a gender',
+                                confirmButtonColor: '#ffc107',
+                                confirmButtonText: 'OK'
+                            });
+                            return;
+                        }
+                        formData.append('gender', selectedGender);
+
+                        // Validate supervisor
+                        var selectedIsSupervisor = $('input[name="is_supervisor"]:checked').val();
+                        if (!selectedIsSupervisor) {
+                            Swal.fire({
+                                icon: 'warning',
+                                text: 'Please check whether is supervisor or not',
+                                confirmButtonColor: '#ffc107',
+                                confirmButtonText: 'OK'
+                            });
+                            return;
+                        }
+                        formData.append('is_supervisor', selectedIsSupervisor);
+
+                        // Validate role
+                        var selectedRole = $('input[name="role"]:checked').val();
+                        if (!selectedRole) {
+                            Swal.fire({
+                                icon: 'warning',
+                                text: 'Please select a role',
+                                confirmButtonColor: '#ffc107',
+                                confirmButtonText: 'OK'
+                            });
+                            return;
+                        }
+                        formData.append('role', selectedRole);
+
+                        // Handle the image field separately
+                        var imageFile = $('#image_path')[0].files[0];
+
+                        // Check if password and c_password match
+                        var password = $('#password').val();
+                        var cPassword = $('#c_password').val();
+                        if (password !== cPassword) {
+                            Swal.fire({
+                                icon: 'warning',
+                                text: 'Passwords do not match',
+                                confirmButtonColor: '#ffc107',
+                                confirmButtonText: 'OK'
+                            });
+                            return;
+                        }
+
+                        formData.append('edit_id', editId);
+                        formData.append('middlename', $('#middlename').val());
+                        formData.append('password', password);
+                        formData.append('image_path', imageFile);
+                        formData.append('action', 'updateStaff');
+
+                        console.log('Data HERE: ' + JSON.stringify(formData));
+
+                        console.log('Data to be sent:', formData);
+                        $.ajax({
+                            url: 'staff_functions.php',
+                            type: 'post',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(response) {
+                                console.log('Raw Response:', response);
+                                response = JSON.parse(response);
+                                console.log('RESPONSE HERE: ' + response.status)
+                                console.log(`RESPONSE HERE: ${response.message}`);
+                                if (response.status == 'success') {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        html: response.message,
+                                        confirmButtonColor: '#01a9ac',
+                                        confirmButtonText: 'OK'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href =
+                                                "staff_list.php";
+                                            // location.reload();
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        text: response.message,
+                                        confirmButtonColor: '#eb3422',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log('AJAX Data HERE: ' + JSON.stringify(
+                                    formData));
+                                console.log("Response from server: " + jqXHR
+                                    .responseText);
+                                console.log("AJAX error: " + textStatus + ' : ' +
+                                    errorThrown);
+                            }
+                        });
+                    })()
+                })
+            });
+        </script>
+        <script>
+            $('#staff-add').click(function(event) {
                 event.preventDefault(); // prevent the default form submission
                 (async () => {
-
-                    var editId = $('#edit_id').val();
-
-                    var requiredFields = ['firstname', 'lastname', 'contact', 'designation',
-                        'department', 'email', 'staff_id'
+                    // Validate required fields
+                    var requiredFields = ['firstname', 'lastname', 'contact', 'designation', 'department',
+                        'email', 'staff_id'
                     ];
                     var formData = new FormData();
                     var isValid = true;
@@ -416,6 +561,33 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                     if (!isValid) {
                         return; // Don't proceed if there are empty fields
                     }
+
+                    // Check if password is empty
+                    var password = $('#password').val();
+                    var cPassword = $('#c_password').val();
+                    if (password === '') {
+                        Swal.fire({
+                            icon: 'warning',
+                            text: 'Password cannot be empty',
+                            confirmButtonColor: '#ffc107',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
+
+                    // Check if password and c_password match
+                    if (password !== cPassword) {
+                        Swal.fire({
+                            icon: 'warning',
+                            text: 'Passwords do not match',
+                            confirmButtonColor: '#ffc107',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
+
+                    // Append the password to the form data
+                    formData.append('password', password);
 
                     // Validate gender
                     var selectedGender = $('input[name="gender"]:checked').val();
@@ -458,29 +630,21 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
 
                     // Handle the image field separately
                     var imageFile = $('#image_path')[0].files[0];
-
-                    // Check if password and c_password match
-                    var password = $('#password').val();
-                    var cPassword = $('#c_password').val();
-                    if (password !== cPassword) {
+                    if (!imageFile) {
                         Swal.fire({
                             icon: 'warning',
-                            text: 'Passwords do not match',
+                            text: 'Please select an image file',
                             confirmButtonColor: '#ffc107',
                             confirmButtonText: 'OK'
                         });
                         return;
                     }
 
-                    formData.append('edit_id', editId);
                     formData.append('middlename', $('#middlename').val());
-                    formData.append('password', password);
                     formData.append('image_path', imageFile);
-                    formData.append('action', 'updateStaff');
+                    formData.append('action', 'staff-add');
 
                     console.log('Data HERE: ' + JSON.stringify(formData));
-
-                    console.log('Data to be sent:', formData);
                     $.ajax({
                         url: 'staff_functions.php',
                         type: 'post',
@@ -488,7 +652,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                         contentType: false,
                         processData: false,
                         success: function(response) {
-                            console.log('Raw Response:', response);
+                            console.log('success function called');
                             response = JSON.parse(response);
                             console.log('RESPONSE HERE: ' + response.status)
                             console.log(`RESPONSE HERE: ${response.message}`);
@@ -500,9 +664,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                     confirmButtonText: 'OK'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location.href =
-                                            "staff_list.php";
-                                        // location.reload();
+                                        location.reload();
                                     }
                                 });
                             } else {
@@ -515,192 +677,30 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            console.log('AJAX Data HERE: ' + JSON.stringify(
-                                formData));
-                            console.log("Response from server: " + jqXHR
-                                .responseText);
-                            console.log("AJAX error: " + textStatus + ' : ' +
-                                errorThrown);
+                            console.log('AJAX Data HERE: ' + JSON.stringify(formData));
+                            console.log("Response from server: " + jqXHR.responseText);
+                            console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                         }
                     });
                 })()
             })
-        });
         </script>
+
         <script>
-        $('#staff-add').click(function(event) {
-            event.preventDefault(); // prevent the default form submission
-            (async () => {
-                // Validate required fields
-                var requiredFields = ['firstname', 'lastname', 'contact', 'designation', 'department',
-                    'email', 'staff_id'
-                ];
-                var formData = new FormData();
-                var isValid = true;
-
-                for (var i = 0; i < requiredFields.length; i++) {
-                    var field = requiredFields[i];
-                    var value = $('#' + field).val();
-
-                    // Check if the field is empty
-                    if (value.trim() === '') {
-                        Swal.fire({
-                            icon: 'warning',
-                            text: 'Please fill in all required fields',
-                            confirmButtonColor: '#ffc107',
-                            confirmButtonText: 'OK'
-                        });
-                        isValid = false;
-                        break; // Stop further validation
-                    }
-
-                    // Append the field to the form data
-                    formData.append(field, value);
-                }
-
-                if (!isValid) {
-                    return; // Don't proceed if there are empty fields
-                }
-
-                // Check if password is empty
-                var password = $('#password').val();
-                var cPassword = $('#c_password').val();
-                if (password === '') {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Password cannot be empty',
-                        confirmButtonColor: '#ffc107',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-
-                // Check if password and c_password match
-                if (password !== cPassword) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Passwords do not match',
-                        confirmButtonColor: '#ffc107',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-
-                // Append the password to the form data
-                formData.append('password', password);
-
-                // Validate gender
-                var selectedGender = $('input[name="gender"]:checked').val();
-                if (!selectedGender) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Please select a gender',
-                        confirmButtonColor: '#ffc107',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-                formData.append('gender', selectedGender);
-
-                // Validate supervisor
-                var selectedIsSupervisor = $('input[name="is_supervisor"]:checked').val();
-                if (!selectedIsSupervisor) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Please check whether is supervisor or not',
-                        confirmButtonColor: '#ffc107',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-                formData.append('is_supervisor', selectedIsSupervisor);
-
-                // Validate role
-                var selectedRole = $('input[name="role"]:checked').val();
-                if (!selectedRole) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Please select a role',
-                        confirmButtonColor: '#ffc107',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-                formData.append('role', selectedRole);
-
-                // Handle the image field separately
-                var imageFile = $('#image_path')[0].files[0];
-                if (!imageFile) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'Please select an image file',
-                        confirmButtonColor: '#ffc107',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-
-                formData.append('middlename', $('#middlename').val());
-                formData.append('image_path', imageFile);
-                formData.append('action', 'staff-add');
-
-                console.log('Data HERE: ' + JSON.stringify(formData));
-                $.ajax({
-                    url: 'staff_functions.php',
-                    type: 'post',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        console.log('success function called');
-                        response = JSON.parse(response);
-                        console.log('RESPONSE HERE: ' + response.status)
-                        console.log(`RESPONSE HERE: ${response.message}`);
-                        if (response.status == 'success') {
-                            Swal.fire({
-                                icon: 'success',
-                                html: response.message,
-                                confirmButtonColor: '#01a9ac',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    location.reload();
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                text: response.message,
-                                confirmButtonColor: '#eb3422',
-                                confirmButtonText: 'OK'
-                            });
+            $(document).ready(function() {
+                $('#generate').on('click', function() {
+                    $.ajax({
+                        url: 'generate_id.php',
+                        type: 'GET',
+                        success: function(response) {
+                            $('#staff_id').val(response);
+                        },
+                        error: function() {
+                            alert('Error generating ID');
                         }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log('AJAX Data HERE: ' + JSON.stringify(formData));
-                        console.log("Response from server: " + jqXHR.responseText);
-                        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-                    }
-                });
-            })()
-        })
-        </script>
-
-        <script>
-        $(document).ready(function() {
-            $('#generate').on('click', function() {
-                $.ajax({
-                    url: 'generate_id.php',
-                    type: 'GET',
-                    success: function(response) {
-                        $('#staff_id').val(response);
-                    },
-                    error: function() {
-                        alert('Error generating ID');
-                    }
+                    });
                 });
             });
-        });
         </script>
 </body>
 
