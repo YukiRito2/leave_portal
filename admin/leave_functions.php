@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Africa/Accra');
+date_default_timezone_set('America/Lima');
 session_start();
 include('../includes/config.php');
 include('../sendmail.php');
@@ -121,11 +121,11 @@ function insertLeaveRequest($empId, $leaveTypeId, $startDate, $endDate, $numberD
             if (move_uploaded_file($fileTmpPath, $dest_path)) {
                 $sickFileName = $newFileName;
             } else {
-                echo json_encode(['status' => 'error', 'message' => 'Error moving the file to the upload directory.']);
+                echo json_encode(['status' => 'error', 'message' => 'Error al mover el archivo al directorio de carga.']);
                 exit;
             }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Upload failed. Allowed file types: ' . implode(',', $allowedfileExtensions)]);
+            echo json_encode(['status' => 'error', 'message' => 'Carga fallida. Tipos de archivo permitidos: ' . implode(',', $allowedfileExtensions)]);
             exit;
         }
     }
@@ -135,7 +135,7 @@ function insertLeaveRequest($empId, $leaveTypeId, $startDate, $endDate, $numberD
     $stmt = mysqli_prepare($conn, $insertQuery);
     if ($stmt === false) {
         error_log("Failed to prepare statement: " . mysqli_error($conn));
-        echo json_encode(['status' => 'error', 'message' => 'Failed to prepare the SQL statement.']);
+        echo json_encode(['status' => 'error', 'message' => 'Error al preparar la declaración SQL.']);
         exit;
     }
 
@@ -150,16 +150,16 @@ function insertLeaveRequest($empId, $leaveTypeId, $startDate, $endDate, $numberD
         if ($supervisorInfo && isValidEmail($supervisorInfo['email'])) {
             $emailSent = sendLeaveApplicationEmail($supervisorInfo['email'], $senderName, $startDate, $endDate, $leaveType, $supervisorInfo['name']);
             if (!$emailSent) {
-                echo json_encode(['status' => 'success', 'message' => 'Leave application was submitted successfully, but we encountered an issue sending the notification email to your supervisor.']);
+                echo json_encode(['status' => 'success', 'message' => 'La solicitud de permiso se envió correctamente, pero hubo un problema al enviar el correo electrónico de notificación a su supervisor.']);
                 error_log("Leave application submitted successfully, but notification email failed.");
             } else {
-                echo json_encode(['status' => 'success', 'message' => 'Your leave request has been submitted successfully, and a notification email has been sent to your supervisor.']);
+                echo json_encode(['status' => 'success', 'message' => 'Su solicitud de permiso ha sido enviada correctamente y se ha enviado un correo electrónico de notificación a su supervisor.']);
             }
         } else {
-            echo json_encode(['status' => 'success', 'message' => 'Leave submitted successfully, but the supervisor’s email address is not valid for receiving messages.']);
+            echo json_encode(['status' => 'success', 'message' => 'Permiso enviado correctamente, pero la dirección de correo electrónico del supervisor no es válida para recibir mensajes.']);
         }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to submit leave request.']);
+        echo json_encode(['status' => 'error', 'message' => 'Error al enviar la solicitud de permiso.']);
     }
     exit;
 }
@@ -228,22 +228,22 @@ function updateStatus($id, $status)
         if ($result) {
             if ($status == 1 || $status == 3) {
                 if (sendLeaveNotification($employeeEmails, $senderName, $fromDate, $toDate, $leaveType, $status)) {
-                    $response = array('status' => 'success', 'message' => 'Leave status updated and notifications sent successfully.');
+                    $response = array('status' => 'success', 'message' => 'Estado del permiso actualizado y notificaciones enviadas correctamente.');
                 } else {
-                    $response = array('status' => 'success', 'message' => 'Leave status updated, but failed to send notifications.');
+                    $response = array('status' => 'success', 'message' => 'Estado del permiso actualizado, pero no se pudieron enviar las notificaciones.');
                 }
             } else {
-                $response = array('status' => 'success', 'message' => 'Leave status updated successfully.');
+                $response = array('status' => 'success', 'message' => 'Estado del permiso actualizado correctamente.');
             }
             echo json_encode($response);
             exit;
         } else {
-            $response = array('status' => 'error', 'message' => 'Failed to update leave status.');
+            $response = array('status' => 'error', 'message' => 'Error al actualizar el estado del permiso.');
             echo json_encode($response);
             exit;
         }
     } else {
-        $response = array('status' => 'error', 'message' => 'Leave request not found.');
+        $response = array('status' => 'error', 'message' => 'Solicitud de permiso no encontrada.');
         echo json_encode($response);
         exit;
     }
@@ -286,11 +286,11 @@ $isSupervisor = $_SESSION['is_supervisor'];
 
 // Map the leave status filter to the corresponding integer values
 $statusMap = [
-    'Pending' => 0,
-    'Approved' => 1,
-    'Cancelled' => 2,
-    'Recalled' => 3,
-    'Rejected' => 4
+    'Pendiente' => 0,
+    'Aprobado' => 1,
+    'Cancelado' => 2,
+    'Retirado' => 3,
+    'Rechazado' => 4
 ];
 
 // Initialize the leave status filter value
@@ -396,54 +396,51 @@ if (empty($leaveData)) {
         $postingDate = date('jS F, Y', strtotime($leave['created_date']));
 
         echo '<div class="col-md-15">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="media">
-                                <a class="media-left media-middle" href="#">
-                                    <img class="media-object img-60" src="' . $imagePath . '" alt="Employee Image">
-                                </a>
-                                <div class="media-body media-middle">
-                                    <div class="company-name">
-                                        <p>' . $leave['first_name'] . ' ' . $leave['middle_name'] . ' ' . $leave['last_name'] . '</p>
-                                        <span class="text-muted f-14">Created on ' . $postingDate . '</span>
-                                    </div>
-                                    <div class="job-badge">
-                                        <label class="label ' . $badgeClass . '">' . $leaveStatusText . '</label>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="media">
+                    <a class="media-left media-middle" href="#">
+                        <img class="media-object img-60" src="' . $imagePath . '" alt="Imagen del Empleado">
+                    </a>
+                    <div class="media-body media-middle">
+                        <div class="company-name">
+                            <p>' . $leave['first_name'] . ' ' . $leave['middle_name'] . ' ' . $leave['last_name'] . '</p>
+                            <span class="text-muted f-14">Creado el ' . $postingDate . '</span>
                         </div>
-                        <div class="card-block">
-                            <h6 class="job-card-desc">Leave Type: ' . $leaveTypeName . '</h6>
-                            <p class="text-muted">This leave request is for the period from: <strong>' . $fromDate . '</strong> to: <strong>' . $toDate . '</strong></p>
-                            <div class="job-meta-data"><i class="icofont icofont-safety"></i>Requested Days: ' . $leave['requested_days'] . '</div>
-                            <div class="job-meta-data"><i class="icofont icofont-university"></i>Remaining Days: ' . $leave['available_days'] . '</div>
-                            <div class="text-right">
-                               <div class="dropdown-secondary dropdown">
-                                    <button class="btn btn-primary btn-mini waves-effect waves-light review-btn" 
-                                        type="button" 
-                                        data-toggle="modal" 
-                                        data-target="#confirm-mail" 
-                                        data-submission-date="' . $leave['created_date'] . '" 
-                                        data-expiry-date="' . $leave['to_date'] . '" 
-                                        data-start-date="' . $leave['from_date'] . '" 
-                                        data-leave-reason="' . $leave['remarks'] . '" 
-                                        data-leave-remaining="' . $leave['available_days'] . '" 
-                                        data-leave-staff="' . $leave['first_name'] . ' ' . $leave['middle_name'] . ' ' . $leave['last_name'] . '" 
-                                        data-leave-type="' . $leaveTypeName . '" 
-                                        data-leave-status="' . $leaveStatusText . '" 
-                                        data-leave-id="' . $leave['id'] . '" 
-                                        data-requested-days="' . $leave['requested_days'] . '">
-                                        Review
-                                    </button>
-                                    <!-- end of dropdown menu -->
-                                </div>
-                            </div></div>
-                            </div>
-                    </div>';
+                        <div class="job-badge">
+                            <label class="label ' . $badgeClass . '">' . $leaveStatusText . '</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block">
+                <h6 class="job-card-desc">Tipo de licencia: ' . $leaveTypeName . '</h6>
+                <p class="text-muted">Esta solicitud de permiso es para el período del: <strong>' . $fromDate . '</strong> al: <strong>' . $toDate . '</strong></p>
+                <div class="job-meta-data"><i class="icofont icofont-safety"></i>Días Solicitados: ' . $leave['requested_days'] . '</div>
+                <div class="job-meta-data"><i class="icofont icofont-university"></i>Días Restantes: ' . $leave['available_days'] . '</div>
+                <div class="text-right">
+                   <div class="dropdown-secondary dropdown">
+                        <button class="btn btn-primary btn-mini waves-effect waves-light review-btn" 
+                            type="button" 
+                            data-toggle="modal" 
+                            data-target="#confirm-mail" 
+                            data-submission-date="' . $leave['created_date'] . '" 
+                            data-expiry-date="' . $leave['to_date'] . '" 
+                            data-start-date="' . $leave['from_date'] . '" 
+                            data-leave-reason="' . $leave['remarks'] . '" 
+                            data-leave-remaining="' . $leave['available_days'] . '" 
+                            data-leave-staff="' . $leave['first_name'] . ' ' . $leave['middle_name'] . ' ' . $leave['last_name'] . '" 
+                            data-leave-type="' . $leaveTypeName . '" 
+                            data-leave-status="' . $leaveStatusText . '" 
+                            data-leave-id="' . $leave['id'] . '" 
+                            data-requested-days="' . $leave['requested_days'] . '">
+                            Revisar
+                        </button>
+                        <!-- end of dropdown menu -->
+                    </div>
+                </div></div>
+                </div>
+        </div>';
     }
 }
 ?>
-
-
-

@@ -240,13 +240,13 @@ foreach ($leaveData as $leave) {
                                                     <div class="card-block">
                                                         <form action="#">
                                                             <?php
-                                foreach ($leaveStatusCounts as $status => $count) {
-                                    if (isset($leaveStatusMap[$status])) {
-                                        $leaveStatus = $leaveStatusMap[$status];
-                                    } else {
-                                        $leaveStatus = 'Desconocido';
-                                    }
-                                    echo '<div class="checkbox-fade fade-in-primary">
+                                                            foreach ($leaveStatusCounts as $status => $count) {
+                                                                if (isset($leaveStatusMap[$status])) {
+                                                                    $leaveStatus = $leaveStatusMap[$status];
+                                                                } else {
+                                                                    $leaveStatus = 'Desconocido';
+                                                                }
+                                                                echo '<div class="checkbox-fade fade-in-primary">
                                                 <label>
                                                     <input type="checkbox" value="" checked="checked" disabled>
                                                     <span class="cr">
@@ -255,8 +255,8 @@ foreach ($leaveData as $leave) {
                                                 </label>
                                                 <div> <a href="supervisee_leave_request.php?leave_status=' . $status . '">' . $leaveStatus . ' <span class="text-muted">(' . $count . ')</span> <a/></div>
                                             </div>';
-                                }
-                                ?>
+                                                            }
+                                                            ?>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -294,7 +294,8 @@ foreach ($leaveData as $leave) {
                                                                     <li><strong>Días Restantes: </strong> <span
                                                                             id="modalRemaing"></span></li>
                                                                     <li><strong>Estado Actual del Permiso: </strong>
-                                                                        <span id="modalLeaveStatus"></span></li>
+                                                                        <span id="modalLeaveStatus"></span>
+                                                                    </li>
                                                                 </ul>
                                                                 <div class="card-block">
                                                                     <div class="row" id="radioButtonsContainer">
@@ -458,7 +459,7 @@ foreach ($leaveData as $leave) {
         function fetchStaff() {
             var searchQuery = $('#searchInput').val(); // Get the search query
             var leaveStatusFilter = (selectedStatus === 'Show all') ? '' :
-            selectedStatus; // Get the selectedStatus filter value
+                selectedStatus; // Get the selectedStatus filter value
             // Make an AJAX request to fetch the filtered staff
             $.ajax({
                 url: '../admin/leave_functions.php', // Replace with the actual PHP script that fetches the staff from the database
@@ -613,59 +614,66 @@ foreach ($leaveData as $leave) {
             switch (leaveStatusValue) {
                 case 0: // Pending
                     if (today > endDate) {
-                        modalMessage = "The leave request submitted by <b>" + staff + "</b> on <b>" +
-                            formattedSubmissionDate + "</b> for the period from <b>" +
-                            formattedStartDate + "</b> to <b>" + formattedEndDate +
-                            "</b> is pending, but the requested leave period has already passed. It is too late to approve or reject this request.";
+                        modalMessage = "La solicitud de permiso presentada por <b>" + staff +
+                            "</b> el <b>" +
+                            formattedSubmissionDate + "</b> para el período del <b>" +
+                            formattedStartDate + "</b> al <b>" + formattedEndDate +
+                            "</b> está pendiente, pero el período solicitado ya ha pasado. Es demasiado tarde para aprobar o rechazar esta solicitud.";
                     } else {
                         modalMessage =
-                            "You are about to review the pending leave request submitted by <b>" +
-                            staff + "</b> on <b>" + formattedSubmissionDate +
-                            "</b> for the period from <b>" + formattedStartDate + "</b> to <b>" +
+                            "Está a punto de revisar la solicitud de permiso pendiente presentada por <b>" +
+                            staff + "</b> el <b>" + formattedSubmissionDate +
+                            "</b> para el período del <b>" + formattedStartDate + "</b> al <b>" +
                             formattedEndDate +
-                            "</b>. Please review the details carefully and decide whether to approve or reject the request.";
+                            "</b>. Por favor, revise los detalles cuidadosamente y decida si aprueba o rechaza la solicitud.";
                     }
                     break;
                 case 1: // Approved
                     if (today < startDate) {
-                        modalMessage = "The leave request submitted by <b>" + staff + "</b> on <b>" +
-                            formattedSubmissionDate + "</b> for the period from <b>" +
-                            formattedStartDate + "</b> to <b>" + formattedEndDate +
-                            "</b> has been approved. You can choose to recall the approval if needed.";
+                        modalMessage = "La solicitud de permiso presentada por <b>" + staff +
+                            "</b> el <b>" +
+                            formattedSubmissionDate + "</b> para el período del <b>" +
+                            formattedStartDate + "</b> al <b>" + formattedEndDate +
+                            "</b> ha sido aprobada. Puede optar por retirar la aprobación si es necesario.";
                     } else if (today >= startDate && today <= endDate) {
-                        modalMessage = "The leave request submitted by <b>" + staff + "</b> on <b>" +
-                            formattedSubmissionDate + "</b> for the period from <b>" +
-                            formattedStartDate + "</b> to <b>" + formattedEndDate +
-                            "</b> is currently in progress.";
+                        modalMessage = "La solicitud de permiso presentada por <b>" + staff +
+                            "</b> el <b>" +
+                            formattedSubmissionDate + "</b> para el período del <b>" +
+                            formattedStartDate + "</b> al <b>" + formattedEndDate +
+                            "</b> está actualmente en progreso.";
                     } else {
-                        modalMessage = "The leave request submitted by <b>" + staff + "</b> on <b>" +
-                            formattedSubmissionDate + "</b> for the period from <b>" +
-                            formattedStartDate + "</b> to <b>" + formattedEndDate +
-                            "</b> has been completed.";
+                        modalMessage = "La solicitud de permiso presentada por <b>" + staff +
+                            "</b> el <b>" +
+                            formattedSubmissionDate + "</b> para el período del <b>" +
+                            formattedStartDate + "</b> al <b>" + formattedEndDate +
+                            "</b> ha sido completada.";
                     }
                     break;
                 case 2: // Cancelled
-                    modalMessage = "The leave request submitted by <b>" + staff + "</b> on <b>" +
-                        formattedSubmissionDate + "</b> for the period from <b>" + formattedStartDate +
-                        "</b> to <b>" + formattedEndDate + "</b> has been cancelled.";
+                    modalMessage = "La solicitud de permiso presentada por <b>" + staff +
+                        "</b> el <b>" +
+                        formattedSubmissionDate + "</b> para el período del <b>" + formattedStartDate +
+                        "</b> al <b>" + formattedEndDate + "</b> ha sido cancelada.";
                     break;
                 case 3: // Recalled
-                    modalMessage = "The approved leave request submitted by <b>" + staff +
-                        "</b> on <b>" + formattedSubmissionDate + "</b> for the period from <b>" +
-                        formattedStartDate + "</b> to <b>" + formattedEndDate +
-                        "</b> has been recalled.";
+                    modalMessage = "La solicitud de permiso aprobada presentada por <b>" + staff +
+                        "</b> el <b>" + formattedSubmissionDate + "</b> para el período del <b>" +
+                        formattedStartDate + "</b> al <b>" + formattedEndDate +
+                        "</b> ha sido retirada.";
                     break;
                 case 4: // Rejected
-                    modalMessage = "The leave request submitted by <b>" + staff + "</b> on <b>" +
-                        formattedSubmissionDate + "</b> for the period from <b>" + formattedStartDate +
-                        "</b> to <b>" + formattedEndDate + "</b> has been rejected.";
+                    modalMessage = "La solicitud de permiso presentada por <b>" + staff +
+                        "</b> el <b>" +
+                        formattedSubmissionDate + "</b> para el período del <b>" + formattedStartDate +
+                        "</b> al <b>" + formattedEndDate + "</b> ha sido rechazada.";
                     break;
                 default:
-                    modalMessage = "You are about to review the leave request submitted by <b>" +
-                        staff + "</b> on <b>" + formattedSubmissionDate +
-                        "</b> for the period from <b>" + formattedStartDate + "</b> to <b>" +
+                    modalMessage =
+                        "Está a punto de revisar la solicitud de permiso presentada por <b>" +
+                        staff + "</b> el <b>" + formattedSubmissionDate +
+                        "</b> para el período del <b>" + formattedStartDate + "</b> al <b>" +
                         formattedEndDate +
-                        "</b>. Please review the details carefully and decide whether to approve or reject the request.";
+                        "</b>. Por favor, revise los detalles cuidadosamente y decida si aprueba o rechaza la solicitud.";
             }
             $('#modalMessage').html(modalMessage);
 
@@ -673,58 +681,58 @@ foreach ($leaveData as $leave) {
             if (leaveStatusValue === 0) { // Pending
                 if (today <= endDate) {
                     $('#radioButtonsContainer').append(`
-                        <select name="select" id="select" class="form-control form-control-primary">
-                            <option value="0" selected>Pending</option>
-                            <option value="1">Approved</option>
-                            <option value="2">Cancelled</option>
-                            <option value="4">Rejected</option>
-                        </select>
-                    `);
+            <select name="select" id="select" class="form-control form-control-primary">
+                <option value="0" selected>Pendiente</option>
+                <option value="1">Aprobado</option>
+                <option value="2">Cancelado</option>
+                <option value="4">Rechazado</option>
+            </select>
+        `);
                 } else {
                     $('#radioButtonsContainer').append(`
-                        <select name="select" id="select" class="form-control form-control-primary" disabled>
-                            <option value="0" selected>Pending</option>
-                        </select>
-                    `);
+            <select name="select" id="select" class="form-control form-control-primary" disabled>
+                <option value="0" selected>Pendiente</option>
+            </select>
+        `);
                 }
             } else if (leaveStatusValue === 1) { // Approved
                 if (today < startDate || (today >= startDate && today <= endDate)) {
                     $('#radioButtonsContainer').append(`
-                        <select name="select" id="select" class="form-control form-control-primary">
-                            <option value="1" selected>Approved</option>
-                            <option value="3">Recalled</option>
-                        </select>
-                    `);
+            <select name="select" id="select" class="form-control form-control-primary">
+                <option value="1" selected>Aprobado</option>
+                <option value="3">Retirado</option>
+            </select>
+        `);
                 } else {
                     $('#radioButtonsContainer').append(`
-                        <select name="select" id="select" class="form-control form-control-primary" disabled>
-                            <option value="1" selected>Approved</option>
-                        </select>
-                    `);
+            <select name="select" id="select" class="form-control form-control-primary" disabled>
+                <option value="1" selected>Aprobado</option>
+            </select>
+        `);
                 }
             } else if (leaveStatusValue === 2) { // Cancelled
                 if (today < startDate) {
                     $('#radioButtonsContainer').append(`
-                        <select name="select" id="select" class="form-control form-control-primary">
-                            <option value="2" selected>Cancelled</option>
-                            <option value="0">Pending</option>
-                        </select>
-                    `);
+            <select name="select" id="select" class="form-control form-control-primary">
+                <option value="2" selected>Cancelado</option>
+                <option value="0">Pendiente</option>
+            </select>
+        `);
                 } else {
                     $('#radioButtonsContainer').append(`
-                        <select name="select" id="select" class="form-control form-control-primary" disabled>
-                           <option value="2" selected>Cancelled</option>
-                        </select>
-                    `);
+            <select name="select" id="select" class="form-control form-control-primary" disabled>
+                <option value="2" selected>Cancelado</option>
+            </select>
+        `);
                 }
             }
             // No options for Rejected (4) or Recalled (3)
             else {
                 $('#radioButtonsContainer').append(`
-                    <select name="select" id="select" class="form-control form-control-primary" disabled>
-                        <option value="${leaveStatusValue}" selected>${leaveStatus}</option>
-                    </select>
-                `);
+        <select name="select" id="select" class="form-control form-control-primary" disabled>
+            <option value="${leaveStatusValue}" selected>${leaveStatus}</option>
+        </select>
+    `);
             }
 
             // Update the button based on the status and date
@@ -732,36 +740,36 @@ foreach ($leaveData as $leave) {
             if (leaveStatusValue === 0) { // Pending
                 if (today > endDate) {
                     updateButtonHTML =
-                        '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>This request was <b style="color: #eb3422;"> PASSED </b></button>';
+                        '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>Esta solicitud <b style="color: #eb3422;"> HA PASADO </b></button>';
                 } else {
                     updateButtonHTML =
-                        '<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center status-update">Update</button>';
+                        '<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center status-update">Actualizar</button>';
                 }
             } else if (leaveStatusValue === 1) { // Approved
                 if (today >= startDate && today <= endDate) {
                     updateButtonHTML =
-                        '<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center status-update">Update</button>';
+                        '<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center status-update">Actualizar</button>';
                 } else if (today < startDate) {
                     updateButtonHTML =
-                        '<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center status-update">Update</button>';
+                        '<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center status-update">Actualizar</button>';
                 } else {
                     updateButtonHTML =
-                        '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>This request has <b style="color: #eb3422;"> EXPIRED </b></button>';
+                        '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>Esta solicitud <b style="color: #eb3422;"> HA EXPIRADO </b></button>';
                 }
             } else if (leaveStatusValue === 2) { // Cancelled
                 if (today < startDate) {
                     updateButtonHTML =
-                        '<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center status-update">Update</button>';
+                        '<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center status-update">Actualizar</button>';
                 } else {
                     updateButtonHTML =
-                        '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>This request was <b style="color: #eb3422;"> CANCELLED </b></button>';
+                        '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>Esta solicitud <b style="color: #eb3422;"> FUE CANCELADA </b></button>';
                 }
             } else if (leaveStatusValue === 4) { // Rejected
                 updateButtonHTML =
-                    '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>This request was <b style="color: #eb3422;"> REJECTED </b></button>';
+                    '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>Esta solicitud <b style="color: #eb3422;"> FUE RECHAZADA </b></button>';
             } else if (leaveStatusValue === 3) { // Recalled
                 updateButtonHTML =
-                    '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>This request was <b style="color: #eb3422;"> RECALLED </b></button>';
+                    '<button type="button" class="btn btn-disabled btn-md btn-block waves-effect text-center status-update" disabled>Esta solicitud <b style="color: #eb3422;"> FUE RETIRADA </b></button>';
             }
 
             // Update the button in the modal

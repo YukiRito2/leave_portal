@@ -1,45 +1,46 @@
 <?php
-date_default_timezone_set('Africa/Accra');
+date_default_timezone_set('America/Lima');
 include('../includes/config.php');
 include('../includes/session.php');
 
-function updateCustomerRecords($id, $firstname, $lastname, $middlename, $contact, $address, $email, $password) {
+function updateCustomerRecords($id, $firstname, $lastname, $middlename, $contact, $address, $email, $password)
+{
     global $conn;
 
     if (empty($firstname) || empty($lastname) || empty($contact) || empty($address) || empty($email)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all required fields');
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos requeridos');
         echo json_encode($response);
         exit;
     }
 
-    if(empty($password)) {
+    if (empty($password)) {
         $stmt = mysqli_prepare($conn, "UPDATE customers SET firstname=?, lastname=?, middlename=?, contact=?, address=?, email=? WHERE id=?");
         mysqli_stmt_bind_param($stmt, 'ssssssi', $firstname, $lastname, $middlename, $contact, $address, $email, $id);
-    }
-    else {
+    } else {
         $password_param = md5($password);
         $stmt = mysqli_prepare($conn, "UPDATE customers SET firstname=?, lastname=?, middlename=?, contact=?, address=?, email=?, password=? WHERE id=?");
         mysqli_stmt_bind_param($stmt, 'sssssssi', $firstname, $lastname, $middlename, $contact, $address, $email, $password_param, $id);
     }
-    
+
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Customer member updated successfully');
+        $response = array('status' => 'success', 'message' => 'Cliente actualizado exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to update Customer member');
+        $response = array('status' => 'error', 'message' => 'Error al actualizar el cliente');
         echo json_encode($response);
         exit;
     }
 }
 
-function addTaskRecord($title, $description, $assigned_to, $assigned_by, $priority, $start_date, $due_date, $status) {
+function addTaskRecord($title, $description, $assigned_to, $assigned_by, $priority, $start_date, $due_date, $status)
+{
     global $conn;
 
     if (empty($title) || empty($description) || empty($assigned_to) || empty($assigned_by) || empty($priority) || empty($start_date) || empty($due_date)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all required fields');
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos requeridos');
         echo json_encode($response);
         exit;
     }
@@ -50,21 +51,22 @@ function addTaskRecord($title, $description, $assigned_to, $assigned_by, $priori
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Task added successfully');
+        $response = array('status' => 'success', 'message' => 'Tarea agregada exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to add task');
+        $response = array('status' => 'error', 'message' => 'Error al agregar la tarea');
         echo json_encode($response);
         exit;
     }
 }
 
-function updatePriority($id, $priority) {
+function updatePriority($id, $priority)
+{
     global $conn;
 
     if (empty($id) || empty($priority)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all required fields');
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos requeridos');
         echo json_encode($response);
         exit;
     }
@@ -75,21 +77,22 @@ function updatePriority($id, $priority) {
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Priority updated successfully');
+        $response = array('status' => 'success', 'message' => 'Prioridad actualizada exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to update priority');
+        $response = array('status' => 'error', 'message' => 'Error al actualizar la prioridad');
         echo json_encode($response);
         exit;
     }
 }
 
-function updateStatus($id, $status) {
+function updateStatus($id, $status)
+{
     global $conn;
 
     if (empty($id)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all required fields');
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos requeridos');
         echo json_encode($response);
         exit;
     }
@@ -100,18 +103,19 @@ function updateStatus($id, $status) {
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Status updated successfully');
+        $response = array('status' => 'success', 'message' => 'Estado actualizado exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to update status');
+        $response = array('status' => 'error', 'message' => 'Error al actualizar el estado');
         echo json_encode($response);
         exit;
     }
 }
 
-  // Delete the task table
-function deleteTask($id) {
+// Delete the task table
+function deleteTask($id)
+{
     global $conn;
 
     $stmt = mysqli_prepare($conn, "DELETE FROM tbltask WHERE id=?");
@@ -119,21 +123,22 @@ function deleteTask($id) {
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Task Deleted Successfully');
+        $response = array('status' => 'success', 'message' => 'Tarea eliminada exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to delete task');
+        $response = array('status' => 'error', 'message' => 'Error al eliminar la tarea');
         echo json_encode($response);
         exit;
     }
 }
 
-function updateTaskRecord($id, $title, $description, $assigned_to, $priority, $start_date, $due_date) {
+function updateTaskRecord($id, $title, $description, $assigned_to, $priority, $start_date, $due_date)
+{
     global $conn;
 
     if (empty($title) || empty($description) || empty($assigned_to) || empty($priority) || empty($start_date) || empty($due_date)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all required fields');
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos requeridos');
         echo json_encode($response);
         exit;
     }
@@ -143,18 +148,18 @@ function updateTaskRecord($id, $title, $description, $assigned_to, $priority, $s
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Task updated successfully');
+        $response = array('status' => 'success', 'message' => 'Tarea actualizada exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to update task');
+        $response = array('status' => 'error', 'message' => 'Error al actualizar la tarea');
         echo json_encode($response);
         exit;
     }
 }
 
 
-if(isset($_POST['action'])) {
+if (isset($_POST['action'])) {
     // Determine which action to perform
     if ($_POST['action'] === 'tasks-add') {
 
@@ -169,28 +174,24 @@ if(isset($_POST['action'])) {
 
         $response = addTaskRecord($title, $description, $assigned_to, $assigned_by, $priority, $start_date, $due_date, $status);
         echo $response;
-
     } else if ($_POST['action'] === 'update-task-priority') {
         $id = $_POST['id'];
         $priority = $_POST['priority'];
 
         $response = updatePriority($id, $priority);
         echo $response;
-
     } else if ($_POST['action'] === 'update-task-status') {
         $id = $_POST['id'];
         $status = $_POST['status'];
 
         $response = updateStatus($id, $status);
         echo $response;
-
     } else if ($_POST['action'] === 'remove-task') {
         $id = $_POST['id'];
 
         $response = deleteTask($id);
         echo $response;
-        
-    } else if ( $_POST['action'] === 'tasks-update') {
+    } else if ($_POST['action'] === 'tasks-update') {
         $id = $_POST['id'];
         $title = $_POST['title'];
         $description = $_POST['description'];
@@ -203,4 +204,3 @@ if(isset($_POST['action'])) {
         echo $response;
     }
 }
-?>

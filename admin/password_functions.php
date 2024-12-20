@@ -1,13 +1,14 @@
 <?php
-date_default_timezone_set('Africa/Accra');
+date_default_timezone_set('America/Lima');
 include('../includes/config.php');
 include('../includes/session.php');
 
-function changePassword($email, $oldPassword, $newPassword) {
+function changePassword($email, $oldPassword, $newPassword)
+{
     global $conn;
 
     if (empty($oldPassword) || empty($newPassword)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all fields');
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos');
         echo json_encode($response);
         exit;
     }
@@ -20,7 +21,7 @@ function changePassword($email, $oldPassword, $newPassword) {
     $count = mysqli_num_rows($result);
 
     if ($count == 0) {
-        $response = array('status' => 'error', 'message' => 'Email not found');
+        $response = array('status' => 'error', 'message' => 'Correo electrónico no encontrado');
         echo json_encode($response);
         exit;
     } else {
@@ -29,7 +30,7 @@ function changePassword($email, $oldPassword, $newPassword) {
 
         // Verify the old password using MD5
         if (md5($oldPassword) !== $currentPasswordHash) {
-            $response = array('status' => 'error', 'message' => 'Old password is incorrect');
+            $response = array('status' => 'error', 'message' => 'La contraseña antigua es incorrecta');
             echo json_encode($response);
             exit;
         }
@@ -39,22 +40,22 @@ function changePassword($email, $oldPassword, $newPassword) {
 
         // Check if the new password is the same as the old password
         if ($hashedNewPassword === $currentPasswordHash) {
-            $response = array('status' => 'error', 'message' => 'New password cannot be the same as the old password');
+            $response = array('status' => 'error', 'message' => 'La nueva contraseña no puede ser la misma que la antigua');
             echo json_encode($response);
             exit;
         }
-        
+
         // Prepare the query to update the password
         $stmt = mysqli_prepare($conn, "UPDATE tblemployees SET password = ? WHERE email_id = ?");
         mysqli_stmt_bind_param($stmt, "ss", $hashedNewPassword, $email);
         mysqli_stmt_execute($stmt);
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
-            $response = array('status' => 'success', 'message' => 'Password reset successfully');
+            $response = array('status' => 'success', 'message' => 'Contraseña restablecida con éxito');
             echo json_encode($response);
             exit;
         } else {
-            $response = array('status' => 'error', 'message' => 'Failed to reset password');
+            $response = array('status' => 'error', 'message' => 'Error al restablecer la contraseña');
             echo json_encode($response);
             exit;
         }
@@ -69,9 +70,8 @@ if ($_POST['action'] === 'change_password') {
         $response = changePassword($email, $oldPassword, $newPassword);
         echo $response;
     } else {
-        $response = array('status' => 'error', 'message' => 'User not logged in');
+        $response = array('status' => 'error', 'message' => 'Usuario no ha iniciado sesión');
         echo json_encode($response);
         exit;
     }
 }
-?>

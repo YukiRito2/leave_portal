@@ -1,38 +1,40 @@
-<?php 
-date_default_timezone_set('Africa/Accra');
+<?php
+date_default_timezone_set('America/Lima');
 include('../includes/config.php');
 
-function updateDepartment($id, $dname, $description) {
+function updateDepartment($id, $dname, $description)
+{
     global $conn;
 
     if (empty($dname) || empty($description)) {
-    $response = array('status' => 'error', 'message' => 'Please fill in all fields');
-    echo json_encode($response);
-    exit;
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos');
+        echo json_encode($response);
+        exit;
     }
 
     $currentDateTime = date('Y-m-d H:i:s');
-    
+
     $stmt = mysqli_prepare($conn, "UPDATE tbldepartments SET department_name=?, department_desc=?, last_modified_date=? WHERE id=?");
     mysqli_stmt_bind_param($stmt, 'sssi', $dname, $description, $currentDateTime, $id);
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Department Updated Successfully');
+        $response = array('status' => 'success', 'message' => 'Departamento actualizado exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to update department');
+        $response = array('status' => 'error', 'message' => 'Error al actualizar el departamento');
         echo json_encode($response);
         exit;
     }
 }
 
-function saveDepartment($dname, $description) {
+function saveDepartment($dname, $description)
+{
     global $conn;
 
     if (empty($dname) || empty($description)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all fields');
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos');
         echo json_encode($response);
         exit;
     }
@@ -44,8 +46,8 @@ function saveDepartment($dname, $description) {
     $result = mysqli_stmt_get_result($stmt);
     $count = mysqli_num_rows($result);
 
-    if ($count > 0) { 
-        $response = array('status' => 'error', 'message' => 'Department already exists');
+    if ($count > 0) {
+        $response = array('status' => 'error', 'message' => 'El departamento ya existe');
         echo json_encode($response);
         exit;
     } else {
@@ -56,18 +58,19 @@ function saveDepartment($dname, $description) {
         mysqli_stmt_execute($stmt);
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
-            $response = array('status' => 'success', 'message' => 'Department added successfully');
+            $response = array('status' => 'success', 'message' => 'Departamento agregado exitosamente');
             echo json_encode($response);
             exit;
         } else {
-            $response = array('status' => 'error', 'message' => 'Failed to add department');
+            $response = array('status' => 'error', 'message' => 'Error al agregar el departamento');
             echo json_encode($response);
             exit;
         }
     }
 }
 
-function deleteDepartment($id) {
+function deleteDepartment($id)
+{
     global $conn;
 
     $stmt = mysqli_prepare($conn, "DELETE FROM tbldepartments WHERE id=?");
@@ -75,18 +78,17 @@ function deleteDepartment($id) {
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Department Deleted Successfully');
+        $response = array('status' => 'success', 'message' => 'Departamento eliminado exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to delete department');
+        $response = array('status' => 'error', 'message' => 'Error al eliminar el departamento');
         echo json_encode($response);
         exit;
     }
 }
 
-
-if(isset($_POST['action'])) {
+if (isset($_POST['action'])) {
     // Determine which action to perform
     if ($_POST['action'] === 'update') {
         $dname = $_POST['dname'];
@@ -105,4 +107,3 @@ if(isset($_POST['action'])) {
         echo $response;
     }
 }
-?>

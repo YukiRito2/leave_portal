@@ -40,7 +40,7 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                                             <div class="col-lg-8">
                                                 <div class="page-header-title">
                                                     <div class="d-inline">
-                                                        <h4>My Attendance</h4>
+                                                        <h4>Mi Asistencia</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,7 +209,7 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                                                                                         </thead>
                                                                                         <tbody>
                                                                                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                                                                                                <?php
+                                                                                            <?php
                                                                                                 $time_in = new DateTime($row['time_in']);
                                                                                                 $time_out = $row['time_out'] ? new DateTime($row['time_out']) : null;
                                                                                                 // Calculate and format total hours
@@ -246,31 +246,27 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                                                                                                     $formatted_status = '<span style="color: green;">Entrada</span>';
                                                                                                 }
                                                                                                 ?>
-                                                                                                <tr>
-                                                                                                    <td><?php echo date('M d, Y', strtotime($row['date'])); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo htmlspecialchars(date('h:i A', strtotime($row['time_in']))); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo $time_out ? htmlspecialchars(date('h:i A', strtotime($row['time_out']))) : '-'; ?>
-                                                                                                    </td>
-                                                                                                    <td><strong><?php echo htmlspecialchars($total_hours); ?></strong>
-                                                                                                    </td>
-                                                                                                    <td><?php echo $formatted_status; ?>
-                                                                                                    </td>
-                                                                                                </tr>
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <?php
+                                                                                                        $fecha = date('d M Y', strtotime($row['date'])); // 15 Aug, 2024
+                                                                                                        $partesFecha = explode(' ', $fecha); // ["15", "Aug,", "2024"]
+                                                                                                        $partesFecha[1] = traducirMesAbreviado($partesFecha[1]); // "Ago,"
+                                                                                                        echo implode(' ', $partesFecha); // 15 Ago, 2024
+                                                                                                        ?>
+                                                                                                </td>
+                                                                                                <td><?php echo htmlspecialchars(date('h:i A', strtotime($row['time_in']))); ?>
+                                                                                                </td>
+                                                                                                <td><?php echo $time_out ? htmlspecialchars(date('h:i A', strtotime($row['time_out']))) : '-'; ?>
+                                                                                                </td>
+                                                                                                <td><strong><?php echo htmlspecialchars($total_hours); ?></strong>
+                                                                                                </td>
+                                                                                                <td><?php echo $formatted_status; ?>
+                                                                                                </td>
+                                                                                            </tr>
                                                                                             <?php endwhile; ?>
                                                                                         </tbody>
-                                                                                        <tfoot>
-                                                                                            <tr>
-                                                                                                <th>Fecha</th>
-                                                                                                <th>Hora de Entrada</th>
-                                                                                                <th>Hora de Salida</th>
-                                                                                                <th>Horas Totales</th>
-                                                                                                <th>Estado
-                                                                                                    (Entrada/Salida)
-                                                                                                </th>
-                                                                                            </tr>
-                                                                                        </tfoot>
+
                                                                                     </table>
                                                                                 </div>
                                                                             </div>
@@ -301,145 +297,198 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
 
         <!-- Required Jquery -->
         <?php include('../includes/scripts.php') ?>
+        <?php
+        function traducirMesAbreviado($mesAbreviadoIngles)
+        {
+            $mesesAbreviadosEspañol = array(
+                'Jan' => 'Ene',
+                'Feb' => 'Feb',
+                'Mar' => 'Mar',
+                'Apr' => 'Abr',
+                'May' => 'May',
+                'Jun' => 'Jun',
+                'Jul' => 'Jul',
+                'Aug' => 'Ago',
+                'Sep' => 'Sep',
+                'Oct' => 'Oct',
+                'Nov' => 'Nov',
+                'Dec' => 'Dic'
+            );
+            return isset($mesesAbreviadosEspañol[$mesAbreviadoIngles]) ? $mesesAbreviadosEspañol[$mesAbreviadoIngles] : $mesAbreviadoIngles;
+        } ?>
         <script>
-            window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
 
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-            gtag('config', 'UA-23581568-13');
+        gtag('config', 'UA-23581568-13');
 
-            $(function() {
-                var interval = setInterval(function() {
-                    var momentNow = moment();
-                    $('.date').html(momentNow.format('MMMM DD, YYYY'));
-                    $('.time').html(momentNow.format('hh:mm:ss A'));
-                    $('.day').html(momentNow.format('dddd').toUpperCase());
-                }, 100);
-            });
+        function traducirDiaSemana(diaIngles) {
+            const diasSemanaEspañol = {
+                'Monday': 'Lunes',
+                'Tuesday': 'Martes',
+                'Wednesday': 'Miércoles',
+                'Thursday': 'Jueves',
+                'Friday': 'Viernes',
+                'Saturday': 'Sábado',
+                'Sunday': 'Domingo'
+            };
+            return diasSemanaEspañol[diaIngles] || diaIngles;
+        }
+
+        function traducirMes(mesIngles) {
+            const mesesEspañol = {
+                'January': 'Enero',
+                'February': 'Febrero',
+                'March': 'Marzo',
+                'April': 'Abril',
+                'May': 'Mayo',
+                'June': 'Junio',
+                'July': 'Julio',
+                'August': 'Agosto',
+                'September': 'Septiembre',
+                'October': 'Octubre',
+                'November': 'Noviembre',
+                'December': 'Diciembre'
+            };
+            return mesesEspañol[mesIngles] || mesIngles;
+        }
+
+        $(function() {
+            moment.locale('es'); // Configurar Moment.js en español
+
+            var interval = setInterval(function() {
+                var momentNow = moment();
+                $('.date').html(momentNow.format('MMMM DD, YYYY')); // Mostrará la fecha en español
+                $('.time').html(momentNow.format('hh:mm:ss'));
+                $('.day').html(momentNow.format('dddd')
+                    .toUpperCase()); // Mostrará el día de la semana en español
+            }, 100);
+        });
         </script>
         <script>
-            $(document).ready(function() {
-                $('#btn_clock_in').click(function(event) {
-                    event.preventDefault();
-                    clockIn();
-                });
-
-                $('#btn_clock_out').click(function(event) {
-                    event.preventDefault();
-                    clockOut();
-                });
-
-                function clockIn() {
-                    var staffId = $('#clock_in_id').val().trim();
-                    if (staffId === '') {
-                        Swal.fire({
-                            icon: 'warning',
-                            text: 'Please enter your Staff ID to clock in.',
-                            confirmButtonColor: '#ffc107',
-                            confirmButtonText: 'OK'
-                        });
-                        return;
-                    }
-
-                    console.log("STAFF ID HERE: " + staffId);
-
-                    $.ajax({
-                        url: '../admin/attendance_function.php',
-                        type: 'post',
-                        data: {
-                            action: 'clock_in',
-                            staff_id: staffId
-                        },
-                        success: function(response) {
-
-                            console.log("DUE DATE HERE: " + response);
-                            response = JSON.parse(response);
-                            if (response.status == 'success') {
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: response.message,
-                                    confirmButtonColor: '#01a9ac',
-                                    confirmButtonText: 'OK'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        location.reload();
-                                    }
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    text: response.message,
-                                    confirmButtonColor: '#eb3422',
-                                    confirmButtonText: 'OK'
-                                });
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire({
-                                icon: 'error',
-                                text: jqXHR.responseText,
-                                confirmButtonColor: '#eb3422',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    });
-                }
-
-                function clockOut() {
-                    var staffId = $('#clock_out_id').val().trim();
-                    if (staffId === '') {
-                        Swal.fire({
-                            icon: 'warning',
-                            text: 'Please enter your Staff ID to clock out.',
-                            confirmButtonColor: '#ffc107',
-                            confirmButtonText: 'OK'
-                        });
-                        return;
-                    }
-
-                    $.ajax({
-                        url: '../admin/attendance_function.php',
-                        type: 'post',
-                        data: {
-                            action: 'clock_out',
-                            staff_id: staffId
-                        },
-                        success: function(response) {
-                            response = JSON.parse(response);
-                            if (response.status == 'success') {
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: response.message,
-                                    confirmButtonColor: '#01a9ac',
-                                    confirmButtonText: 'OK'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        location.reload();
-                                    }
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    text: response.message,
-                                    confirmButtonColor: '#eb3422',
-                                    confirmButtonText: 'OK'
-                                });
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire({
-                                icon: 'error',
-                                text: jqXHR.responseText,
-                                confirmButtonColor: '#eb3422',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    });
-                }
+        $(document).ready(function() {
+            $('#btn_clock_in').click(function(event) {
+                event.preventDefault();
+                clockIn();
             });
+
+            $('#btn_clock_out').click(function(event) {
+                event.preventDefault();
+                clockOut();
+            });
+
+            function clockIn() {
+                var staffId = $('#clock_in_id').val().trim();
+                if (staffId === '') {
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'Please enter your Staff ID to clock in.',
+                        confirmButtonColor: '#ffc107',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+
+                console.log("STAFF ID HERE: " + staffId);
+
+                $.ajax({
+                    url: '../admin/attendance_function.php',
+                    type: 'post',
+                    data: {
+                        action: 'clock_in',
+                        staff_id: staffId
+                    },
+                    success: function(response) {
+
+                        console.log("DUE DATE HERE: " + response);
+                        response = JSON.parse(response);
+                        if (response.status == 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                text: response.message,
+                                confirmButtonColor: '#01a9ac',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                text: response.message,
+                                confirmButtonColor: '#eb3422',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        Swal.fire({
+                            icon: 'error',
+                            text: jqXHR.responseText,
+                            confirmButtonColor: '#eb3422',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+
+            function clockOut() {
+                var staffId = $('#clock_out_id').val().trim();
+                if (staffId === '') {
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'Please enter your Staff ID to clock out.',
+                        confirmButtonColor: '#ffc107',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+
+                $.ajax({
+                    url: '../admin/attendance_function.php',
+                    type: 'post',
+                    data: {
+                        action: 'clock_out',
+                        staff_id: staffId
+                    },
+                    success: function(response) {
+                        response = JSON.parse(response);
+                        if (response.status == 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                text: response.message,
+                                confirmButtonColor: '#01a9ac',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                text: response.message,
+                                confirmButtonColor: '#eb3422',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        Swal.fire({
+                            icon: 'error',
+                            text: jqXHR.responseText,
+                            confirmButtonColor: '#eb3422',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+        });
         </script>
 </body>
 

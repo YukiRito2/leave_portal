@@ -101,7 +101,8 @@ if ($userRole !== 'Staff') {
                                                     <div class="card-block p-t-10">
                                                         <div class="task-right">
                                                             <div class="task-right-header-status">
-                                                                <span data-toggle="collapse">Estado de la Tarea</span>
+                                                                <span data-toggle="collapse">Estado de la
+                                                                    proyecto</span>
                                                                 <i class="icofont icofont-rounded-down f-right"></i>
                                                             </div>
                                                             <!-- end of sidebar-header completed status-->

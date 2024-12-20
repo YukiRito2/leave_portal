@@ -98,13 +98,13 @@ if ($userRole !== 'Staff') {
                                                                         </div>
                                                                     </div>
                                                                     <?php if ($session_id == $get_id): ?>
-                                                                        <div class="pull-right cover-btn">
-                                                                            <button type="button"
-                                                                                class="btn btn-primary m-r-10 m-b-5"
-                                                                                data-toggle="modal"
-                                                                                data-target="#change-password-dialog">
-                                                                                Change Password</button>
-                                                                        </div>
+                                                                    <div class="pull-right cover-btn">
+                                                                        <button type="button"
+                                                                            class="btn btn-primary m-r-10 m-b-5"
+                                                                            data-toggle="modal"
+                                                                            data-target="#change-password-dialog">
+                                                                            Change Password</button>
+                                                                    </div>
                                                                     <?php endif; ?>
                                                                 </div>
                                                             </div>
@@ -174,25 +174,25 @@ if ($userRole !== 'Staff') {
                                                                             <h5 class="card-header-text">Supervisor
                                                                                 Asignado</h5>
                                                                             <?php if (($userRole === 'Admin' || $userRole === 'Manager') && !($userRole === 'Manager' && $designation === 'Administrator')): ?>
-                                                                                <button data-toggle="modal"
-                                                                                    data-target="#edit-supervisor"
-                                                                                    type="button"
-                                                                                    class="btn btn-sm btn-primary waves-effect waves-light f-right">
-                                                                                    <i class="icofont icofont-settings"></i>
-                                                                                </button>
+                                                                            <button data-toggle="modal"
+                                                                                data-target="#edit-supervisor"
+                                                                                type="button"
+                                                                                class="btn btn-sm btn-primary waves-effect waves-light f-right">
+                                                                                <i class="icofont icofont-settings"></i>
+                                                                            </button>
                                                                             <?php endif; ?>
                                                                         </div>
                                                                         <ul class="list-group">
                                                                             <?php if ($supervisor): ?>
-                                                                                <li
-                                                                                    class="list-group-item justify-content-between">
-                                                                                    <?php echo htmlspecialchars($supervisor['first_name'] . ' ' . $supervisor['middle_name'] . ' ' . $supervisor['last_name']); ?>
-                                                                                </li>
+                                                                            <li
+                                                                                class="list-group-item justify-content-between">
+                                                                                <?php echo htmlspecialchars($supervisor['first_name'] . ' ' . $supervisor['middle_name'] . ' ' . $supervisor['last_name']); ?>
+                                                                            </li>
                                                                             <?php else: ?>
-                                                                                <li
-                                                                                    class="list-group-item justify-content-between">
-                                                                                    No supervisor asignado.
-                                                                                </li>
+                                                                            <li
+                                                                                class="list-group-item justify-content-between">
+                                                                                No supervisor asignado.
+                                                                            </li>
                                                                             <?php endif; ?>
                                                                         </ul>
                                                                     </div>
@@ -220,12 +220,12 @@ if ($userRole !== 'Staff') {
                                                                             <h5 class="card-header-text">Días de
                                                                                 Permiso</h5>
                                                                             <?php if (($userRole === 'Admin' || $userRole === 'Manager') && !($userRole === 'Manager' && $designation === 'Administrator')): ?>
-                                                                                <button data-toggle="modal"
-                                                                                    data-target="#edit-leave-type"
-                                                                                    type="button"
-                                                                                    class="btn btn-sm btn-primary waves-effect waves-light f-right">
-                                                                                    <i class="icofont icofont-settings"></i>
-                                                                                </button>
+                                                                            <button data-toggle="modal"
+                                                                                data-target="#edit-leave-type"
+                                                                                type="button"
+                                                                                class="btn btn-sm btn-primary waves-effect waves-light f-right">
+                                                                                <i class="icofont icofont-settings"></i>
+                                                                            </button>
                                                                             <?php endif; ?>
                                                                         </div>
                                                                         <div class="card-block table-border-style">
@@ -240,23 +240,23 @@ if ($userRole !== 'Staff') {
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <?php if (!empty($assignedLeaveTypes)): ?>
-                                                                                            <?php foreach ($assignedLeaveTypes as $leaveType): ?>
-                                                                                                <tr>
-                                                                                                    <td><?php echo htmlspecialchars($leaveType['leave_type']); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo htmlspecialchars($leaveType['assign_days']); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo htmlspecialchars($leaveType['available_days']); ?>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            <?php endforeach; ?>
+                                                                                        <?php foreach ($assignedLeaveTypes as $leaveType): ?>
+                                                                                        <tr>
+                                                                                            <td><?php echo htmlspecialchars($leaveType['leave_type']); ?>
+                                                                                            </td>
+                                                                                            <td><?php echo htmlspecialchars($leaveType['assign_days']); ?>
+                                                                                            </td>
+                                                                                            <td><?php echo htmlspecialchars($leaveType['available_days']); ?>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <?php endforeach; ?>
                                                                                         <?php else: ?>
-                                                                                            <tr>
-                                                                                                <td colspan="3"
-                                                                                                    class="text-center">No
-                                                                                                    se han asignado tipos de
-                                                                                                    permiso aún.</td>
-                                                                                            </tr>
+                                                                                        <tr>
+                                                                                            <td colspan="3"
+                                                                                                class="text-center">No
+                                                                                                se han asignado tipos de
+                                                                                                permiso aún.</td>
+                                                                                        </tr>
                                                                                         <?php endif; ?>
                                                                                     </tbody>
                                                                                 </table>
@@ -442,7 +442,6 @@ if ($userRole !== 'Staff') {
                                                                                                                             // Llamada a la función con el valor correcto del rol
                                                                                                                             $rolTraducido = traducirRol($row['role']);
                                                                                                                             echo htmlspecialchars($rolTraducido);
-                                                                                                                            echo "Rol del usuario: " . $session_role;
                                                                                                                             ?>
                                                                                                                         </td>
                                                                                                                     </tr>
@@ -541,31 +540,31 @@ if ($userRole !== 'Staff') {
                                                                                         de Permiso</span>
                                                                                 </li>
                                                                                 <?php while ($leaveType = mysqli_fetch_assoc($leaveTypesResult)): ?>
-                                                                                    <?php
+                                                                                <?php
                                                                                     $isChecked = array_key_exists($leaveType['id'], $assignedLeaveTypes);
                                                                                     $isDisabled = $isChecked && $assignedLeaveTypes[$leaveType['id']] != $leaveType['assign_days'];
                                                                                     ?>
-                                                                                    <li
-                                                                                        class="list-group-item justify-content-between">
-                                                                                        <div
-                                                                                            class="checkbox-fade fade-in-primary">
-                                                                                            <label>
-                                                                                                <input type="checkbox"
-                                                                                                    name="leaveTypes[]"
-                                                                                                    value="<?php echo $leaveType['id']; ?>"
-                                                                                                    <?php echo $isChecked ? 'checked' : ''; ?>
-                                                                                                    <?php echo $isDisabled ? 'disabled' : ''; ?>>
-                                                                                                <span class="cr">
-                                                                                                    <i
-                                                                                                        class="cr-icon icofont icofont-ui-check txt-primary"></i>
-                                                                                                </span>
-                                                                                            </label>
-                                                                                            <span class="text"
-                                                                                                style="margin-left: 15px;"><?php echo $leaveType['leave_type']; ?></span>
-                                                                                        </div>
-                                                                                        <span
-                                                                                            class="badge badge-inverse-info"><?php echo $leaveType['assign_days']; ?></span>
-                                                                                    </li>
+                                                                                <li
+                                                                                    class="list-group-item justify-content-between">
+                                                                                    <div
+                                                                                        class="checkbox-fade fade-in-primary">
+                                                                                        <label>
+                                                                                            <input type="checkbox"
+                                                                                                name="leaveTypes[]"
+                                                                                                value="<?php echo $leaveType['id']; ?>"
+                                                                                                <?php echo $isChecked ? 'checked' : ''; ?>
+                                                                                                <?php echo $isDisabled ? 'disabled' : ''; ?>>
+                                                                                            <span class="cr">
+                                                                                                <i
+                                                                                                    class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                                                                            </span>
+                                                                                        </label>
+                                                                                        <span class="text"
+                                                                                            style="margin-left: 15px;"><?php echo $leaveType['leave_type']; ?></span>
+                                                                                    </div>
+                                                                                    <span
+                                                                                        class="badge badge-inverse-info"><?php echo $leaveType['assign_days']; ?></span>
+                                                                                </li>
                                                                                 <?php endwhile; ?>
                                                                             </ul>
                                                                         </div>
@@ -762,87 +761,87 @@ if ($userRole !== 'Staff') {
                         <!-- Global site tag (gtag.js) - Google Analytics -->
                         <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
                         <script>
-                            window.dataLayer = window.dataLayer || [];
+                        window.dataLayer = window.dataLayer || [];
 
-                            function gtag() {
-                                dataLayer.push(arguments);
-                            }
-                            gtag('js', new Date());
+                        function gtag() {
+                            dataLayer.push(arguments);
+                        }
+                        gtag('js', new Date());
 
-                            gtag('config', 'UA-23581568-13');
+                        gtag('config', 'UA-23581568-13');
                         </script>
 
                         <script type="text/javascript">
-                            $('#change_password').click(function(event) {
-                                event.preventDefault();
-                                $('.modal').css('z-index', '1050');
+                        $('#change_password').click(function(event) {
+                            event.preventDefault();
+                            $('.modal').css('z-index', '1050');
 
-                                (async () => {
-                                    var data = {
-                                        old_password: $('#old_password').val(),
-                                        new_password: $('#new_password').val(),
-                                        confirm_password: $('#confirm_password').val(),
-                                        action: "change_password",
-                                    };
+                            (async () => {
+                                var data = {
+                                    old_password: $('#old_password').val(),
+                                    new_password: $('#new_password').val(),
+                                    confirm_password: $('#confirm_password').val(),
+                                    action: "change_password",
+                                };
 
-                                    if (data.old_password.trim() === '' || data.new_password.trim() ===
-                                        '' || data
-                                        .confirm_password.trim() === '') {
-                                        Swal.fire({
-                                            icon: 'warning',
-                                            text: 'Please fill in all fields.',
-                                            confirmButtonColor: '#ffc107',
-                                            confirmButtonText: 'OK'
-                                        });
-                                        return;
-                                    }
-
-                                    if (data.new_password !== data.confirm_password) {
-                                        Swal.fire({
-                                            icon: 'warning',
-                                            text: 'New password and confirmation password do not match.',
-                                            confirmButtonColor: '#ffc107',
-                                            confirmButtonText: 'OK'
-                                        });
-                                        return;
-                                    }
-
-                                    $.ajax({
-                                        url: '../admin/password_functions.php',
-                                        type: 'post',
-                                        data: data,
-                                        success: function(response) {
-                                            response = JSON.parse(response);
-                                            if (response.status == 'success') {
-                                                Swal.fire({
-                                                    icon: 'success',
-                                                    title: 'Password Reset Successfully',
-                                                    text: 'Your password has been reset successfully. Kindly login again',
-                                                    confirmButtonColor: '#01a9ac',
-                                                    confirmButtonText: 'OK'
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $('.md-close').trigger('click');
-                                                        window.location =
-                                                            '../logout.php';
-                                                    }
-                                                });
-                                            } else {
-                                                Swal.fire({
-                                                    icon: 'error',
-                                                    text: response.message,
-                                                    confirmButtonColor: '#eb3422',
-                                                    confirmButtonText: 'OK'
-                                                });
-                                            }
-                                        },
-                                        error: function(jqXHR, textStatus, errorThrown) {
-                                            console.log("AJAX error: " + textStatus + ' : ' +
-                                                errorThrown);
-                                        }
+                                if (data.old_password.trim() === '' || data.new_password.trim() ===
+                                    '' || data
+                                    .confirm_password.trim() === '') {
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        text: 'Please fill in all fields.',
+                                        confirmButtonColor: '#ffc107',
+                                        confirmButtonText: 'OK'
                                     });
-                                })()
-                            });
+                                    return;
+                                }
+
+                                if (data.new_password !== data.confirm_password) {
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        text: 'New password and confirmation password do not match.',
+                                        confirmButtonColor: '#ffc107',
+                                        confirmButtonText: 'OK'
+                                    });
+                                    return;
+                                }
+
+                                $.ajax({
+                                    url: '../admin/password_functions.php',
+                                    type: 'post',
+                                    data: data,
+                                    success: function(response) {
+                                        response = JSON.parse(response);
+                                        if (response.status == 'success') {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Password Reset Successfully',
+                                                text: 'Your password has been reset successfully. Kindly login again',
+                                                confirmButtonColor: '#01a9ac',
+                                                confirmButtonText: 'OK'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $('.md-close').trigger('click');
+                                                    window.location =
+                                                        '../logout.php';
+                                                }
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                text: response.message,
+                                                confirmButtonColor: '#eb3422',
+                                                confirmButtonText: 'OK'
+                                            });
+                                        }
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.log("AJAX error: " + textStatus + ' : ' +
+                                            errorThrown);
+                                    }
+                                });
+                            })()
+                        });
                         </script>
 
 </body>

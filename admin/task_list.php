@@ -17,34 +17,34 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
 
 <body>
     <Style>
-        .faq-progress .progress {
-            height: 8px;
-            background-color: #e8e8e8;
-            border-radius: 50px;
-            overflow: hidden;
-        }
+    .faq-progress .progress {
+        height: 8px;
+        background-color: #e8e8e8;
+        border-radius: 50px;
+        overflow: hidden;
+    }
 
-        .faq-progress .faq-test3 {
-            height: 10px;
-            border-radius: 50px;
-            transition: width 0.5s ease-in-out;
-        }
+    .faq-progress .faq-test3 {
+        height: 10px;
+        border-radius: 50px;
+        transition: width 0.5s ease-in-out;
+    }
 
-        .faq-bar-highest {
-            background-color: #eb3422;
-        }
+    .faq-bar-highest {
+        background-color: #eb3422;
+    }
 
-        .faq-bar-high {
-            background-color: #fe9365;
-        }
+    .faq-bar-high {
+        background-color: #fe9365;
+    }
 
-        .faq-bar-normal {
-            background-color: #0ac282;
-        }
+    .faq-bar-normal {
+        background-color: #0ac282;
+    }
 
-        .faq-bar-low {
-            background-color: #01a9ac;
-        }
+    .faq-bar-low {
+        background-color: #01a9ac;
+    }
     </Style>
 
     <!-- Pre-loader start -->
@@ -74,7 +74,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                             <div class="col-lg-8">
                                                 <div class="page-header-title">
                                                     <div class="d-inline">
-                                                        <h4>Sección de Gestión de Tareas</h4>
+                                                        <h4>Sección de Gestión de Proyectos</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -101,7 +101,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                     <div class="card-block p-t-10">
                                                         <div class="task-right">
                                                             <div class="task-right-header-status">
-                                                                <span data-toggle="collapse">Estado de la Tarea</span>
+                                                                <span data-toggle="collapse">Estado del proyecto</span>
                                                                 <i class="icofont icofont-rounded-down f-right"></i>
                                                             </div>
                                                             <!-- end of sidebar-header completed status-->
@@ -270,11 +270,11 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                 Fecha</a>
                                                             <div class="dropdown-menu" aria-labelledby="bydate">
                                                                 <?php if (!$timeRange): ?>
-                                                                    <a class="dropdown-item active" href="#">Mostrar
-                                                                        todos</a>
+                                                                <a class="dropdown-item active" href="#">Mostrar
+                                                                    todos</a>
                                                                 <?php else: ?>
-                                                                    <a class="dropdown-item <?php echo (!$timeRange) ? 'active' : ''; ?>"
-                                                                        href="?">Mostrar todos</a>
+                                                                <a class="dropdown-item <?php echo (!$timeRange) ? 'active' : ''; ?>"
+                                                                    href="?">Mostrar todos</a>
                                                                 <?php endif; ?>
                                                                 <div class="dropdown-divider"></div>
                                                                 <a class="dropdown-item <?php echo $timeRange === 'today' ? 'active' : ''; ?>"
@@ -315,8 +315,8 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                 <!-- Task board design block start-->
                                                 <div class="row">
                                                     <?php foreach ($results as $result) { ?>
-                                                        <div class="col-sm-6">
-                                                            <?php
+                                                    <div class="col-sm-6">
+                                                        <?php
                                                             // Assign color class based on priority
                                                             $color_class = '';
                                                             switch ($result['priority']) {
@@ -367,154 +367,154 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                             }
                                                             $imagePath = empty($result['assigned_to_profile']) ? '../files/assets/images/user-card/img-round1.jpg' : $result['assigned_to_profile'];
                                                             ?>
-                                                            <div class="card <?php echo $color_class; ?>">
-                                                                <!-- Job card start -->
-                                                                <div>
-                                                                    <div class="card-header">
-                                                                        <div class="media">
-                                                                            <a class="media-left media-middle" href="#">
-                                                                                <img class="media-object img-60"
-                                                                                    src="<?php echo $imagePath; ?>"
-                                                                                    alt="Generic placeholder image">
-                                                                            </a>
-                                                                            <div class="media-body media-middle">
-                                                                                <div class="company-name">
-                                                                                    <p><?php echo $result['assigned_to']; ?>
-                                                                                    </p>
-                                                                                    <span
-                                                                                        class="text-muted f-14"><?php echo date('d F, Y', strtotime($result['created_at'])); ?></span>
-                                                                                </div>
-                                                                                <div class="job-badge">
-                                                                                    <label
-                                                                                        class="label <?php echo $labelClass; ?>"><?php echo $status; ?></label>
-                                                                                </div>
+                                                        <div class="card <?php echo $color_class; ?>">
+                                                            <!-- Job card start -->
+                                                            <div>
+                                                                <div class="card-header">
+                                                                    <div class="media">
+                                                                        <a class="media-left media-middle" href="#">
+                                                                            <img class="media-object img-60"
+                                                                                src="<?php echo $imagePath; ?>"
+                                                                                alt="Generic placeholder image">
+                                                                        </a>
+                                                                        <div class="media-body media-middle">
+                                                                            <div class="company-name">
+                                                                                <p><?php echo $result['assigned_to']; ?>
+                                                                                </p>
+                                                                                <span
+                                                                                    class="text-muted f-14"><?php echo date('d F, Y', strtotime($result['created_at'])); ?></span>
+                                                                            </div>
+                                                                            <div class="job-badge">
+                                                                                <label
+                                                                                    class="label <?php echo $labelClass; ?>"><?php echo $status; ?></label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="card-block">
-                                                                        <h6 class="job-card-desc">Asunto:
-                                                                            <?php echo $result['title']; ?></h6>
-                                                                        <p class="text-muted">
-                                                                            <?php
+                                                                </div>
+                                                                <div class="card-block">
+                                                                    <h6 class="job-card-desc">Asunto:
+                                                                        <?php echo $result['title']; ?></h6>
+                                                                    <p class="text-muted">
+                                                                        <?php
                                                                             $description = htmlspecialchars_decode($result['description']);
                                                                             $description = strip_tags($description);
                                                                             $description = substr($description, 0, 250);
                                                                             echo $description . (strlen($result['description']) > 250 ? '...' : '');
                                                                             ?>
-                                                                        </p>
-                                                                        <div class="d-flex align-items-center">
-                                                                            <div class="job-meta-data me-3"
-                                                                                style="margin-right: 40px;">
-                                                                                <strong>Fecha de Inicio:</strong>
-                                                                                <label class="label badge-default"
-                                                                                    style="color: black !important;"><?php echo date('d F, Y', strtotime($result['start_date'])); ?></label>
-                                                                            </div>
-                                                                            <div class="job-meta-data">
-                                                                                <strong>Fecha de Vencimiento:</strong>
-                                                                                <label class="label badge-default"
-                                                                                    style="color: black !important;"><?php echo date('d F, Y', strtotime($result['due_date'])); ?></label>
-                                                                            </div>
+                                                                    </p>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="job-meta-data me-3"
+                                                                            style="margin-right: 40px;">
+                                                                            <strong>Fecha de Inicio:</strong>
+                                                                            <label class="label badge-default"
+                                                                                style="color: black !important;"><?php echo date('d F, Y', strtotime($result['start_date'])); ?></label>
                                                                         </div>
-                                                                        <div class="card-footer">
-                                                                            <div class="task-board"
-                                                                                style="margin-bottom: 10px;">
-                                                                                <div class="dropdown-secondary dropdown">
-                                                                                    <button id="priority-dropdown"
-                                                                                        class="btn <?php echo $color_btn; ?> btn-mini dropdown-toggle waves-effect waves-light"
-                                                                                        type="button" id="dropdown1"
-                                                                                        data-toggle="dropdown"
-                                                                                        aria-haspopup="true"
-                                                                                        aria-expanded="false">
-                                                                                        <?php echo $result['priority']; ?>
-                                                                                    </button>
-                                                                                    <div class="dropdown-menu"
-                                                                                        aria-labelledby="dropdown1"
-                                                                                        data-dropdown-in="fadeIn"
-                                                                                        data-dropdown-out="fadeOut">
-                                                                                        <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'High' ? 'active' : ''; ?>"
-                                                                                            href="#!" data-priority="High"
-                                                                                            data-task-id="<?php echo $result['id']; ?>"><span
-                                                                                                class="point-marker bg-warning"></span>Alta
-                                                                                            prioridad</a>
-                                                                                        <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'Medium' ? 'active' : ''; ?>"
-                                                                                            href="#!" data-priority="Medium"
-                                                                                            data-task-id="<?php echo $result['id']; ?>"><span
-                                                                                                class="point-marker bg-success"></span>Media
-                                                                                            prioridad</a>
-                                                                                        <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'Low' ? 'active' : ''; ?>"
-                                                                                            href="#!" data-priority="Low"
-                                                                                            data-task-id="<?php echo $result['id']; ?>"><span
-                                                                                                class="point-marker bg-info"></span>Baja
-                                                                                            prioridad</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="dropdown-secondary dropdown">
-                                                                                    <button id="status-dropdown"
-                                                                                        class="btn <?php echo $labelClass; ?> btn-mini dropdown-toggle waves-light b-none txt-muted"
-                                                                                        type="button" id="dropdown2"
-                                                                                        data-toggle="dropdown"
-                                                                                        aria-haspopup="true"
-                                                                                        aria-expanded="false">
-                                                                                        <?php echo $result['status'] == "Pending" ? 'Pendiente' : ($result['status'] == "In Progress" ? 'En Progreso' : ($result['status'] == "Completed" ? 'Completada' : 'Pendiente')); ?>
-                                                                                    </button>
-                                                                                    <div class="dropdown-menu"
-                                                                                        aria-labelledby="dropdown2"
-                                                                                        data-dropdown-in="fadeIn"
-                                                                                        data-dropdown-out="fadeOut">
-                                                                                        <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "Pending" ? 'active' : ''; ?>"
-                                                                                            href="#!" data-status="Pending"
-                                                                                            data-task-id="<?php echo $result['id']; ?>">Pendiente</a>
-                                                                                        <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "In Progress" ? 'active' : ''; ?>"
-                                                                                            href="#!"
-                                                                                            data-status="In Progress"
-                                                                                            data-task-id="<?php echo $result['id']; ?>">En
-                                                                                            Progreso</a>
-                                                                                        <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "Completed" ? 'active' : ''; ?>"
-                                                                                            href="#!"
-                                                                                            data-status="Completed"
-                                                                                            data-task-id="<?php echo $result['id']; ?>">Completada</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <!-- end of dropdown-secondary -->
-                                                                                <div class="dropdown-secondary dropdown">
-                                                                                    <button
-                                                                                        class="btn btn-default btn-mini dropdown-toggle waves-light b-none txt-muted"
-                                                                                        type="button" id="dropdown3"
-                                                                                        data-toggle="dropdown"
-                                                                                        aria-haspopup="true"
-                                                                                        aria-expanded="false"><i
-                                                                                            class="icofont icofont-navigation-menu"></i></button>
-                                                                                    <div class="dropdown-menu"
-                                                                                        aria-labelledby="dropdown3"
-                                                                                        data-dropdown-in="fadeIn"
-                                                                                        data-dropdown-out="fadeOut">
-                                                                                        <a class="dropdown-item waves-light waves-effect"
-                                                                                            href="new_task.php?id=<?php echo $result['id']; ?>&edit=1"><i
-                                                                                                class="icofont icofont-ui-edit"></i>
-                                                                                            Editar Tarea</a>
-                                                                                        <div class="dropdown-divider"></div>
-                                                                                        <a class="dropdown-item waves-light waves-effect"
-                                                                                            href="task_details.php?id=<?php echo $result['id']; ?>&edit=1"><i
-                                                                                                class="icofont icofont-spinner-alt-5"></i>
-                                                                                            Ver Tarea</a>
-                                                                                        <a class="remove-task dropdown-item waves-light waves-effect"
-                                                                                            href="#!"
-                                                                                            data-task-id="<?php echo $result['id']; ?>"><i
-                                                                                                class="icofont icofont-close-line"></i>
-                                                                                            Eliminar</a>
-                                                                                    </div>
-                                                                                    <!-- end of dropdown menu -->
-                                                                                </div>
-                                                                                <!-- end of seconadary -->
-                                                                            </div>
-                                                                            <!-- end of pull-right class -->
+                                                                        <div class="job-meta-data">
+                                                                            <strong>Fecha de Vencimiento:</strong>
+                                                                            <label class="label badge-default"
+                                                                                style="color: black !important;"><?php echo date('d F, Y', strtotime($result['due_date'])); ?></label>
                                                                         </div>
-                                                                        <!-- end of card-footer -->
                                                                     </div>
+                                                                    <div class="card-footer">
+                                                                        <div class="task-board"
+                                                                            style="margin-bottom: 10px;">
+                                                                            <div class="dropdown-secondary dropdown">
+                                                                                <button id="priority-dropdown"
+                                                                                    class="btn <?php echo $color_btn; ?> btn-mini dropdown-toggle waves-effect waves-light"
+                                                                                    type="button" id="dropdown1"
+                                                                                    data-toggle="dropdown"
+                                                                                    aria-haspopup="true"
+                                                                                    aria-expanded="false">
+                                                                                    <?php echo $result['priority']; ?>
+                                                                                </button>
+                                                                                <div class="dropdown-menu"
+                                                                                    aria-labelledby="dropdown1"
+                                                                                    data-dropdown-in="fadeIn"
+                                                                                    data-dropdown-out="fadeOut">
+                                                                                    <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'High' ? 'active' : ''; ?>"
+                                                                                        href="#!" data-priority="High"
+                                                                                        data-task-id="<?php echo $result['id']; ?>"><span
+                                                                                            class="point-marker bg-warning"></span>Alta
+                                                                                        prioridad</a>
+                                                                                    <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'Medium' ? 'active' : ''; ?>"
+                                                                                        href="#!" data-priority="Medium"
+                                                                                        data-task-id="<?php echo $result['id']; ?>"><span
+                                                                                            class="point-marker bg-success"></span>Media
+                                                                                        prioridad</a>
+                                                                                    <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'Low' ? 'active' : ''; ?>"
+                                                                                        href="#!" data-priority="Low"
+                                                                                        data-task-id="<?php echo $result['id']; ?>"><span
+                                                                                            class="point-marker bg-info"></span>Baja
+                                                                                        prioridad</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="dropdown-secondary dropdown">
+                                                                                <button id="status-dropdown"
+                                                                                    class="btn <?php echo $labelClass; ?> btn-mini dropdown-toggle waves-light b-none txt-muted"
+                                                                                    type="button" id="dropdown2"
+                                                                                    data-toggle="dropdown"
+                                                                                    aria-haspopup="true"
+                                                                                    aria-expanded="false">
+                                                                                    <?php echo $result['status'] == "Pending" ? 'Pendiente' : ($result['status'] == "In Progress" ? 'En Progreso' : ($result['status'] == "Completed" ? 'Completada' : 'Pendiente')); ?>
+                                                                                </button>
+                                                                                <div class="dropdown-menu"
+                                                                                    aria-labelledby="dropdown2"
+                                                                                    data-dropdown-in="fadeIn"
+                                                                                    data-dropdown-out="fadeOut">
+                                                                                    <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "Pending" ? 'active' : ''; ?>"
+                                                                                        href="#!" data-status="Pending"
+                                                                                        data-task-id="<?php echo $result['id']; ?>">Pendiente</a>
+                                                                                    <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "In Progress" ? 'active' : ''; ?>"
+                                                                                        href="#!"
+                                                                                        data-status="In Progress"
+                                                                                        data-task-id="<?php echo $result['id']; ?>">En
+                                                                                        Progreso</a>
+                                                                                    <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "Completed" ? 'active' : ''; ?>"
+                                                                                        href="#!"
+                                                                                        data-status="Completed"
+                                                                                        data-task-id="<?php echo $result['id']; ?>">Completada</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- end of dropdown-secondary -->
+                                                                            <div class="dropdown-secondary dropdown">
+                                                                                <button
+                                                                                    class="btn btn-default btn-mini dropdown-toggle waves-light b-none txt-muted"
+                                                                                    type="button" id="dropdown3"
+                                                                                    data-toggle="dropdown"
+                                                                                    aria-haspopup="true"
+                                                                                    aria-expanded="false"><i
+                                                                                        class="icofont icofont-navigation-menu"></i></button>
+                                                                                <div class="dropdown-menu"
+                                                                                    aria-labelledby="dropdown3"
+                                                                                    data-dropdown-in="fadeIn"
+                                                                                    data-dropdown-out="fadeOut">
+                                                                                    <a class="dropdown-item waves-light waves-effect"
+                                                                                        href="new_task.php?id=<?php echo $result['id']; ?>&edit=1"><i
+                                                                                            class="icofont icofont-ui-edit"></i>
+                                                                                        Editar Tarea</a>
+                                                                                    <div class="dropdown-divider"></div>
+                                                                                    <a class="dropdown-item waves-light waves-effect"
+                                                                                        href="task_details.php?id=<?php echo $result['id']; ?>&edit=1"><i
+                                                                                            class="icofont icofont-spinner-alt-5"></i>
+                                                                                        Ver Tarea</a>
+                                                                                    <a class="remove-task dropdown-item waves-light waves-effect"
+                                                                                        href="#!"
+                                                                                        data-task-id="<?php echo $result['id']; ?>"><i
+                                                                                            class="icofont icofont-close-line"></i>
+                                                                                        Eliminar</a>
+                                                                                </div>
+                                                                                <!-- end of dropdown menu -->
+                                                                            </div>
+                                                                            <!-- end of seconadary -->
+                                                                        </div>
+                                                                        <!-- end of pull-right class -->
+                                                                    </div>
+                                                                    <!-- end of card-footer -->
                                                                 </div>
-                                                                <!-- Job card end -->
                                                             </div>
+                                                            <!-- Job card end -->
                                                         </div>
+                                                    </div>
                                                     <?php } ?>
                                                 </div>
                                                 <!-- Task board design block end -->
@@ -562,200 +562,49 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
 
     <?php include('../includes/scripts.php') ?>
     <script>
-        window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-        gtag('config', 'UA-23581568-13');
+    gtag('config', 'UA-23581568-13');
     </script>
     <script>
-        setTimeout(function() {
-            // Set width of each loader bar
-            var high_progress = document.querySelector('.faq-bar-high');
-            high_progress.style.width = '<?php echo $high_width; ?>%';
+    setTimeout(function() {
+        // Set width of each loader bar
+        var high_progress = document.querySelector('.faq-bar-high');
+        high_progress.style.width = '<?php echo $high_width; ?>%';
 
-            var normal_progress = document.querySelector('.faq-bar-normal');
-            normal_progress.style.width = '<?php echo $normal_width; ?>%';
+        var normal_progress = document.querySelector('.faq-bar-normal');
+        normal_progress.style.width = '<?php echo $normal_width; ?>%';
 
-            var low_progress = document.querySelector('.faq-bar-low');
-            low_progress.style.width = '<?php echo $low_width; ?>%';
-        }, 1000); // 1000ms = 1 second delay
+        var low_progress = document.querySelector('.faq-bar-low');
+        low_progress.style.width = '<?php echo $low_width; ?>%';
+    }, 1000); // 1000ms = 1 second delay
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-            $(document).on('click', '.dropdown-priority', function(event) {
-                console.log('Dropdown item clicked');
-                event.preventDefault();
-                (async () => {
-                    const {
-                        value: formValues
-                    } = await Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You want to update this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, update it!'
-                    });
-
-                    var selectedPriority = $(this).data('priority');
-                    $('#priority-dropdown').html(selectedPriority);
-                    var taskId = $(this).data('task-id');
-
-                    console.log('taskId:', taskId);
-
-                    if (formValues) {
-                        var data = {
-                            id: taskId,
-                            priority: selectedPriority,
-                            action: "update-task-priority"
-                        };
-
-                        console.log('Data HERE: ' + JSON.stringify(data));
-                        $.ajax({
-                            url: 'task_functions.php',
-                            type: 'post',
-                            data: data,
-                            success: function(response) {
-                                const responseObject = JSON.parse(response);
-                                console.log(`RESPONSE: ${response}`);
-                                console.log(`RESPONSE HERE: ${responseObject}`);
-                                console.log(`RESPONSE HERE: ${responseObject.message}`);
-                                if (response && responseObject.status === 'success') {
-                                    // Show success message
-                                    Swal.fire({
-                                        icon: 'success',
-                                        html: responseObject.message,
-                                        confirmButtonColor: '#01a9ac',
-                                        confirmButtonText: 'OK'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            location.reload();
-                                        }
-                                    });
-
-                                } else {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        text: responseObject.message,
-                                        confirmButtonColor: '#eb3422',
-                                        confirmButtonText: 'OK'
-                                    });
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.log("AJAX error: " + error);
-                                console.log('Data HERE: ' + JSON.stringify(data));
-                                Swal.fire('Error!', 'Failed to update priority.',
-                                    'error');
-                            }
-
-                        });
-                    }
-
-                })()
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(document).on('click', '.dropdown-status', function(event) {
-                console.log('Dropdown item clicked');
-                event.preventDefault();
-                (async () => {
-                    const {
-                        value: formValues
-                    } = await Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You want to update this status!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, update it!'
-                    });
-
-                    var selectedStatus = $(this).data('status');
-                    $('#status-dropdown').html(selectedStatus);
-                    var taskId = $(this).data('task-id');
-
-                    console.log('taskId:', taskId);
-
-                    if (formValues) {
-                        var data = {
-                            id: taskId,
-                            status: selectedStatus,
-                            action: "update-task-status"
-                        };
-
-                        console.log('Data HERE: ' + JSON.stringify(data));
-                        $.ajax({
-                            url: 'task_functions.php',
-                            type: 'post',
-                            data: data,
-                            success: function(response) {
-                                const responseObject = JSON.parse(response);
-                                console.log(`RESPONSE: ${response}`);
-                                console.log(`RESPONSE HERE: ${responseObject}`);
-                                console.log(`RESPONSE HERE: ${responseObject.message}`);
-                                if (response && responseObject.status === 'success') {
-                                    // Show success message
-                                    Swal.fire({
-                                        icon: 'success',
-                                        html: responseObject.message,
-                                        confirmButtonColor: '#01a9ac',
-                                        confirmButtonText: 'OK'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            location.reload();
-                                        }
-                                    });
-
-                                } else {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        text: responseObject.message,
-                                        confirmButtonColor: '#eb3422',
-                                        confirmButtonText: 'OK'
-                                    });
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.log("AJAX error: " + error);
-                                console.log('Data HERE: ' + JSON.stringify(data));
-                                Swal.fire('Error!', 'Failed to update status.',
-                                    'error');
-                            }
-
-                        });
-                    }
-
-                })()
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('.remove-task').click(function() {
+    $(document).ready(function() {
+        $(document).on('click', '.dropdown-priority', function(event) {
+            console.log('Dropdown item clicked');
+            event.preventDefault();
             (async () => {
                 const {
                     value: formValues
                 } = await Swal.fire({
                     title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    text: "You want to update this!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                })
+                    confirmButtonText: 'Yes, update it!'
+                });
 
+                var selectedPriority = $(this).data('priority');
+                $('#priority-dropdown').html(selectedPriority);
                 var taskId = $(this).data('task-id');
 
                 console.log('taskId:', taskId);
@@ -763,8 +612,10 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                 if (formValues) {
                     var data = {
                         id: taskId,
-                        action: "remove-task"
+                        priority: selectedPriority,
+                        action: "update-task-priority"
                     };
+
                     console.log('Data HERE: ' + JSON.stringify(data));
                     $.ajax({
                         url: 'task_functions.php',
@@ -800,13 +651,162 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                         error: function(xhr, status, error) {
                             console.log("AJAX error: " + error);
                             console.log('Data HERE: ' + JSON.stringify(data));
-                            Swal.fire('Error!', 'Failed to delete task.', 'error');
+                            Swal.fire('Error!', 'Failed to update priority.',
+                                'error');
                         }
 
                     });
                 }
+
             })()
-        })
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(document).on('click', '.dropdown-status', function(event) {
+            console.log('Dropdown item clicked');
+            event.preventDefault();
+            (async () => {
+                const {
+                    value: formValues
+                } = await Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to update this status!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, update it!'
+                });
+
+                var selectedStatus = $(this).data('status');
+                $('#status-dropdown').html(selectedStatus);
+                var taskId = $(this).data('task-id');
+
+                console.log('taskId:', taskId);
+
+                if (formValues) {
+                    var data = {
+                        id: taskId,
+                        status: selectedStatus,
+                        action: "update-task-status"
+                    };
+
+                    console.log('Data HERE: ' + JSON.stringify(data));
+                    $.ajax({
+                        url: 'task_functions.php',
+                        type: 'post',
+                        data: data,
+                        success: function(response) {
+                            const responseObject = JSON.parse(response);
+                            console.log(`RESPONSE: ${response}`);
+                            console.log(`RESPONSE HERE: ${responseObject}`);
+                            console.log(`RESPONSE HERE: ${responseObject.message}`);
+                            if (response && responseObject.status === 'success') {
+                                // Show success message
+                                Swal.fire({
+                                    icon: 'success',
+                                    html: responseObject.message,
+                                    confirmButtonColor: '#01a9ac',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }
+                                });
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: responseObject.message,
+                                    confirmButtonColor: '#eb3422',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log("AJAX error: " + error);
+                            console.log('Data HERE: ' + JSON.stringify(data));
+                            Swal.fire('Error!', 'Failed to update status.',
+                                'error');
+                        }
+
+                    });
+                }
+
+            })()
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+    $('.remove-task').click(function() {
+        (async () => {
+            const {
+                value: formValues
+            } = await Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            })
+
+            var taskId = $(this).data('task-id');
+
+            console.log('taskId:', taskId);
+
+            if (formValues) {
+                var data = {
+                    id: taskId,
+                    action: "remove-task"
+                };
+                console.log('Data HERE: ' + JSON.stringify(data));
+                $.ajax({
+                    url: 'task_functions.php',
+                    type: 'post',
+                    data: data,
+                    success: function(response) {
+                        const responseObject = JSON.parse(response);
+                        console.log(`RESPONSE: ${response}`);
+                        console.log(`RESPONSE HERE: ${responseObject}`);
+                        console.log(`RESPONSE HERE: ${responseObject.message}`);
+                        if (response && responseObject.status === 'success') {
+                            // Show success message
+                            Swal.fire({
+                                icon: 'success',
+                                html: responseObject.message,
+                                confirmButtonColor: '#01a9ac',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                text: responseObject.message,
+                                confirmButtonColor: '#eb3422',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("AJAX error: " + error);
+                        console.log('Data HERE: ' + JSON.stringify(data));
+                        Swal.fire('Error!', 'Failed to delete task.', 'error');
+                    }
+
+                });
+            }
+        })()
+    })
     </script>
 
 </body>

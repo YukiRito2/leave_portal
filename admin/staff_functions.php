@@ -1,33 +1,35 @@
 <?php
-date_default_timezone_set('Africa/Accra');
+date_default_timezone_set('America/Lima');
 session_start();
 include('../includes/config.php');
 
-function resizeImage($sourcePath, $destinationPath, $width, $height) {
-     if (!function_exists('imagecreatefromjpeg') || !function_exists('imagejpeg')) {
+function resizeImage($sourcePath, $destinationPath, $width, $height)
+{
+    if (!function_exists('imagecreatefromjpeg') || !function_exists('imagejpeg')) {
         throw new Exception('GD library is not available');
     }
-    
+
     list($originalWidth, $originalHeight) = getimagesize($sourcePath);
     $src = imagecreatefromjpeg($sourcePath);
     $dst = imagecreatetruecolor($width, $height);
-    
+
     // Resize
     imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
-    
+
     // Save the resized image
     imagejpeg($dst, $destinationPath);
-    
+
     // Free memory
     imagedestroy($src);
     imagedestroy($dst);
 }
 
-function updateStaffRecords($edit_id, $firstname, $lastname, $middlename, $contact, $designation, $department, $email, $password, $gender, $is_supervisor, $role, $staff_id, $image_path) {
+function updateStaffRecords($edit_id, $firstname, $lastname, $middlename, $contact, $designation, $department, $email, $password, $gender, $is_supervisor, $role, $staff_id, $image_path)
+{
     global $conn;
 
     if (empty($department) || empty($firstname) || empty($lastname) || empty($contact) || empty($designation) || empty($email)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all required fields');
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos requeridos');
         echo json_encode($response);
         exit;
     }
@@ -40,12 +42,12 @@ function updateStaffRecords($edit_id, $firstname, $lastname, $middlename, $conta
         $image_target_path = $image_upload_dir . $image_name;
 
         if (!move_uploaded_file($image_path['tmp_name'], $image_target_path)) {
-            $response = array('status' => 'error', 'message' => 'Failed to upload the image');
+            $response = array('status' => 'error', 'message' => 'Error al subir la imagen');
             echo json_encode($response);
             exit;
         }
 
-         // Resize the image to 230x230
+        // Resize the image to 230x230
         resizeImage($image_target_path, $image_target_path, 230, 230);
 
         // If a new image is provided, remove the old image from the storage folder
@@ -60,7 +62,6 @@ function updateStaffRecords($edit_id, $firstname, $lastname, $middlename, $conta
         if (!empty($old_image_path) && file_exists($old_image_path)) {
             unlink($old_image_path); // Delete the old image
         }
-
     } else {
         $image_target_path = ''; // Empty image path
     }
@@ -94,22 +95,25 @@ function updateStaffRecords($edit_id, $firstname, $lastname, $middlename, $conta
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Staff member updated successfully');
+        $response = array('status' => 'success', 'message' => 'Miembro del personal actualizado exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to update staff member');
+        $response = array('status' => 'error', 'message' => 'Error al actualizar el miembro del personal');
         echo json_encode($response);
         exit;
     }
 }
 
-function addStaffRecord($firstname, $lastname, $middlename, $contact, $designation, $department, $email, $password, $role, $is_supervisor, $staff_id, $gender, $image_path) {
+function addStaffRecord($firstname, $lastname, $middlename, $contact, $designation, $department, $email, $password, $role, $is_supervisor, $staff_id, $gender, $image_path)
+{
     global $conn;
 
-    if (empty($department) || empty($firstname) || empty($lastname) || empty($contact) ||
-        empty($designation) || empty($email) || empty($password) || empty($role) || empty($image_path)) {
-        $response = array('status' => 'error', 'message' => 'Please fill in all required fields');
+    if (
+        empty($department) || empty($firstname) || empty($lastname) || empty($contact) ||
+        empty($designation) || empty($email) || empty($password) || empty($role) || empty($image_path)
+    ) {
+        $response = array('status' => 'error', 'message' => 'Por favor, complete todos los campos requeridos');
         echo json_encode($response);
         exit;
     }
@@ -123,7 +127,7 @@ function addStaffRecord($firstname, $lastname, $middlename, $contact, $designati
     mysqli_stmt_close($stmt);
 
     if ($num_rows > 0) {
-        $response = array('status' => 'error', 'message' => 'Staff member with this email already exists');
+        $response = array('status' => 'error', 'message' => 'Ya existe un miembro del personal con este correo electrónico');
         echo json_encode($response);
         exit;
     }
@@ -134,12 +138,12 @@ function addStaffRecord($firstname, $lastname, $middlename, $contact, $designati
     $image_target_path = $image_upload_dir . $image_name;
 
     if (!move_uploaded_file($image_path['tmp_name'], $image_target_path)) {
-        $response = array('status' => 'error', 'message' => 'Failed to upload the image');
+        $response = array('status' => 'error', 'message' => 'Error al subir la imagen');
         echo json_encode($response);
         exit;
     }
 
-     // Resize the image to 230x230
+    // Resize the image to 230x230
     resizeImage($image_target_path, $image_target_path, 230, 230);
 
     // Insert the record into the database
@@ -149,17 +153,18 @@ function addStaffRecord($firstname, $lastname, $middlename, $contact, $designati
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Staff member added successfully');
+        $response = array('status' => 'success', 'message' => 'Miembro del personal agregado exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to add staff member');
+        $response = array('status' => 'error', 'message' => 'Error al agregar el miembro del personal');
         echo json_encode($response);
         exit;
     }
 }
 
-function deleteStaff($id) {
+function deleteStaff($id)
+{
     global $conn;
 
     // Get the old image path before deleting the staff member
@@ -182,21 +187,22 @@ function deleteStaff($id) {
             unlink($old_image_path); // Delete the old image
         }
 
-        $response = array('status' => 'success', 'message' => 'Staff Member Deleted Successfully');
+        $response = array('status' => 'success', 'message' => 'Miembro del personal eliminado exitosamente');
         echo json_encode($response);
         exit;
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to delete staff');
+        $response = array('status' => 'error', 'message' => 'Error al eliminar el miembro del personal');
         echo json_encode($response);
         exit;
     }
 }
 
-function assignLeaveTypes($employeeId, $leaveTypes) {
+function assignLeaveTypes($employeeId, $leaveTypes)
+{
     global $conn;
 
     if (empty($employeeId) || empty($leaveTypes) || !is_array($leaveTypes)) {
-        $response = array('status' => 'error', 'message' => 'Please provide valid employee ID and leave types');
+        $response = array('status' => 'error', 'message' => 'Por favor, proporcione un ID de empleado válido y tipos de permiso');
         echo json_encode($response);
         exit;
     }
@@ -285,26 +291,26 @@ function assignLeaveTypes($employeeId, $leaveTypes) {
         // Commit transaction
         mysqli_commit($conn);
 
-        $response = array('status' => 'success', 'message' => 'Leave types assigned successfully');
+        $response = array('status' => 'success', 'message' => 'Tipos de permiso asignados exitosamente');
         echo json_encode($response);
         exit;
-
     } catch (Exception $e) {
         // Rollback transaction on error
         mysqli_rollback($conn);
 
-        $response = array('status' => 'error', 'message' => 'Failed to assign leave types: ' . $e->getMessage());
+        $response = array('status' => 'error', 'message' => 'Error al asignar tipos de permiso: ' . $e->getMessage());
         echo json_encode($response);
         exit;
     }
 }
 
-function assignSupervisor($employeeId, $supervisorId) {
+function assignSupervisor($employeeId, $supervisorId)
+{
     global $conn;
 
     // Check for empty inputs
     if (empty($employeeId) || empty($supervisorId)) {
-        $response = array('status' => 'error', 'message' => 'Please provide both employee ID and supervisor ID');
+        $response = array('status' => 'error', 'message' => 'Por favor, proporcione tanto el ID del empleado como el ID del supervisor');
         return json_encode($response);
     }
 
@@ -315,15 +321,15 @@ function assignSupervisor($employeeId, $supervisorId) {
 
     // Check the result and return appropriate response
     if ($result) {
-        $response = array('status' => 'success', 'message' => 'Supervisor assigned successfully');
+        $response = array('status' => 'success', 'message' => 'Supervisor asignado exitosamente');
     } else {
-        $response = array('status' => 'error', 'message' => 'Failed to assign supervisor');
+        $response = array('status' => 'error', 'message' => 'Error al asignar supervisor');
     }
 
     return json_encode($response);
 }
 
-if(isset($_POST['action'])) {
+if (isset($_POST['action'])) {
     // Determine which action to perform
     if ($_POST['action'] === 'updateStaff') {
         $edit_id = $_POST['edit_id'];
@@ -339,14 +345,13 @@ if(isset($_POST['action'])) {
         $role = $_POST['role'];
         $is_supervisor = $_POST['is_supervisor'];
         $staff_id = $_POST['staff_id'];
-        if(isset($_FILES['image_path'])) {
+        if (isset($_FILES['image_path'])) {
             $image_path = $_FILES['image_path'];
         } else {
             $image_path = ''; // or set it to some default value as needed
         }
         $response = updateStaffRecords($edit_id, $firstname, $lastname, $middlename, $contact, $designation, $department, $email, $password, $gender, $is_supervisor, $role, $staff_id, $image_path);
         echo $response;
-
     } elseif ($_POST['action'] === 'staff-add') {
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
@@ -363,7 +368,6 @@ if(isset($_POST['action'])) {
         $image_path = $_FILES['image_path'];
         $response = addStaffRecord($firstname, $lastname, $middlename, $contact, $designation, $department, $email, $password, $role, $is_supervisor, $staff_id, $gender, $image_path);
         echo $response;
-
     } elseif ($_POST['action'] === 'delete-staff') {
         $id = $_POST['id'];
         $response = deleteStaff($id);
@@ -377,7 +381,6 @@ if(isset($_POST['action'])) {
         error_log("Received leaveTypes: " . implode(', ', $leaveTypes));
 
         assignLeaveTypes($employeeId, $leaveTypes);
-        
     } elseif ($_POST['action'] === 'assign-supervisor') {
         $employeeId = $_POST['employeeId'];
         $supervisorId = $_POST['supervisorId'];
@@ -437,17 +440,17 @@ if (empty($employeeData)) {
                             <div class="img-overlay img-radius">
                                 <span>
                                     <a href="staff_detailed.php?id=' . $employee['emp_id'] . '&view=2" class="btn btn-sm btn-primary" style="margin-top: 1px;" data-popup="lightbox"><i class="icofont icofont-eye-alt"></i></a>';
-                                     // Check if the user role is Admin or Manager and the employee's designation is not 'Administrator'
-                                    if ($userRole === 'Admin' || ($userRole === 'Manager' && $employee['designation'] !== 'Administrator')) {
-                                        echo '<a href="new_staff.php?id=' . $employee['emp_id'] . '&edit=1" class="btn btn-sm btn-primary" data-popup="lightbox" style="margin-left: 8px; margin-top: 1px;"><i class="icofont icofont-edit"></i></a>';
-                                        
-                                        // Only show the delete icon if the employee's designation is not 'Administrator'
-                                        if ($employee['designation'] !== 'Administrator') {
-                                            echo '<a href="#" class="btn btn-sm btn-primary delete-staff" style="margin-top: 1px;" data-id="' . $employee['emp_id'] . '"><i class="icofont icofont-ui-delete"></i></a>';
-                                        }
-                                    }
+        // Check if the user role is Admin or Manager and the employee's designation is not 'Administrator'
+        if ($userRole === 'Admin' || ($userRole === 'Manager' && $employee['designation'] !== 'Administrator')) {
+            echo '<a href="new_staff.php?id=' . $employee['emp_id'] . '&edit=1" class="btn btn-sm btn-primary" data-popup="lightbox" style="margin-left: 8px; margin-top: 1px;"><i class="icofont icofont-edit"></i></a>';
 
-                                echo '</span>
+            // Only show the delete icon if the employee's designation is not 'Administrator'
+            if ($employee['designation'] !== 'Administrator') {
+                echo '<a href="#" class="btn btn-sm btn-primary delete-staff" style="margin-top: 1px;" data-id="' . $employee['emp_id'] . '"><i class="icofont icofont-ui-delete"></i></a>';
+            }
+        }
+
+        echo '</span>
                             </div>
                         </div>
                         <div class="user-content">

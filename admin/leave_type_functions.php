@@ -1,14 +1,15 @@
-<?php 
-date_default_timezone_set('Africa/Accra');
+<?php
+date_default_timezone_set('America/Lima');
 include('../includes/config.php');
 
-function updateLeaveType($id, $dname, $description, $status, $assigned) {
+function updateLeaveType($id, $dname, $description, $status, $assigned)
+{
     global $conn;
 
     if (empty($dname) || empty($description) || empty($status) || empty($assigned)) {
-    $response = array('status' => 'error', 'message' => 'Please fill in all fields');
-    echo json_encode($response);
-    exit;
+        $response = array('status' => 'error', 'message' => 'Please fill in all fields');
+        echo json_encode($response);
+        exit;
     }
 
     $stmt = mysqli_prepare($conn, "UPDATE tblleavetype SET leave_type=?, description=?, assign_days=?, status=? WHERE id=?");
@@ -26,7 +27,8 @@ function updateLeaveType($id, $dname, $description, $status, $assigned) {
     }
 }
 
-function saveLeaveType($dname, $description, $status, $assigned) {
+function saveLeaveType($dname, $description, $status, $assigned)
+{
     global $conn;
 
     if (empty($dname) || empty($description) || empty($status) || empty($assigned)) {
@@ -42,7 +44,7 @@ function saveLeaveType($dname, $description, $status, $assigned) {
     $result = mysqli_stmt_get_result($stmt);
     $count = mysqli_num_rows($result);
 
-    if ($count > 0) { 
+    if ($count > 0) {
         $response = array('status' => 'error', 'message' => 'Leave Type already exists');
         echo json_encode($response);
         exit;
@@ -65,7 +67,8 @@ function saveLeaveType($dname, $description, $status, $assigned) {
     }
 }
 
-function deleteLeaveType($id) {
+function deleteLeaveType($id)
+{
     global $conn;
 
     $stmt = mysqli_prepare($conn, "DELETE FROM tblleavetype WHERE id=?");
@@ -84,7 +87,7 @@ function deleteLeaveType($id) {
 }
 
 
-if(isset($_POST['action'])) {
+if (isset($_POST['action'])) {
     // Determine which action to perform
     if ($_POST['action'] === 'update') {
         $dname = $_POST['dname'];
@@ -107,4 +110,3 @@ if(isset($_POST['action'])) {
         echo $response;
     }
 }
-?>

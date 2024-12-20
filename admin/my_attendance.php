@@ -1,4 +1,4 @@
-<?php include('../includes/header.php')?>
+<?php include('../includes/header.php') ?>
 <?php
 // Check if the user is logged in
 if (!isset($_SESSION['slogin']) || !isset($_SESSION['srole'])) {
@@ -16,18 +16,18 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
 
 <body>
     <!-- Pre-loader start -->
-    <?php include('../includes/loader.php')?>
+    <?php include('../includes/loader.php') ?>
     <!-- Pre-loader end -->
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
 
-            <?php include('../includes/topbar.php')?>
+            <?php include('../includes/topbar.php') ?>
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <?php $page_name = "my_attendance"; ?>
-                    <?php include('../includes/sidebar.php')?>
+                    <?php include('../includes/sidebar.php') ?>
 
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
@@ -79,6 +79,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
+
                                                                         <!-- Tab panes -->
                                                                         <div class="tab-content">
                                                                             <div class="tab-pane active" id="clock_in"
@@ -175,17 +176,17 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                     <div class="col-sm-12">
                                                                         <!-- contact data table card start -->
                                                                         <?php
-                                                    // Query to fetch attendance records
-                                                    $stmt = mysqli_prepare($conn, "SELECT a.date, a.staff_id, 
+                                                                        // Query to fetch attendance records
+                                                                        $stmt = mysqli_prepare($conn, "SELECT a.date, a.staff_id, 
                                                                                         e.first_name, e.middle_name, e.last_name, a.total_hours,
                                                                                         a.time_in, a.time_out 
                                                                                 FROM tblattendance a
                                                                                 JOIN tblemployees e ON a.staff_id = e.staff_id
                                                                                 WHERE a.staff_id = ?");
-                                                    mysqli_stmt_bind_param($stmt, "i", $session_sstaff_id);
-                                                    mysqli_stmt_execute($stmt);
-                                                    $result = mysqli_stmt_get_result($stmt);
-                                                    ?>
+                                                                        mysqli_stmt_bind_param($stmt, "i", $session_sstaff_id);
+                                                                        mysqli_stmt_execute($stmt);
+                                                                        $result = mysqli_stmt_get_result($stmt);
+                                                                        ?>
                                                                         <div class="card">
                                                                             <div class="card-header">
                                                                                 <h5 class="card-header-text">Registros
@@ -210,44 +211,50 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                         <tbody>
                                                                                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                                                                             <?php
-                                                                            $time_in = new DateTime($row['time_in']);
-                                                                            $time_out = $row['time_out'] ? new DateTime($row['time_out']) : null;
-                                                                            // Calculate and format total hours
-                                                                            if ($time_out) {
-                                                                                $time_in = new DateTime($row['time_in']);
-                                                                                $interval = $time_in->diff($time_out);
+                                                                                                $time_in = new DateTime($row['time_in']);
+                                                                                                $time_out = $row['time_out'] ? new DateTime($row['time_out']) : null;
+                                                                                                // Calculate and format total hours
+                                                                                                if ($time_out) {
+                                                                                                    $time_in = new DateTime($row['time_in']);
+                                                                                                    $interval = $time_in->diff($time_out);
 
-                                                                                $hours = $interval->h;
-                                                                                $minutes = $interval->i;
-                                                                                $seconds = $interval->s;
+                                                                                                    $hours = $interval->h;
+                                                                                                    $minutes = $interval->i;
+                                                                                                    $seconds = $interval->s;
 
-                                                                                $total_hours = '';
-                                                                                if ($hours > 0) {
-                                                                                    $total_hours .= $hours . ' hr' . ($hours > 1 ? 's ' : ' ');
-                                                                                }
-                                                                                if ($minutes > 0) {
-                                                                                    $total_hours .= $minutes . ' min' . ($minutes > 1 ? 's ' : ' ');
-                                                                                }
-                                                                                if ($seconds > 0) {
-                                                                                    $total_hours .= $seconds . ' sec' . ($seconds > 1 ? 's' : '');
-                                                                                }
+                                                                                                    $total_hours = '';
+                                                                                                    if ($hours > 0) {
+                                                                                                        $total_hours .= $hours . ' hr' . ($hours > 1 ? 's ' : ' ');
+                                                                                                    }
+                                                                                                    if ($minutes > 0) {
+                                                                                                        $total_hours .= $minutes . ' min' . ($minutes > 1 ? 's ' : ' ');
+                                                                                                    }
+                                                                                                    if ($seconds > 0) {
+                                                                                                        $total_hours .= $seconds . ' sec' . ($seconds > 1 ? 's' : '');
+                                                                                                    }
 
-                                                                                $total_hours = trim($total_hours);
-                                                                            } else {
-                                                                                $total_hours = '-';
-                                                                            }
-                                                                            // Determine status
-                                                                            $status = $row['time_out'] ? 'In/Out' : 'In';
+                                                                                                    $total_hours = trim($total_hours);
+                                                                                                } else {
+                                                                                                    $total_hours = '-';
+                                                                                                }
+                                                                                                // Determine status
+                                                                                                $status = $row['time_out'] ? 'In/Out' : 'In';
 
-                                                                            // Split and color the status
-                                                                            if ($status == 'In/Out') {
-                                                                                $formatted_status = '<span style="color: green;">Entrada</span>/<span style="color: orange;">Salida</span>';
-                                                                            } else {
-                                                                                $formatted_status = '<span style="color: green;">Entrada</span>';
-                                                                            }
-                                                                            ?>
+                                                                                                // Split and color the status
+                                                                                                if ($status == 'In/Out') {
+                                                                                                    $formatted_status = '<span style="color: green;">Entrada</span>/<span style="color: orange;">Salida</span>';
+                                                                                                } else {
+                                                                                                    $formatted_status = '<span style="color: green;">Entrada</span>';
+                                                                                                }
+                                                                                                ?>
                                                                                             <tr>
-                                                                                                <td><?php echo date('M d, Y', strtotime($row['date'])); ?>
+                                                                                                <td>
+                                                                                                    <?php
+                                                                                                        $fecha = date('d M Y', strtotime($row['date'])); // 15 Aug, 2024
+                                                                                                        $partesFecha = explode(' ', $fecha); // ["15", "Aug,", "2024"]
+                                                                                                        $partesFecha[1] = traducirMesAbreviado($partesFecha[1]); // "Ago,"
+                                                                                                        echo implode(' ', $partesFecha); // 15 Ago, 2024
+                                                                                                        ?>
                                                                                                 </td>
                                                                                                 <td><?php echo htmlspecialchars(date('h:i A', strtotime($row['time_in']))); ?>
                                                                                                 </td>
@@ -260,17 +267,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                             </tr>
                                                                                             <?php endwhile; ?>
                                                                                         </tbody>
-                                                                                        <tfoot>
-                                                                                            <tr>
-                                                                                                <th>Fecha</th>
-                                                                                                <th>Hora de Entrada</th>
-                                                                                                <th>Hora de Salida</th>
-                                                                                                <th>Horas Totales</th>
-                                                                                                <th>Estado
-                                                                                                    (Entrada/Salida)
-                                                                                                </th>
-                                                                                            </tr>
-                                                                                        </tfoot>
+
                                                                                     </table>
                                                                                 </div>
                                                                             </div>
@@ -300,7 +297,26 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
         </div>
 
         <!-- Required Jquery -->
-        <?php include('../includes/scripts.php')?>
+        <?php include('../includes/scripts.php') ?>
+        <?php
+        function traducirMesAbreviado($mesAbreviadoIngles)
+        {
+            $mesesAbreviadosEspañol = array(
+                'Jan' => 'Ene',
+                'Feb' => 'Feb',
+                'Mar' => 'Mar',
+                'Apr' => 'Abr',
+                'May' => 'May',
+                'Jun' => 'Jun',
+                'Jul' => 'Jul',
+                'Aug' => 'Ago',
+                'Sep' => 'Sep',
+                'Oct' => 'Oct',
+                'Nov' => 'Nov',
+                'Dec' => 'Dic'
+            );
+            return isset($mesesAbreviadosEspañol[$mesAbreviadoIngles]) ? $mesesAbreviadosEspañol[$mesAbreviadoIngles] : $mesAbreviadoIngles;
+        } ?>
         <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -311,12 +327,46 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
 
         gtag('config', 'UA-23581568-13');
 
+        function traducirDiaSemana(diaIngles) {
+            const diasSemanaEspañol = {
+                'Monday': 'Lunes',
+                'Tuesday': 'Martes',
+                'Wednesday': 'Miércoles',
+                'Thursday': 'Jueves',
+                'Friday': 'Viernes',
+                'Saturday': 'Sábado',
+                'Sunday': 'Domingo'
+            };
+            return diasSemanaEspañol[diaIngles] || diaIngles;
+        }
+
+        function traducirMes(mesIngles) {
+            const mesesEspañol = {
+                'January': 'Enero',
+                'February': 'Febrero',
+                'March': 'Marzo',
+                'April': 'Abril',
+                'May': 'Mayo',
+                'June': 'Junio',
+                'July': 'Julio',
+                'August': 'Agosto',
+                'September': 'Septiembre',
+                'October': 'Octubre',
+                'November': 'Noviembre',
+                'December': 'Diciembre'
+            };
+            return mesesEspañol[mesIngles] || mesIngles;
+        }
+
         $(function() {
+            moment.locale('es'); // Configurar Moment.js en español
+
             var interval = setInterval(function() {
                 var momentNow = moment();
-                $('.date').html(momentNow.format('MMMM DD, YYYY'));
-                $('.time').html(momentNow.format('hh:mm:ss A'));
-                $('.day').html(momentNow.format('dddd').toUpperCase());
+                $('.date').html(momentNow.format('MMMM DD, YYYY')); // Mostrará la fecha en español
+                $('.time').html(momentNow.format('hh:mm:ss'));
+                $('.day').html(momentNow.format('dddd')
+                    .toUpperCase()); // Mostrará el día de la semana en español
             }, 100);
         });
         </script>

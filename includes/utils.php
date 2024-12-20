@@ -1,6 +1,7 @@
 <?php
-date_default_timezone_set('Africa/Accra');
-function calculate_time_ago($date_created) {
+date_default_timezone_set('America/Lima');
+function calculate_time_ago($date_created)
+{
     $now = time();
     $created_at = strtotime($date_created);
     $time_ago = $now - $created_at;
@@ -27,13 +28,10 @@ function calculate_time_ago($date_created) {
         $time_ago = floor($time_ago / 2592000); // Convert to months
         $time_unit = $time_ago == 1 ? 'month' : 'months';
         $due_label = '<strong class="label label-success">' . $time_ago . ' ' . $time_unit . ' ago</strong>';
-    } else {// More than 1 year ago
+    } else { // More than 1 year ago
         $time_ago = ceil($time_ago / 31536000); // Convert to years
         $time_unit = $time_ago == 1 ? 'year' : 'years';
         $due_label = '<strong class="label label-default">' . $time_ago . ' ' . $time_unit . ' ago</strong>';
     }
     return $due_label;
 }
-
-
-?>

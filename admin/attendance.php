@@ -97,7 +97,7 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                         </thead>
                                                                                         <tbody>
                                                                                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                                                                                                <?php
+                                                                                            <?php
                                                                                                 $time_in = new DateTime($row['time_in']);
                                                                                                 $time_out = $row['time_out'] ? new DateTime($row['time_out']) : null;
                                                                                                 // Calculate and format total hours
@@ -134,47 +134,40 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
                                                                                                     $formatted_status = '<span style="color: green;">Entrada</span>';
                                                                                                 }
                                                                                                 ?>
-                                                                                                <tr>
-                                                                                                    <td><?php echo date('M d, Y', strtotime($row['date'])); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo htmlspecialchars($row['staff_id']); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo htmlspecialchars(date('h:i A', strtotime($row['time_in']))); ?>
-                                                                                                    </td>
-                                                                                                    <td><?php echo $time_out ? htmlspecialchars(date('h:i A', strtotime($row['time_out']))) : '-'; ?>
-                                                                                                    </td>
-                                                                                                    <td><strong><?php echo htmlspecialchars($total_hours); ?></strong>
-                                                                                                    </td>
-                                                                                                    <td><?php echo $formatted_status; ?>
-                                                                                                    </td>
-                                                                                                    <td class="dropdown">
-                                                                                                        <button
-                                                                                                            id="btn_delete"
-                                                                                                            type="submit"
-                                                                                                            class="btn btn-primary"
-                                                                                                            data-id="<?php echo $row['attendance_id']; ?>"><i
-                                                                                                                class="icofont icofont-ui-delete"
-                                                                                                                aria-hidden="true"></i>Eliminar</button>
-                                                                                                    </td>
-                                                                                                </tr>
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <?php
+                                                                                                        $fecha = date('d M Y', strtotime($row['date'])); // 15 Aug, 2024
+                                                                                                        $partesFecha = explode(' ', $fecha); // ["15", "Aug,", "2024"]
+                                                                                                        $partesFecha[1] = traducirMesAbreviado($partesFecha[1]); // "Ago,"
+                                                                                                        echo implode(' ', $partesFecha); // 15 Ago, 2024
+                                                                                                        ?>
+                                                                                                </td>
+                                                                                                <td><?php echo htmlspecialchars($row['staff_id']); ?>
+                                                                                                </td>
+                                                                                                <td><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']); ?>
+                                                                                                </td>
+                                                                                                <td><?php echo htmlspecialchars(date('h:i A', strtotime($row['time_in']))); ?>
+                                                                                                </td>
+                                                                                                <td><?php echo $time_out ? htmlspecialchars(date('h:i A', strtotime($row['time_out']))) : '-'; ?>
+                                                                                                </td>
+                                                                                                <td><strong><?php echo htmlspecialchars($total_hours); ?></strong>
+                                                                                                </td>
+                                                                                                <td><?php echo $formatted_status; ?>
+                                                                                                </td>
+                                                                                                <td class="dropdown">
+                                                                                                    <button
+                                                                                                        id="btn_delete"
+                                                                                                        type="submit"
+                                                                                                        class="btn btn-primary"
+                                                                                                        data-id="<?php echo $row['attendance_id']; ?>"><i
+                                                                                                            class="icofont icofont-ui-delete"
+                                                                                                            aria-hidden="true"></i>Eliminar</button>
+                                                                                                </td>
+                                                                                            </tr>
                                                                                             <?php endwhile; ?>
                                                                                         </tbody>
-                                                                                        <tfoot>
-                                                                                            <tr>
-                                                                                                <th>Fecha</th>
-                                                                                                <th>ID del Personal</th>
-                                                                                                <th>Nombre Completo</th>
-                                                                                                <th>Hora de Entrada</th>
-                                                                                                <th>Hora de Salida</th>
-                                                                                                <th>Horas Totales</th>
-                                                                                                <th>Estado
-                                                                                                    (Entrada/Salida)
-                                                                                                </th>
-                                                                                                <th>Acción</th>
-                                                                                            </tr>
-                                                                                        </tfoot>
+
                                                                                     </table>
                                                                                 </div>
                                                                             </div>
@@ -205,81 +198,100 @@ if ($userRole !== 'Manager' && $userRole !== 'Admin') {
 
         <!-- Required Jquery -->
         <?php include('../includes/scripts.php') ?>
+        <?php
+        function traducirMesAbreviado($mesAbreviadoIngles)
+        {
+            $mesesAbreviadosEspañol = array(
+                'Jan' => 'Ene',
+                'Feb' => 'Feb',
+                'Mar' => 'Mar',
+                'Apr' => 'Abr',
+                'May' => 'May',
+                'Jun' => 'Jun',
+                'Jul' => 'Jul',
+                'Aug' => 'Ago',
+                'Sep' => 'Sep',
+                'Oct' => 'Oct',
+                'Nov' => 'Nov',
+                'Dec' => 'Dic'
+            );
+            return isset($mesesAbreviadosEspañol[$mesAbreviadoIngles]) ? $mesesAbreviadosEspañol[$mesAbreviadoIngles] : $mesAbreviadoIngles;
+        } ?>
         <script>
-            window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
 
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-            gtag('config', 'UA-23581568-13');
+        gtag('config', 'UA-23581568-13');
 
-            $(function() {
-                var interval = setInterval(function() {
-                    var momentNow = moment();
-                    $('.date').html(momentNow.format('MMMM DD, YYYY'));
-                    $('.time').html(momentNow.format('hh:mm:ss A'));
-                    $('.day').html(momentNow.format('dddd').toUpperCase());
-                }, 100);
-            });
+        $(function() {
+            var interval = setInterval(function() {
+                var momentNow = moment();
+                $('.date').html(momentNow.format('MMMM DD, YYYY'));
+                $('.time').html(momentNow.format('hh:mm:ss A'));
+                $('.day').html(momentNow.format('dddd').toUpperCase());
+            }, 100);
+        });
         </script>
         <script>
-            $(document).ready(function() {
-                $('#btn_delete').click(function(event) {
-                    event.preventDefault();
-                    var attendanceId = $(this).data('id');
+        $(document).ready(function() {
+            $('#btn_delete').click(function(event) {
+                event.preventDefault();
+                var attendanceId = $(this).data('id');
 
-                    Swal.fire({
-                        title: '¿Estás seguro?',
-                        text: "¿Realmente quieres eliminar este registro?",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Sí, ¡elimínalo!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: 'attendance_function.php',
-                                type: 'POST',
-                                data: {
-                                    action: 'delete_attendance',
-                                    attendance_id: attendanceId
-                                },
-                                success: function(response) {
-                                    response = JSON.parse(response);
-                                    if (response.status === 'success') {
-                                        Swal.fire(
-                                            '¡Eliminado!',
-                                            'El registro ha sido eliminado.',
-                                            'success'
-                                        ).then(() => {
-                                            location
-                                                .reload(); // Refresh the page to reflect changes
-                                        });
-                                    } else {
-                                        Swal.fire(
-                                            '¡Falló!',
-                                            'Falló al eliminar el registro: ' +
-                                            response.message,
-                                            'error'
-                                        );
-                                    }
-                                },
-                                error: function(jqXHR, textStatus, errorThrown) {
-                                    console.error('Error:', errorThrown);
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¿Realmente quieres eliminar este registro?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, ¡elimínalo!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: 'attendance_function.php',
+                            type: 'POST',
+                            data: {
+                                action: 'delete_attendance',
+                                attendance_id: attendanceId
+                            },
+                            success: function(response) {
+                                response = JSON.parse(response);
+                                if (response.status === 'success') {
                                     Swal.fire(
-                                        '¡Error!',
-                                        'Error al eliminar el registro',
+                                        '¡Eliminado!',
+                                        'El registro ha sido eliminado.',
+                                        'success'
+                                    ).then(() => {
+                                        location
+                                            .reload(); // Refresh the page to reflect changes
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        '¡Falló!',
+                                        'Falló al eliminar el registro: ' +
+                                        response.message,
                                         'error'
                                     );
                                 }
-                            });
-                        }
-                    });
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.error('Error:', errorThrown);
+                                Swal.fire(
+                                    '¡Error!',
+                                    'Error al eliminar el registro',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
                 });
             });
+        });
         </script>
 
 </body>

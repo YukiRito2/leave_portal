@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Africa/Accra');
+date_default_timezone_set('America/Lima');
 session_start();
 include('../includes/config.php');
 
@@ -50,13 +50,13 @@ if (empty($employeeData)) {
                             <div class="img-overlay img-radius">
                                 <span>
                                     <a href="staff_detailed.php?id=' . $employee['emp_id'] . '&view=2" class="btn btn-sm btn-primary" data-popup="lightbox"><i class="icofont icofont-eye-alt"></i></a>';
-                                     // Check if the user role is Admin or Manager
-                                    if ($userRole === 'Admin' || ($userRole === 'Manager' && $employee['designation'] !== 'Administrator')) {
-                                        echo '<a href="new_staff.php?id=' . $employee['emp_id'] . '&edit=1" class="btn btn-sm btn-primary" data-popup="lightbox" style="margin-left: 5px;"><i class="icofont icofont-edit"></i></a>
+        // Check if the user role is Admin or Manager
+        if ($userRole === 'Admin' || ($userRole === 'Manager' && $employee['designation'] !== 'Administrator')) {
+            echo '<a href="new_staff.php?id=' . $employee['emp_id'] . '&edit=1" class="btn btn-sm btn-primary" data-popup="lightbox" style="margin-left: 5px;"><i class="icofont icofont-edit"></i></a>
                                         <a href="#" class="btn btn-sm btn-primary delete-staff" data-id="' . $employee['emp_id'] . '"><i class="icofont icofont-ui-delete"></i></a>';
-                                    }
-                                    
-                               echo '</span>
+        }
+
+        echo '</span>
                             </div>
                         </div>
                         <div class="user-content">
