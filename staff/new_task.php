@@ -1,4 +1,4 @@
-<?php include('../includes/header.php')?>
+<?php include('../includes/header.php') ?>
 <?php
 // Check if the user is logged in
 if (!isset($_SESSION['slogin']) || !isset($_SESSION['srole'])) {
@@ -13,266 +13,145 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
     exit();
 }
 ?>
+
 <body>
-<!-- Pre-loader start -->
-<?php include('../includes/loader.php')?>
-<!-- Pre-loader end -->
-<div id="pcoded" class="pcoded">
-    <div class="pcoded-overlay-box"></div>
-    <div class="pcoded-container navbar-wrapper">
+    <!-- Pre-loader start -->
+    <?php include('../includes/loader.php') ?>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
 
-       <?php include('../includes/topbar.php')?>
+            <?php include('../includes/topbar.php') ?>
 
-        <div class="pcoded-main-container">
-            <div class="pcoded-wrapper">
-                <?php $page_name = "new_task"; ?>
-                <?php include('../includes/sidebar.php')?>
-                
-                <div class="pcoded-content">
-                    <div class="pcoded-inner-content">
-                        <!-- Main-body start -->
-                        <div class="main-body">
-                            <div class="page-wrapper">
-                                <!-- Page-header start -->
-                                <div class="page-header">
-                                    <div class="row align-items-end">
-                                        <div class="col-lg-8">
-                                            <div class="page-header-title">
-                                                <div class="d-inline">
-                                                    <h4>Assigned Task</h4>
-                                                 </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <!-- Page-header end -->
-                                   
-                                <!-- Page body start -->
-                                <div class="page-body">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <!-- Basic Inputs Validation start -->
-                                            <?php
-                                                // Check if the edit parameter is set and fetch the record from the database
-                                                if(isset($_GET['edit']) && $_GET['edit'] == 1 && isset($_GET['id'])) {
-                                                    $id = $_GET['id'];
-                                                    $stmt = mysqli_prepare($conn, "SELECT * FROM tbltask WHERE id = ?");
-                                                    mysqli_stmt_bind_param($stmt, "i", $id);
-                                                    mysqli_stmt_execute($stmt);
-                                                    $result = mysqli_stmt_get_result($stmt);
-                                                    $row = mysqli_fetch_assoc($result);
-                                                }
-                                            ?>
-                                            <div class="card">
-                                                <div class="card-block">
-                                                    <div class="row">
-                                                        <div class="col-sm-6 mobile-inputs">
-                                                            <h4 class="sub-title"></h4>
-                                                            <form>
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-12">
-                                                                        <label for="userName-2" class="block">Title</label>
-                                                                    </div>
-                                                                    <div class="col-sm-12">
-                                                                        <input type="text" id="title" name="title"autocomplete="off" class="form-control" placeholder="" value="<?php echo isset($row['title']) ? $row['title'] : ''; ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-12">
-                                                                        <label for="userName-2" class="block">Assign To</label>
-                                                                    </div>
-                                                                    <div class="col-sm-12">
-                                                                        <select class="js-example-disabled-results col-sm-12" name="assigned_to" id="assigned_to" required>
-                                                                            <?php
-                                                                            // Check if we are editing a record and have a pre-selected employee
-                                                                            if (!empty($row['assigned_to'])) {
-                                                                                // Query the database to get the employee details
-                                                                                $stmt = mysqli_prepare($conn, "SELECT emp_id, first_name, middle_name, last_name, designation FROM tblemployees WHERE emp_id = ?");
-                                                                                mysqli_stmt_bind_param($stmt, "i", $row['assigned_to']);
-                                                                                mysqli_stmt_execute($stmt);
-                                                                                mysqli_stmt_bind_result($stmt, $emp_id, $first_name, $middle_name, $last_name, $designation);
-                                                                                mysqli_stmt_fetch($stmt);
-                                                                                mysqli_stmt_close($stmt);
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <?php $page_name = "new_task"; ?>
+                    <?php include('../includes/sidebar.php') ?>
 
-                                                                                // Output the selected option
-                                                                                $selected_employee_name = $first_name . ' ' . $middle_name . ' ' . $last_name;
-                                                                                //echo '<option value="' . $emp_id . '" selected>' . $selected_employee_name . '</option>';
-                                                                                echo '<option value="' . $emp_id . '">' . $selected_employee_name . ' (' . $designation . ')</option>';
-
-                                                                                // Prepare the base query to fetch other employees
-                                                                                $query = "SELECT emp_id, first_name, middle_name, last_name, designation, department, role, is_supervisor 
-                                                                                        FROM tblemployees WHERE 1=1";
-
-                                                                                // Adjust the query based on the role of the logged-in user
-                                                                                if ($session_role == 'Admin') {
-                                                                                    $query .= " AND can_be_assigned = 'YES'";
-                                                                                } elseif ($session_role == 'Manager') {
-                                                                                    $query .= " AND department = ? AND role != 'Admin'";
-                                                                                } elseif ($session_role == 'Staff' && $session_supervisor == 1) {
-                                                                                    $query .= " AND supervisor_id = ?";
-                                                                                }
-
-                                                                                // Execute the adjusted query
-                                                                                $stmt = $conn->prepare($query);
-
-                                                                                // Bind parameters based on the role
-                                                                                if ($session_role == 'Manager') {
-                                                                                    $stmt->bind_param("s", $session_depart);
-                                                                                } elseif ($session_role == 'Staff' && $session_supervisor == 1) {
-                                                                                    $stmt->bind_param("i", $session_id);
-                                                                                }
-
-                                                                                $stmt->execute();
-                                                                                $stmt->bind_result($emp_id, $first_name, $middle_name, $last_name, $designation, $department, $role, $is_supervisor);
-
-                                                                                // Fetch and populate the dropdown with other options
-                                                                                while ($stmt->fetch()) {
-                                                                                    // Skip the selected employee
-                                                                                    if ($emp_id != $row['assigned_to']) {
-                                                                                        $employee_name = $first_name . ' ' . $middle_name . ' ' . $last_name;
-                                                                                        echo '<option value="' . $emp_id . '">' . $employee_name . ' (' . $designation . ')</option>';
-                                                                                    }
-                                                                                }
-
-                                                                                $stmt->close();
-
-                                                                            } else {
-                                                                                // Output the first option as "Select employee" and disabled
-                                                                                echo '<option value="" disabled selected>Select employee</option>';
-
-                                                                                // Prepare the base query to fetch employees
-                                                                                $query = "SELECT emp_id, first_name, middle_name, last_name, designation, department, role, is_supervisor 
-                                                                                        FROM tblemployees WHERE 1=1";
-
-                                                                                // Adjust the query based on the role of the logged-in user
-                                                                                if ($session_role == 'Admin') {
-                                                                                    $query .= " AND can_be_assigned = 'YES'";
-                                                                                } elseif ($session_role == 'Manager') {
-                                                                                    $query .= " AND department = ? AND role != 'Admin'";
-                                                                                } elseif ($session_role == 'Staff' && $session_supervisor == 1) {
-                                                                                    $query .= " AND supervisor_id = ?";
-                                                                                }
-
-                                                                                // Execute the adjusted query
-                                                                                $stmt = $conn->prepare($query);
-
-                                                                                // Bind parameters based on the role
-                                                                                if ($session_role == 'Manager') {
-                                                                                    $stmt->bind_param("s", $session_depart);
-                                                                                } elseif ($session_role == 'Staff' && $session_supervisor == 1) {
-                                                                                    $stmt->bind_param("i", $session_id);
-                                                                                }
-
-                                                                                $stmt->execute();
-                                                                                $stmt->bind_result($emp_id, $first_name, $middle_name, $last_name, $designation, $department, $role, $is_supervisor);
-
-                                                                                // Fetch and populate the dropdown with options
-                                                                                while ($stmt->fetch()) {
-                                                                                    $employee_name = $first_name . ' ' . $middle_name . ' ' . $last_name;
-                                                                                    echo '<option value="' . $emp_id . '">' . $employee_name . ' (' . $designation . ')</option>';
-                                                                                }
-
-                                                                                $stmt->close();
-                                                                            }
-                                                                            ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col-sm-6 mobile-inputs">
-                                                            <h4 class="sub-title"></h4>
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-6">
-                                                                        <label for="start_date" class="block">Start Date</label>
-                                                                        <input name="start_date" id="dropper-animation" class="form-control start_date" type="text" autocomplete="off" placeholder="" value="<?php echo isset($row['start_date']) ? $row['start_date'] : ''; ?>">
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <label for="due_date" class="block">End Date</label>
-                                                                         <input id="dropper-default" class="form-control due_date" name="due_date" type="text" autocomplete="off" placeholder="" value="<?php echo isset($row['due_date']) ? $row['due_date'] : ''; ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <?php if(isset($row) && !empty($row)): ?>
-                                                                <?php
-                                                                    $selected_priority = isset($row['priority']) ? $row['priority'] : '';
-                                                                ?>
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-12">
-                                                                        <h4 class="sub-title">Priority</h4>
-                                                                        <div class="form-radio">
-                                                                            <div class="radio radiofill radio-inline">
-                                                                                <label>
-                                                                                    <input type="radio" name="priority" value="High" <?php echo $selected_priority == 'High' ? 'checked' : ''; ?>>
-                                                                                    <i class="helper"></i>High
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="radio radiofill radio-inline">
-                                                                                <label>
-                                                                                    <input type="radio" name="priority" value="Medium" <?php echo $selected_priority == 'Medium' ? 'checked' : ''; ?>>
-                                                                                    <i class="helper"></i>Medium
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="radio radiofill radio-inline">
-                                                                                <label>
-                                                                                    <input type="radio" name="priority" value="Low" <?php echo $selected_priority == 'Low' ? 'checked' : ''; ?>>
-                                                                                    <i class="helper"></i>Low
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            <?php else: ?>
-                                                                <h4 class="sub-title">Priority</h4>
-                                                                <div class="form-group row">
-                                                                    <div class="col-sm-12">
-                                                                        <div class="form-radio">
-                                                                            <div class="radio radiofill radio-inline">
-                                                                                <label>
-                                                                                    <input type="radio" name="priority" value="High">
-                                                                                    <i class="helper"></i>High
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="radio radiofill radio-inline">
-                                                                                <label>
-                                                                                    <input type="radio" name="priority" value="Medium">
-                                                                                    <i class="helper"></i>Medium
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="radio radiofill radio-inline">
-                                                                                <label>
-                                                                                    <input type="radio" name="priority" value="Low">
-                                                                                    <i class="helper"></i>Low
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                    <label class="col-sm-5"></label>
-                                                    <div class="form-group">
-                                                        <textarea name="description" id="summernote" cols="30" rows="10" class="form-control summernote"><?php echo isset($row['description']) ? $row['description'] : ''; ?></textarea>   
-                                                    </div>
-                                                    <div class="row">
-                                                        <label class="col-sm-5"></label>
-                                                        <div class="col-sm-5">
-                                                            <?php if(isset($row) && !empty($row)): ?>
-                                                                <button id="tasks-update" type="submit" class="btn btn-primary m-b-0">Update</button>
-                                                            <?php else: ?>
-                                                                <button id="tasks-add" type="submit" class="btn btn-primary m-b-0">Submit</button>
-                                                            <?php endif; ?>
-                                                        </div>
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-header start -->
+                                    <div class="page-header">
+                                        <div class="row align-items-end">
+                                            <div class="col-lg-8">
+                                                <div class="page-header-title">
+                                                    <div class="d-inline">
+                                                        <h4>Assigned Task</h4>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- Basic Inputs Validation end -->
-                                            
+
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Page body end -->
+                                    <!-- Page-header end -->
+
+                                    <!-- Page body start -->
+                                    <div class="card-block">
+                                        <h6 class="job-card-desc">Asunto: <?php echo $result['title']; ?></h6>
+                                        <p class="text-muted">
+                                            <?php
+                                            $description = htmlspecialchars_decode($result['description']);
+                                            $description = strip_tags($description);
+                                            $description = substr($description, 0, 250);
+                                            echo $description . (strlen($result['description']) > 250 ? '...' : '');
+                                            ?>
+                                        </p>
+                                        <div class="d-flex align-items-center">
+                                            <div class="job-meta-data me-3" style="margin-right: 40px;">
+                                                <strong>Fecha de Inicio:</strong>
+                                                <label class="label badge-default"
+                                                    style="color: black !important;"><?php echo date('d F, Y', strtotime($result['start_date'])); ?></label>
+                                            </div>
+                                            <div class="job-meta-data">
+                                                <strong>Fecha de Vencimiento:</strong>
+                                                <label class="label badge-default"
+                                                    style="color: black !important;"><?php echo date('d F, Y', strtotime($result['due_date'])); ?></label>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="task-board" style="margin-bottom: 10px;">
+                                                <div class="dropdown-secondary dropdown">
+                                                    <button id="priority-dropdown"
+                                                        class="btn <?php echo $color_btn; ?> btn-mini dropdown-toggle waves-effect waves-light"
+                                                        type="button" id="dropdown1" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <?php echo $result['priority']; ?>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdown1"
+                                                        data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                        <?php if (($result['supervisor_id'] == $sessionEmpId && $result['assigned_to_emp_id'] != $sessionEmpId)): ?>
+                                                            <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'High' ? 'active' : ''; ?>"
+                                                                href="#!" data-priority="High"
+                                                                data-task-id="<?php echo $result['id']; ?>"><span
+                                                                    class="point-marker bg-warning"></span>Alta
+                                                                prioridad</a>
+                                                            <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'Medium' ? 'active' : ''; ?>"
+                                                                href="#!" data-priority="Medium"
+                                                                data-task-id="<?php echo $result['id']; ?>"><span
+                                                                    class="point-marker bg-success"></span>Media
+                                                                prioridad</a>
+                                                            <a class="dropdown-priority dropdown-item waves-light waves-effect <?php echo $result['priority'] == 'Low' ? 'active' : ''; ?>"
+                                                                href="#!" data-priority="Low"
+                                                                data-task-id="<?php echo $result['id']; ?>"><span
+                                                                    class="point-marker bg-info"></span>Baja prioridad</a>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="dropdown-secondary dropdown">
+                                                    <button id="status-dropdown"
+                                                        class="btn <?php echo $labelClass; ?> btn-mini dropdown-toggle waves-light b-none txt-muted"
+                                                        type="button" id="dropdown2" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <?php echo $result['status'] == "Pending" ? 'Pendiente' : ($result['status'] == "In Progress" ? 'En Progreso' : ($result['status'] == "Completed" ? 'Completada' : 'Pendiente')); ?>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdown2"
+                                                        data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                        <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "Pending" ? 'active' : ''; ?>"
+                                                            href="#!" data-status="Pending"
+                                                            data-task-id="<?php echo $result['id']; ?>">Pendiente</a>
+                                                        <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "In Progress" ? 'active' : ''; ?>"
+                                                            href="#!" data-status="In Progress"
+                                                            data-task-id="<?php echo $result['id']; ?>">En Progreso</a>
+                                                        <a class="dropdown-status dropdown-item waves-light waves-effect <?php echo $result['status'] == "Completed" ? 'active' : ''; ?>"
+                                                            href="#!" data-status="Completed"
+                                                            data-task-id="<?php echo $result['id']; ?>">Completada</a>
+                                                    </div>
+                                                </div>
+                                                <!-- end of dropdown-secondary -->
+                                                <div class="dropdown-secondary dropdown">
+                                                    <button
+                                                        class="btn btn-default btn-mini dropdown-toggle waves-light b-none txt-muted"
+                                                        type="button" id="dropdown3" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false"><i
+                                                            class="icofont icofont-navigation-menu"></i></button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdown3"
+                                                        data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                        <a class="dropdown-item waves-light waves-effect"
+                                                            href="task_details.php?id=<?php echo $result['id']; ?>&edit=1"><i
+                                                                class="icofont icofont-spinner-alt-5"></i> Ver Tarea</a>
+                                                        <?php if (($result['supervisor_id'] == $sessionEmpId && $result['assigned_to_emp_id'] != $sessionEmpId)): ?>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item waves-light waves-effect"
+                                                                href="new_task.php?id=<?php echo $result['id']; ?>&edit=1"><i
+                                                                    class="icofont icofont-ui-edit"></i> Editar Tarea</a>
+                                                            <a class="remove-ticket dropdown-item waves-light waves-effect"
+                                                                href="#!" data-task-id="<?php echo $result['id']; ?>"><i
+                                                                    class="icofont icofont-close-line"></i> Eliminar</a>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <!-- end of dropdown menu -->
+                                                </div>
+                                                <!-- end of seconadary -->
+                                            </div>
+                                            <!-- end of pull-right class -->
+                                        </div>
+                                        <!-- end of card-footer -->
+                                    </div>
+                                    <!-- Page body end -->
                                 </div>
                             </div>
                             <!-- Main-body end -->
@@ -287,10 +166,13 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
     </div>
 
     <!-- Required Jquery -->
-    <?php include('../includes/scripts.php')?>
+    <?php include('../includes/scripts.php') ?>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'UA-23581568-13');
@@ -305,7 +187,7 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
             }
         }
 
-        $('#tasks-update').click(function(event){
+        $('#tasks-update').click(function(event) {
             event.preventDefault();
             (async () => {
                 var startDate = convertDateFormat($('#dropper-animation').val());
@@ -335,8 +217,8 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                     action: "tasks-update",
                 };
 
-                if (data.title === '' || data.description === '' || 
-                    data.priority === '' || data.assigned_to === '' || data.start_date === '' || 
+                if (data.title === '' || data.description === '' ||
+                    data.priority === '' || data.assigned_to === '' || data.start_date === '' ||
                     data.due_date === '' || data.id === 'null') {
                     Swal.fire({
                         icon: 'warning',
@@ -351,7 +233,7 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                     url: '../admin/task_functions.php',
                     type: 'post',
                     data: data,
-                    success:function(response){
+                    success: function(response) {
                         console.log('success function called');
                         response = JSON.parse(response);
                         console.log('RESPONSE HERE: ' + response.status)
@@ -384,18 +266,18 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                         console.log("Error:", error);
                         console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                         Swal.fire({
-                                icon: 'error',
-                                text: jqXHR.responseText,
-                                confirmButtonColor: '#eb3422',
-                                confirmButtonText: 'OK'
-                            });
+                            icon: 'error',
+                            text: jqXHR.responseText,
+                            confirmButtonColor: '#eb3422',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 });
             })()
         })
     </script>
     <script>
-        $('#tasks-add').click(function(event){
+        $('#tasks-add').click(function(event) {
             event.preventDefault(); // prevent the default form submission
             (async () => {
                 var startDate = convertDateFormat($('#dropper-animation').val());
@@ -425,8 +307,8 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                     action: "tasks-add",
                 };
 
-                if (data.title === '' || data.description === '' || 
-                    data.priority === '' || data.assigned_to === '' || data.start_date === '' || 
+                if (data.title === '' || data.description === '' ||
+                    data.priority === '' || data.assigned_to === '' || data.start_date === '' ||
                     data.due_date === '') {
                     Swal.fire({
                         icon: 'warning',
@@ -436,13 +318,13 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                     });
                     return;
                 }
-                console.log("START DATE HERE: "+ $('#dropper-animation').val())
+                console.log("START DATE HERE: " + $('#dropper-animation').val())
                 console.log('Data HERE: ' + JSON.stringify(data));
                 $.ajax({
                     url: '../admin/task_functions.php',
                     type: 'post',
                     data: data,
-                    success:function(response) {
+                    success: function(response) {
                         console.log('success function called');
                         response = JSON.parse(response);
                         console.log('RESPONSE HERE: ' + response.status)
@@ -474,11 +356,11 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
                         console.log("Error:", error);
                         console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                         Swal.fire({
-                                icon: 'error',
-                                text: jqXHR.responseText,
-                                confirmButtonColor: '#eb3422',
-                                confirmButtonText: 'OK'
-                            });
+                            icon: 'error',
+                            text: jqXHR.responseText,
+                            confirmButtonColor: '#eb3422',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 });
             })()
@@ -491,35 +373,39 @@ if ($userRole !== 'Staff' && $_SESSION['is_supervisor'] !== 1) {
             $("#summernote").summernote({
                 height: 200,
                 toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['view', ['fullscreen', 'codeview', 'help']]
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript',
+                        'subscript', 'clear'
+                    ]],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
                 ],
-                fontNames: ['Arial', 'Arial Black', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Trebuchet MS', 'Verdana', 'Comic Sans MS', 'Palatino Linotype', 'Segoe UI', 'Open Sans', 'Source Sans Pro'],
+                fontNames: ['Arial', 'Arial Black', 'Courier New', 'Georgia', 'Impact', 'Lucida Console',
+                    'Tahoma', 'Times New Roman', 'Trebuchet MS', 'Verdana', 'Comic Sans MS',
+                    'Palatino Linotype', 'Segoe UI', 'Open Sans', 'Source Sans Pro'
+                ],
                 fontSizes: ['12', '14', '16', '18', '20', '22', '24', '28', '32'],
                 callbacks: {
-                onChangeFont: function(fontName) {
-                    // Preserve font size when changing font family
-                    var currentFontSize = $(this).summernote('fontSize');
-                    $(this).summernote('fontName', fontName);
-                    $(this).summernote('fontSize', currentFontSize);
-                }
+                    onChangeFont: function(fontName) {
+                        // Preserve font size when changing font family
+                        var currentFontSize = $(this).summernote('fontSize');
+                        $(this).summernote('fontName', fontName);
+                        $(this).summernote('fontSize', currentFontSize);
+                    }
                 },
                 onInit: function() {
-                $(this).summernote('fontName', 'Arial');
-                $(this).summernote('fontSize', '16');
+                    $(this).summernote('fontName', 'Arial');
+                    $(this).summernote('fontSize', '16');
                 }
             });
         });
-
     </script>
     <!-- //Summernote JS - CDN Link -->
- </body>
+</body>
 
 </html>

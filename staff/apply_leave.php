@@ -28,13 +28,13 @@ if (isset($_POST['empId'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $leaveTypesOptions = '<option value="" selected="">Select Leave type</option>';
+    $leaveTypesOptions = '<option value="" selected="">Selecciona el tipo de Permiso</option>';
     if ($result && mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             $leaveTypesOptions .= '<option value="' . htmlspecialchars($row['leave_type_id']) . '">' . htmlspecialchars($row['leave_type']) . '</option>';
         }
     } else {
-        $leaveTypesOptions .= '<option value="" disabled>No leave types assigned</option>';
+        $leaveTypesOptions .= '<option value="" disabled>No se han asignado tipos de licencia</option>';
     }
 
     echo $leaveTypesOptions;
@@ -67,12 +67,11 @@ if (isset($_POST['empId'])) {
                                             <div class="col-lg-8">
                                                 <div class="page-header-title">
                                                     <div class="d-inline">
-                                                        <h4>Leave Portal - Apply leave</h4>
-                                                        <span>Send all your leave request from here</span>
+                                                        <h4>Portal de Permisos - Solicitar Permiso</h4>
+                                                        <span>Envía todas tus solicitudes de permiso desde aquí</span>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                     <!-- Page-header end -->
@@ -84,10 +83,12 @@ if (isset($_POST['empId'])) {
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <div class="j-wrapper j-wrapper-640">
-                                                            <form method="post" class="j-pro" id="j-pro" enctype="multipart/form-data" novalidate="">
+                                                            <form method="post" class="j-pro" id="j-pro"
+                                                                enctype="multipart/form-data" novalidate="">
                                                                 <div class="j-content">
                                                                     <div class="j-wrapper">
-                                                                        <h4 style="text-align: center;">Create New Leave</h4>
+                                                                        <h4 style="text-align: center;">Crear Nuevo
+                                                                            Permiso</h4>
                                                                     </div>
                                                                     <?php
                                                                     // Check if the user role is Admin and designation is Administrator
@@ -98,7 +99,7 @@ if (isset($_POST['empId'])) {
                                                                     $sql = "SELECT emp_id, first_name, middle_name, last_name FROM tblemployees";
                                                                     $result = mysqli_query($conn, $sql);
 
-                                                                    $employeeOptions = '<option value="" disabled selected>Select Employee</option>';
+                                                                    $employeeOptions = '<option value="" disabled selected>Seleccionar Empleado</option>';
                                                                     if ($result && mysqli_num_rows($result) > 0) {
                                                                         while ($row = mysqli_fetch_assoc($result)) {
                                                                             $employeeOptions .= '<option value="' . htmlspecialchars($row['emp_id']) . '">' . htmlspecialchars($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']) . '</option>';
@@ -108,11 +109,14 @@ if (isset($_POST['empId'])) {
 
                                                                     <div class="j-unit">
                                                                         <?php if ($userRole === 'Admin' && $userDesignation === 'Administrator'): ?>
-                                                                            <select class="js-example-disabled-results col-sm-12" name="empId" id="empId" required>
+                                                                            <select
+                                                                                class="js-example-disabled-results col-sm-12"
+                                                                                name="empId" id="empId" required>
                                                                                 <?php echo $employeeOptions; ?>
                                                                             </select>
                                                                         <?php else: ?>
-                                                                            <input type="hidden" id="empId" value="<?php echo htmlspecialchars($_SESSION['slogin']); ?>">
+                                                                            <input type="hidden" id="empId"
+                                                                                value="<?php echo htmlspecialchars($_SESSION['slogin']); ?>">
                                                                         <?php endif; ?>
                                                                     </div>
                                                                     <!-- End of Employee list -->
@@ -120,7 +124,8 @@ if (isset($_POST['empId'])) {
                                                                     <div class="j-unit">
                                                                         <label class="j-input j-select">
                                                                             <select name="leave_type" id="leave_type">
-                                                                                <option value="" selected="">Select Leave type</option>
+                                                                                <option value="" selected="">Seleccionar
+                                                                                    Tipo de Permiso</option>
                                                                             </select>
                                                                             <i></i>
                                                                         </label>
@@ -129,48 +134,71 @@ if (isset($_POST['empId'])) {
                                                                     <!-- start date -->
                                                                     <div class="j-unit">
                                                                         <div class="j-input">
-                                                                            <span style="margin-bottom: 8px;" class="j-hint">Start Date</span>
-                                                                            <input id="start_date" name="start_date" class="form-control" type="date">
-                                                                            <span class="j-tooltip j-tooltip-right-top">Pick your start leave date</span>
+                                                                            <span style="margin-bottom: 8px;"
+                                                                                class="j-hint">Fecha de Inicio</span>
+                                                                            <input id="start_date" name="start_date"
+                                                                                class="form-control" type="date">
+                                                                            <span
+                                                                                class="j-tooltip j-tooltip-right-top">Elige
+                                                                                tu fecha de inicio de permiso</span>
                                                                         </div>
                                                                     </div>
                                                                     <!-- end start date -->
                                                                     <!-- start date -->
                                                                     <div class="j-unit">
                                                                         <div class="j-input">
-                                                                            <span style="margin-bottom: 8px;" class="j-hint">End Date</span>
-                                                                            <input id="end_date" name="end_date" class="form-control" type="date">
-                                                                            <span class="j-tooltip j-tooltip-right-top">Pick your end leave date</span>
+                                                                            <span style="margin-bottom: 8px;"
+                                                                                class="j-hint">Fecha de Fin</span>
+                                                                            <input id="end_date" name="end_date"
+                                                                                class="form-control" type="date">
+                                                                            <span
+                                                                                class="j-tooltip j-tooltip-right-top">Elige
+                                                                                tu fecha de fin de permiso</span>
                                                                         </div>
                                                                     </div>
                                                                     <!-- end start date -->
                                                                     <!-- start Number Days -->
                                                                     <div class="j-unit">
                                                                         <div class="j-input">
-                                                                            <label class="j-icon-right" for="number_days">
+                                                                            <label class="j-icon-right"
+                                                                                for="number_days">
                                                                                 <i class="icofont icofont-math"></i>
                                                                             </label>
-                                                                            <input type="text" id="number_days" value="0" name="number_days" readonly disabled>
+                                                                            <input type="text" id="number_days"
+                                                                                value="0" name="number_days" readonly
+                                                                                disabled>
                                                                         </div>
                                                                     </div>
                                                                     <!-- end Number days -->
                                                                     <!-- start remarks -->
                                                                     <div class="j-unit">
                                                                         <div class="j-input">
-                                                                            <textarea placeholder="Additional info" spellcheck="true" name="remarks" id="remarks"></textarea>
-                                                                            <span class="j-tooltip j-tooltip-right-top">Any information about the leave</span>
+                                                                            <textarea
+                                                                                placeholder="Información adicional"
+                                                                                spellcheck="true" name="remarks"
+                                                                                id="remarks"></textarea>
+                                                                            <span
+                                                                                class="j-tooltip j-tooltip-right-top">Cualquier
+                                                                                información sobre el permiso</span>
                                                                         </div>
                                                                     </div>
                                                                     <!-- end remarks -->
                                                                     <!-- start files -->
-                                                                    <div class="j-unit" id="sick_file_container" style="display: none;">
+                                                                    <div class="j-unit" id="sick_file_container"
+                                                                        style="display: none;">
                                                                         <div class="j-input j-append-small-btn">
                                                                             <div class="j-file-button">
-                                                                                Browse
-                                                                                <input type="file" name="sick_file" id="sick_file" accept=".pdf, .jpg, .jpeg, .png" onchange="validateFile(this)">
+                                                                                Examinar
+                                                                                <input type="file" name="sick_file"
+                                                                                    id="sick_file"
+                                                                                    accept=".pdf, .jpg, .jpeg, .png"
+                                                                                    onchange="validateFile(this)">
                                                                             </div>
-                                                                            <input type="text" id="sick_file_input" readonly="" placeholder="For sick leave only">
-                                                                            <span class="j-hint">Only: pdf, jpg, jpeg, png, less than 2MB</span>
+                                                                            <input type="text" id="sick_file_input"
+                                                                                readonly=""
+                                                                                placeholder="Solo para permiso por enfermedad">
+                                                                            <span class="j-hint">Solo: pdf, jpg, jpeg,
+                                                                                png, menos de 2MB</span>
                                                                         </div>
                                                                     </div>
                                                                     <!-- end files -->
@@ -178,15 +206,18 @@ if (isset($_POST['empId'])) {
                                                                 <!-- end /.content -->
                                                                 <div class="j-footer">
                                                                     <div id="loader-wrapper" style="display: none;">
-                                                                        <div class="preloader3 loader-block" style="height: 70px;">
+                                                                        <div class="preloader3 loader-block"
+                                                                            style="height: 70px;">
                                                                             <div class="circ1"></div>
                                                                             <div class="circ2"></div>
                                                                             <div class="circ3"></div>
                                                                             <div class="circ4"></div>
                                                                         </div>
                                                                     </div>
-                                                                    <button id="apply-leave" type="submit" class="btn btn-primary">Submit</button>
-                                                                    <button type="reset" class="btn btn-default m-r-20">Reset</button>
+                                                                    <button id="apply-leave" type="submit"
+                                                                        class="btn btn-primary">Enviar</button>
+                                                                    <button type="reset"
+                                                                        class="btn btn-default m-r-20">Restablecer</button>
                                                                 </div>
                                                                 <!-- end /.footer -->
                                                             </form>
@@ -195,7 +226,6 @@ if (isset($_POST['empId'])) {
                                                     </div>
                                                 </div>
                                                 <!-- Basic Inputs Validation end -->
-
                                             </div>
                                         </div>
                                     </div>
@@ -204,7 +234,6 @@ if (isset($_POST['empId'])) {
                             </div>
                             <!-- Main-body end -->
                             <div id="styleSelector">
-
                             </div>
                         </div>
                     </div>
@@ -248,7 +277,8 @@ if (isset($_POST['empId'])) {
                 }
 
                 var selectedLeaveType = $('#leave_type option:selected').text().toLowerCase();
-                if ((selectedLeaveType.includes('sick') || selectedLeaveType === 'sick leave') && !sickFile) {
+                if ((selectedLeaveType.includes('sick') || selectedLeaveType === 'sick leave') && !
+                    sickFile) {
                     Swal.fire({
                         icon: 'warning',
                         text: 'Please upload a file for sick leave.',
@@ -437,7 +467,8 @@ if (isset($_POST['empId'])) {
                     }
 
                     // Ensure end date is not less than start date
-                    if (input.id === 'end_date' && startDateInput.value && new Date(this.value) < new Date(startDateInput.value)) {
+                    if (input.id === 'end_date' && startDateInput.value && new Date(this.value) < new Date(
+                            startDateInput.value)) {
                         Swal.fire({
                             icon: 'warning',
                             text: 'End date cannot be earlier than start date. Please select a valid date.',
@@ -449,7 +480,8 @@ if (isset($_POST['empId'])) {
                     }
 
                     // Ensure start date is not more than end date
-                    if (input.id === 'start_date' && endDateInput.value && new Date(this.value) > new Date(endDateInput.value)) {
+                    if (input.id === 'start_date' && endDateInput.value && new Date(this.value) > new Date(
+                            endDateInput.value)) {
                         Swal.fire({
                             icon: 'warning',
                             text: 'Start date cannot be later than end date. Please select a valid date.',
@@ -466,7 +498,8 @@ if (isset($_POST['empId'])) {
                 input.addEventListener('focus', function() {
                     const datePicker = this;
                     const observer = new MutationObserver(function() {
-                        const calendarDays = datePicker.ownerDocument.querySelectorAll('td[data-date]');
+                        const calendarDays = datePicker.ownerDocument.querySelectorAll(
+                            'td[data-date]');
                         calendarDays.forEach(day => {
                             const date = new Date(day.getAttribute('data-date'));
                             if (date.getUTCDay() === 0 || date.getUTCDay() === 6) {

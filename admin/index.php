@@ -133,7 +133,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                     ?>
                                                     <div class="card-block-small">
                                                         <i class="feather icon-user bg-c-blue card1-icon"></i>
-                                                        <span class="text-c-blue f-w-600">Active Staff</span>
+                                                        <span class="text-c-blue f-w-600">Personal Activo</span>
                                                         <?php if ($total_employee == 0): ?>
                                                             <h4>No</h4>
                                                         <?php else: ?>
@@ -142,8 +142,8 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
                                                                 <i
-                                                                    class="text-c-blue f-16 feather icon-user m-r-10"></i>Registered
-                                                                Staff
+                                                                    class="text-c-blue f-16 feather icon-user m-r-10"></i>Personal
+                                                                Registrado
                                                             </span>
                                                         </div>
                                                     </div>
@@ -160,7 +160,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                     ?>
                                                     <div class="card-block-small">
                                                         <i class="feather icon-home bg-c-pink card1-icon"></i>
-                                                        <span class="text-c-pink f-w-600">Departments</span>
+                                                        <span class="text-c-pink f-w-600">Departamentos</span>
                                                         <?php if ($total_depart == 0): ?>
                                                             <h4>No</h4>
                                                         <?php else: ?>
@@ -169,8 +169,8 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
                                                                 <i
-                                                                    class="text-c-pink f-16 feather icon-home m-r-10"></i>Available
-                                                                Departments
+                                                                    class="text-c-pink f-16 feather icon-home m-r-10"></i>Departamentos
+                                                                Disponibles
                                                             </span>
                                                         </div>
                                                     </div>
@@ -187,7 +187,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                     ?>
                                                     <div class="card-block-small">
                                                         <i class="feather icon-tag bg-c-green card1-icon"></i>
-                                                        <span class="text-c-green f-w-600">Leave Types</span>
+                                                        <span class="text-c-green f-w-600">Tipos de Permiso</span>
                                                         <?php if ($total_types == 0): ?>
                                                             <h4>No</h4>
                                                         <?php else: ?>
@@ -196,8 +196,8 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
                                                                 <i
-                                                                    class="text-c-green f-16 feather icon-tag m-r-10"></i>Active
-                                                                Leave Types
+                                                                    class="text-c-green f-16 feather icon-tag m-r-10"></i>Tipos
+                                                                de Permiso Activos
                                                             </span>
                                                         </div>
                                                     </div>
@@ -214,7 +214,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                     ?>
                                                     <div class="card-block-small">
                                                         <i class="feather icon-list bg-c-yellow card1-icon"></i>
-                                                        <span class="text-c-yellow f-w-600">Leave</span>
+                                                        <span class="text-c-yellow f-w-600">Permisos</span>
                                                         <?php if ($total_leave == 0): ?>
                                                             <h4>No</h4>
                                                         <?php else: ?>
@@ -223,8 +223,8 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
                                                                 <i
-                                                                    class="text-c-yellow f-16 feather icon-list m-r-10"></i>Leave
-                                                                Application
+                                                                    class="text-c-yellow f-16 feather icon-list m-r-10"></i>Solicitud
+                                                                de Permiso
                                                             </span>
                                                         </div>
                                                     </div>
@@ -236,7 +236,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="card statustic-progress-card">
                                                     <div class="card-header">
-                                                        <h5>Pending Leave</h5>
+                                                        <h5>Permiso Pendiente</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
@@ -260,7 +260,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="card statustic-progress-card">
                                                     <div class="card-header">
-                                                        <h5>Approved Leave</h5>
+                                                        <h5>Permiso Aprobado</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
@@ -285,7 +285,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="card statustic-progress-card">
                                                     <div class="card-header">
-                                                        <h5>Rejected Leave</h5>
+                                                        <h5>Permiso Rechazado</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
@@ -310,7 +310,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="card statustic-progress-card">
                                                     <div class="card-header">
-                                                        <h5>Recalled Leave</h5>
+                                                        <h5>Permiso Retirado</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
@@ -349,7 +349,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                                 <?php else: ?>
                                                                     <h5>No</h5>
                                                                 <?php endif; ?>
-                                                                <p class="text-muted">Total Staff</p>
+                                                                <p class="text-muted">Total de Personal</p>
                                                             </div>
                                                             <div class="design-description d-inline-block">
                                                                 <?php if ($department['managerCount'] > 0): ?>
@@ -357,7 +357,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                                 <?php else: ?>
                                                                     <h5>No</h5>
                                                                 <?php endif; ?>
-                                                                <p class="text-muted">Total Managers</p>
+                                                                <p class="text-muted">Total de Gerentes</p>
                                                             </div>
                                                             <div class="team-box p-b-20">
                                                                 <p class="d-inline-block m-r-20 f-w-400">
@@ -386,7 +386,7 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                                 </div>
                                                             </div>
                                                             <div class="progress-box">
-                                                                <p class="d-inline-block m-r-20 f-w-400">Progress</p>
+                                                                <p class="d-inline-block m-r-20 f-w-400">Progreso</p>
                                                                 <div class="progress d-inline-block">
                                                                     <?php
                                                                     $staffPercentage = $totalStaff > 0 ? round(($department['staffCount'] / $totalStaff) * 100) : 0;
@@ -418,16 +418,16 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                 ?>
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="card-header-text">Newest Employees</h5>
+                                                        <h5 class="card-header-text">Empleados Más Recientes</h5>
                                                     </div>
                                                     <div class="card-block contact-details">
                                                         <div class="data_table_main table-responsive dt-responsive">
                                                             <table class="table table-striped table-bordered nowrap">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Full Name</th>
-                                                                        <th>Designation</th>
-                                                                        <th>Role</th>
+                                                                        <th>Nombre Completo</th>
+                                                                        <th>Designación</th>
+                                                                        <th>Rol</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -468,16 +468,16 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                 ?>
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="card-header-text">Recent Attendance</h5>
+                                                        <h5 class="card-header-text">Asistencia Reciente</h5>
                                                     </div>
                                                     <div class="card-block contact-details">
                                                         <div class="data_table_main table-responsive dt-responsive">
                                                             <table class="table table-striped table-bordered nowrap">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Full Name</th>
-                                                                        <th>Time In</th>
-                                                                        <th>Time Out</th>
+                                                                        <th>Nombre Completo</th>
+                                                                        <th>Hora de Entrada</th>
+                                                                        <th>Hora de Salida</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -521,16 +521,16 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                 ?>
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="card-header-text">Recent Leave</h5>
+                                                        <h5 class="card-header-text">Permisos Recientes</h5>
                                                     </div>
                                                     <div class="card-block contact-details">
                                                         <div class="data_table_main table-responsive dt-responsive">
                                                             <table class="table table-striped table-bordered nowrap">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Full Name</th>
-                                                                        <th>Start Date</th>
-                                                                        <th>End Date</th>
+                                                                        <th>Nombre Completo</th>
+                                                                        <th>Fecha de Inicio</th>
+                                                                        <th>Fecha de Fin</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>

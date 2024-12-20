@@ -1,4 +1,4 @@
-<?php include('../includes/header.php')?>
+<?php include('../includes/header.php') ?>
 <?php
 // Check if the user is logged in
 if (!isset($_SESSION['slogin']) || !isset($_SESSION['srole'])) {
@@ -75,56 +75,60 @@ mysqli_stmt_close($stmt);
 ?>
 
 <body>
-<!-- Pre-loader start -->
- <?php include('../includes/loader.php')?>
-<!-- Pre-loader end -->
-<div id="pcoded" class="pcoded">
-    <div class="pcoded-overlay-box"></div>
-    <div class="pcoded-container navbar-wrapper">
+    <!-- Pre-loader start -->
+    <?php include('../includes/loader.php') ?>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
 
-        <?php include('../includes/topbar.php')?>
+            <?php include('../includes/topbar.php') ?>
 
-        <!-- Sidebar inner chat end-->
-        <div class="pcoded-main-container">
-            <div class="pcoded-wrapper">
-                 <?php $page_name = "staff_list"; ?>
-                <?php include('../includes/sidebar.php')?>
-                <div class="pcoded-content">
-                    <div class="pcoded-inner-content">
-                        <!-- Main-body start -->
-                        <div class="main-body">
-                            <div class="page-wrapper">
-                                <!-- Page-header start -->
-                                <div class="page-header">
-                                    <div class="row align-items-end">
-                                        <div class="col-lg-8">
-                                            <div class="page-header-title">
-                                                <div class="d-inline">
-                                                    <h4>Staff List</h4>
+            <!-- Sidebar inner chat end-->
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <?php $page_name = "staff_list"; ?>
+                    <?php include('../includes/sidebar.php') ?>
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-header start -->
+                                    <div class="page-header">
+                                        <div class="row align-items-end">
+                                            <div class="col-lg-8">
+                                                <div class="page-header-title">
+                                                    <div class="d-inline">
+                                                        <h4>Lista de Personal</h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Page-header end -->
+                                    <!-- Page-header end -->
                                     <!-- Page-body start -->
                                     <div class="page-body">
                                         <div class="row">
-                                            
                                             <div class="col-lg-12 filter-bar">
                                                 <!-- Nav Filter tab start -->
                                                 <nav class="navbar navbar-light bg-faded m-b-30 p-10">
                                                     <ul class="nav navbar-nav">
                                                         <li class="nav-item active">
-                                                            <a class="nav-link" href="#!">Filter By Department: <span class="sr-only">(current)</span></a>
+                                                            <a class="nav-link" href="#!">Filtrar por Departamento:
+                                                                <span class="sr-only">(actual)</span></a>
                                                         </li>
                                                         <!-- Your existing HTML for the dropdown -->
                                                         <li class="nav-item dropdown">
-                                                            <a class="nav-link dropdown-toggle" href="#!" id="bydepartment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i class="icofont icofont-home"></i> <?php echo $departmentFilter; ?>
+                                                            <a class="nav-link dropdown-toggle" href="#!"
+                                                                id="bydepartment" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <i class="icofont icofont-home"></i>
+                                                                <?php echo $departmentFilter; ?>
                                                             </a>
                                                             <div class="dropdown-menu" aria-labelledby="bydepartment">
-                                                                <a class="dropdown-item <?php echo ($selectedDepartmentName === 'Show all') ? 'active' : ''; ?>" href="?department=Show all">Show all</a>
+                                                                <a class="dropdown-item <?php echo ($selectedDepartmentName === 'Show all') ? 'active' : ''; ?>"
+                                                                    href="?department=Show all">Mostrar todos</a>
                                                                 <div class="dropdown-divider"></div>
                                                                 <?php
                                                                 $departmentLookup = [];
@@ -146,9 +150,11 @@ mysqli_stmt_close($stmt);
                                                         </li>
                                                     </ul>
                                                     <div class="nav-item nav-grid">
-                                                       <div class="input-group">
-                                                            <input type="text" class="form-control" id="searchInput" placeholder="Search here...">
-                                                            <span class="input-group-addon" id="basic-addon1"><i class="icofont icofont-search"></i></span>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="searchInput"
+                                                                placeholder="Buscar aquí...">
+                                                            <span class="input-group-addon" id="basic-addon1"><i
+                                                                    class="icofont icofont-search"></i></span>
                                                         </div>
                                                     </div>
                                                     <!-- end of by priority dropdown -->
@@ -172,60 +178,66 @@ mysqli_stmt_close($stmt);
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Required Jquery -->   
-    <?php include('../includes/scripts.php')?>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+        <!-- Required Jquery -->
+        <?php include('../includes/scripts.php') ?>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        gtag('config', 'UA-23581568-13');
-    </script>
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-    <script type="text/javascript">
-    $(document).ready(function() {
-        // Retrieve the initial department filter value
-        var selectedDepartment = '<?php echo $selectedDepartmentName; ?>';
-        // Function to fetch and display the filtered staff
-        function fetchStaff() {
-            var searchQuery = $('#searchInput').val(); // Get the search query
-            var departmentFilter = (selectedDepartment === 'Show all') ? '' : selectedDepartment; // Get the department filter value
-            // Make an AJAX request to fetch the filtered staff
-            $.ajax({
-                url: 'staff_list_functions.php', // Replace with the actual PHP script that fetches the staff from the database
-                type: 'POST',
-                data: { searchQuery: searchQuery, departmentFilter: departmentFilter },
-                success: function(response) {
-                    // Clear the existing staff cards
-                    $('#staffContainer').empty();
+            gtag('config', 'UA-23581568-13');
+        </script>
 
-                    // Append the fetched staff cards to the container
-                    $('#staffContainer').append(response);
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // Retrieve the initial department filter value
+                var selectedDepartment = '<?php echo $selectedDepartmentName; ?>';
+                // Function to fetch and display the filtered staff
+                function fetchStaff() {
+                    var searchQuery = $('#searchInput').val(); // Get the search query
+                    var departmentFilter = (selectedDepartment === 'Show all') ? '' :
+                        selectedDepartment; // Get the department filter value
+                    // Make an AJAX request to fetch the filtered staff
+                    $.ajax({
+                        url: 'staff_list_functions.php', // Replace with the actual PHP script that fetches the staff from the database
+                        type: 'POST',
+                        data: {
+                            searchQuery: searchQuery,
+                            departmentFilter: departmentFilter
+                        },
+                        success: function(response) {
+                            // Clear the existing staff cards
+                            $('#staffContainer').empty();
+
+                            // Append the fetched staff cards to the container
+                            $('#staffContainer').append(response);
+                        }
+                    });
                 }
+                // Event listener for search input field
+                $('#searchInput').on('keyup', function() {
+                    fetchStaff();
+                });
+
+                // Event listener for department filter dropdown
+                $('#bydepartment .dropdown-item').on('click', function(event) {
+                    event.preventDefault();
+                    // Update the selected department variable and dropdown text
+                    selectedDepartment = $(this).text().trim();
+                    $('#bydepartment').text(selectedDepartment);
+
+                    // Fetch the staff based on the updated filter
+                    fetchStaff();
+                });
+
+                // Fetch the initial staff based on the default filter
+                fetchStaff();
             });
-        }
-        // Event listener for search input field
-        $('#searchInput').on('keyup', function() {
-            fetchStaff();
-        });
-
-        // Event listener for department filter dropdown
-        $('#bydepartment .dropdown-item').on('click', function(event) {
-            event.preventDefault();
-            // Update the selected department variable and dropdown text
-            selectedDepartment = $(this).text().trim();
-            $('#bydepartment').text(selectedDepartment);
-
-            // Fetch the staff based on the updated filter
-            fetchStaff();
-        });
-
-        // Fetch the initial staff based on the default filter
-        fetchStaff();
-    });
-    </script>
+        </script>
 
 </body>
 

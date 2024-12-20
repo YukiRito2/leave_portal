@@ -1,5 +1,4 @@
-
-<?php include('../includes/header.php')?>
+<?php include('../includes/header.php') ?>
 <?php
 // Check if the user is logged in
 if (!isset($_SESSION['slogin']) || !isset($_SESSION['srole'])) {
@@ -110,18 +109,18 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
 
 <body>
     <!-- Pre-loader start -->
-    <?php include('../includes/loader.php')?>
+    <?php include('../includes/loader.php') ?>
     <!-- Pre-loader end -->
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
 
-           <?php include('../includes/topbar.php')?>
+            <?php include('../includes/topbar.php') ?>
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <?php $page_name = "dashboard"; ?>
-                    <?php include('../includes/sidebar.php')?>
+                    <?php include('../includes/sidebar.php') ?>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <!-- Main-body start -->
@@ -134,23 +133,25 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <?php
-                                                        $stmt = $conn->prepare("SELECT COUNT(*) as total_employee FROM tblemployees");
-                                                        $stmt->execute();
-                                                        $result = $stmt->get_result();
-                                                        $row = $result->fetch_assoc();
-                                                        $total_employee = $row['total_employee'];    
+                                                    $stmt = $conn->prepare("SELECT COUNT(*) as total_employee FROM tblemployees");
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    $row = $result->fetch_assoc();
+                                                    $total_employee = $row['total_employee'];
                                                     ?>
                                                     <div class="card-block-small">
                                                         <i class="feather icon-user bg-c-blue card1-icon"></i>
-                                                        <span class="text-c-blue f-w-600">Active Staff</span>
+                                                        <span class="text-c-blue f-w-600">Personal Activo</span>
                                                         <?php if ($total_employee == 0): ?>
-                                                            <h4>No</h4>
+                                                        <h4>No</h4>
                                                         <?php else: ?>
-                                                            <h4><?= $total_employee ?></h4>
+                                                        <h4><?= $total_employee ?></h4>
                                                         <?php endif; ?>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-blue f-16 feather icon-user m-r-10"></i>Registered Staff
+                                                                <i
+                                                                    class="text-c-blue f-16 feather icon-user m-r-10"></i>Personal
+                                                                Registrado
                                                             </span>
                                                         </div>
                                                     </div>
@@ -159,23 +160,25 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <?php
-                                                        $stmt = $conn->prepare("SELECT COUNT(*) as total_depart FROM tbldepartments");
-                                                        $stmt->execute();
-                                                        $result = $stmt->get_result();
-                                                        $row = $result->fetch_assoc();
-                                                        $total_depart = $row['total_depart'];    
+                                                    $stmt = $conn->prepare("SELECT COUNT(*) as total_depart FROM tbldepartments");
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    $row = $result->fetch_assoc();
+                                                    $total_depart = $row['total_depart'];
                                                     ?>
                                                     <div class="card-block-small">
                                                         <i class="feather icon-home bg-c-pink card1-icon"></i>
-                                                        <span class="text-c-pink f-w-600">Departments</span>
+                                                        <span class="text-c-pink f-w-600">Departamentos</span>
                                                         <?php if ($total_depart == 0): ?>
-                                                            <h4>No</h4>
+                                                        <h4>No</h4>
                                                         <?php else: ?>
-                                                            <h4><?= $total_depart ?></h4>
+                                                        <h4><?= $total_depart ?></h4>
                                                         <?php endif; ?>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-pink f-16 feather icon-home m-r-10"></i>Available Departments
+                                                                <i
+                                                                    class="text-c-pink f-16 feather icon-home m-r-10"></i>Departamentos
+                                                                Disponibles
                                                             </span>
                                                         </div>
                                                     </div>
@@ -184,23 +187,25 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <?php
-                                                        $stmt = $conn->prepare("SELECT COUNT(*) as total_types FROM tblleavetype");
-                                                        $stmt->execute();
-                                                        $result = $stmt->get_result();
-                                                        $row = $result->fetch_assoc();
-                                                        $total_types = $row['total_types'];    
+                                                    $stmt = $conn->prepare("SELECT COUNT(*) as total_types FROM tblleavetype");
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    $row = $result->fetch_assoc();
+                                                    $total_types = $row['total_types'];
                                                     ?>
                                                     <div class="card-block-small">
                                                         <i class="feather icon-tag bg-c-green card1-icon"></i>
-                                                        <span class="text-c-green f-w-600">Leave Types</span>
+                                                        <span class="text-c-green f-w-600">Tipos de Permiso</span>
                                                         <?php if ($total_types == 0): ?>
-                                                            <h4>No</h4>
+                                                        <h4>No</h4>
                                                         <?php else: ?>
-                                                            <h4><?= $total_types ?></h4>
+                                                        <h4><?= $total_types ?></h4>
                                                         <?php endif; ?>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-green f-16 feather icon-tag m-r-10"></i>Active Leave Types
+                                                                <i
+                                                                    class="text-c-green f-16 feather icon-tag m-r-10"></i>Tipos
+                                                                de Permiso Activos
                                                             </span>
                                                         </div>
                                                     </div>
@@ -209,23 +214,25 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <?php
-                                                        $stmt = $conn->prepare("SELECT COUNT(*) as total_leave FROM tblleave");
-                                                        $stmt->execute();
-                                                        $result = $stmt->get_result();
-                                                        $row = $result->fetch_assoc();
-                                                        $total_leave = $row['total_leave'];    
+                                                    $stmt = $conn->prepare("SELECT COUNT(*) as total_leave FROM tblleave");
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    $row = $result->fetch_assoc();
+                                                    $total_leave = $row['total_leave'];
                                                     ?>
                                                     <div class="card-block-small">
                                                         <i class="feather icon-list bg-c-yellow card1-icon"></i>
-                                                        <span class="text-c-yellow f-w-600">Leave</span>
+                                                        <span class="text-c-yellow f-w-600">Permisos</span>
                                                         <?php if ($total_leave == 0): ?>
-                                                            <h4>No</h4>
+                                                        <h4>No</h4>
                                                         <?php else: ?>
-                                                            <h4><?= $total_leave ?></h4>
+                                                        <h4><?= $total_leave ?></h4>
                                                         <?php endif; ?>
                                                         <div>
                                                             <span class="f-left m-t-10 text-muted">
-                                                                <i class="text-c-yellow f-16 feather icon-list m-r-10"></i>Leave Application
+                                                                <i
+                                                                    class="text-c-yellow f-16 feather icon-list m-r-10"></i>Solicitud
+                                                                de Permiso
                                                             </span>
                                                         </div>
                                                     </div>
@@ -233,17 +240,18 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             </div>
                                             <!-- user card  end -->
 
-                                             <!-- statustic with progressbar  start -->
-                                             <div class="col-xl-3 col-md-6">
+                                            <!-- statustic with progressbar  start -->
+                                            <div class="col-xl-3 col-md-6">
                                                 <div class="card statustic-progress-card">
                                                     <div class="card-header">
-                                                        <h5>Pending Leave</h5>
+                                                        <h5>Permiso Pendiente</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <label class="label bg-c-lite-green">
-                                                                    <?php echo $pending_percentage; ?>% <i class="m-l-10 feather icon-arrow-up"></i>
+                                                                    <?php echo $pending_percentage; ?>% <i
+                                                                        class="m-l-10 feather icon-arrow-up"></i>
                                                                 </label>
                                                             </div>
                                                             <div class="col text-right">
@@ -251,7 +259,8 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                             </div>
                                                         </div>
                                                         <div class="progress m-t-15">
-                                                            <div class="progress-bar bg-c-lite-green" style="width:<?php echo $pending_percentage; ?>%"></div>
+                                                            <div class="progress-bar bg-c-lite-green"
+                                                                style="width:<?php echo $pending_percentage; ?>%"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -259,13 +268,14 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="card statustic-progress-card">
                                                     <div class="card-header">
-                                                        <h5>Approved Leave</h5>
+                                                        <h5>Permiso Aprobado</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <label class="label label-success">
-                                                                    <?php echo $approved_percentage; ?>% <i class="m-l-10 feather icon-arrow-up"></i>
+                                                                    <?php echo $approved_percentage; ?>% <i
+                                                                        class="m-l-10 feather icon-arrow-up"></i>
                                                                 </label>
                                                             </div>
                                                             <div class="col text-right">
@@ -273,7 +283,9 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                             </div>
                                                         </div>
                                                         <div class="progress m-t-15">
-                                                            <div class="progress-bar bg-c-green" style="width:<?php echo $approved_percentage; ?>%"></div>
+                                                            <div class="progress-bar bg-c-green"
+                                                                style="width:<?php echo $approved_percentage; ?>%">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -281,13 +293,14 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="card statustic-progress-card">
                                                     <div class="card-header">
-                                                        <h5>Rejected Leave</h5>
+                                                        <h5>Permiso Rechazado</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <label class="label label-danger">
-                                                                    <?php echo $rejected_percentage; ?>% <i class="m-l-10 feather icon-arrow-up"></i>
+                                                                    <?php echo $rejected_percentage; ?>% <i
+                                                                        class="m-l-10 feather icon-arrow-up"></i>
                                                                 </label>
                                                             </div>
                                                             <div class="col text-right">
@@ -295,7 +308,9 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                             </div>
                                                         </div>
                                                         <div class="progress m-t-15">
-                                                            <div class="progress-bar bg-c-pink" style="width:<?php echo $rejected_percentage; ?>%"></div>
+                                                            <div class="progress-bar bg-c-pink"
+                                                                style="width:<?php echo $rejected_percentage; ?>%">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -303,13 +318,14 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-xl-3 col-md-6">
                                                 <div class="card statustic-progress-card">
                                                     <div class="card-header">
-                                                        <h5>Recalled Leave</h5>
+                                                        <h5>Permiso Retirado</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <label class="label label-warning">
-                                                                    <?php echo $recalled_percentage; ?>% <i class="m-l-10 feather icon-arrow-up"></i>
+                                                                    <?php echo $recalled_percentage; ?>% <i
+                                                                        class="m-l-10 feather icon-arrow-up"></i>
                                                                 </label>
                                                             </div>
                                                             <div class="col text-right">
@@ -317,7 +333,9 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                                             </div>
                                                         </div>
                                                         <div class="progress m-t-15">
-                                                            <div class="progress-bar bg-c-yellow" style="width:<?php echo $recalled_percentage; ?>%"></div>
+                                                            <div class="progress-bar bg-c-yellow"
+                                                                style="width:<?php echo $recalled_percentage; ?>%">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -329,57 +347,62 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             <div class="col-md-12 col-xl-6 ">
                                                 <div class="card app-design">
                                                     <div class="card-block">
-                                                        <a href="staff_list.php?department=<?= urlencode($department['name']) ?>"><button class="btn btn-primary f-right"><?= $department['name'] ?></button></a>
+                                                        <a
+                                                            href="staff_list.php?department=<?= urlencode($department['name']) ?>"><button
+                                                                class="btn btn-primary f-right"><?= $department['name'] ?></button></a>
                                                         <h6 class="f-w-400 text-muted"><?= $department['desc'] ?></h6>
                                                         <div class="design-description d-inline-block m-r-40">
                                                             <?php if ($department['staffCount'] > 0): ?>
-                                                                <h3 class="f-w-400"><?= $department['staffCount'] ?></h3>
+                                                            <h3 class="f-w-400"><?= $department['staffCount'] ?></h3>
                                                             <?php else: ?>
-                                                                <h5>No</h5>
+                                                            <h5>No</h5>
                                                             <?php endif; ?>
-                                                            <p class="text-muted">Total Staff</p>
+                                                            <p class="text-muted">Total de Personal</p>
                                                         </div>
                                                         <div class="design-description d-inline-block">
                                                             <?php if ($department['managerCount'] > 0): ?>
-                                                                <h3 class="f-w-400"><?= $department['managerCount'] ?></h3>
+                                                            <h3 class="f-w-400"><?= $department['managerCount'] ?></h3>
                                                             <?php else: ?>
-                                                                <h5>No</h5>
+                                                            <h5>No</h5>
                                                             <?php endif; ?>
-                                                            <p class="text-muted">Total Managers</p>
+                                                            <p class="text-muted">Total de Gerentes</p>
                                                         </div>
                                                         <div class="team-box p-b-20">
                                                             <p class="d-inline-block m-r-20 f-w-400">
                                                                 <?php
-                                                                if ($department['staffCount'] > 0) {
-                                                                    echo "Team";
-                                                                } else {
-                                                                    echo "No Staff";
-                                                                }
-                                                                ?>
+                                                                    if ($department['staffCount'] > 0) {
+                                                                        echo "Equipo";
+                                                                    } else {
+                                                                        echo "Sin Personal";
+                                                                    }
+                                                                    ?>
                                                             </p>
                                                             <div class="team-section d-inline-block">
                                                                 <?php
-                                                                // Fetch and display only 10 staff members for this department
-                                                                $staffQuery = $conn->prepare("SELECT * FROM tblemployees WHERE department = ? LIMIT 10");
-                                                                $staffQuery->bind_param("i", $department['id']);
-                                                                $staffQuery->execute();
-                                                                $staffResult = $staffQuery->get_result();
+                                                                    // Fetch and display only 10 staff members for this department
+                                                                    $staffQuery = $conn->prepare("SELECT * FROM tblemployees WHERE department = ? LIMIT 10");
+                                                                    $staffQuery->bind_param("i", $department['id']);
+                                                                    $staffQuery->execute();
+                                                                    $staffResult = $staffQuery->get_result();
 
-                                                                while ($staffRow = $staffResult->fetch_assoc()) {
-                                                                    $staffImage = $staffRow['image_path'];
-                                                                    $staffName = $staffRow['first_name'] . ' ' . $staffRow['last_name'];
-                                                                    echo "<a href='#!'><img src='$staffImage' data-toggle='tooltip' title='$staffName' alt='' class='m-l-5 '></a>";
-                                                                }
-                                                                ?>
+                                                                    while ($staffRow = $staffResult->fetch_assoc()) {
+                                                                        $staffImage = $staffRow['image_path'];
+                                                                        $staffName = $staffRow['first_name'] . ' ' . $staffRow['last_name'];
+                                                                        echo "<a href='#!'><img src='$staffImage' data-toggle='tooltip' title='$staffName' alt='' class='m-l-5 '></a>";
+                                                                    }
+                                                                    ?>
                                                             </div>
                                                         </div>
                                                         <div class="progress-box">
-                                                            <p class="d-inline-block m-r-20 f-w-400">Progress</p>
+                                                            <p class="d-inline-block m-r-20 f-w-400">Progreso</p>
                                                             <div class="progress d-inline-block">
-                                                                 <?php
-                                                                   $staffPercentage = $totalStaff > 0 ? round(($department['staffCount'] / $totalStaff) * 100) : 0;
-                                                                 ?>
-                                                                <div class="progress-bar bg-c-blue" style="width:<?= $staffPercentage ?>% "><label><?= $staffPercentage ?>%</label></div>
+                                                                <?php
+                                                                    $staffPercentage = $totalStaff > 0 ? round(($department['staffCount'] / $totalStaff) * 100) : 0;
+                                                                    ?>
+                                                                <div class="progress-bar bg-c-blue"
+                                                                    style="width:<?= $staffPercentage ?>% ">
+                                                                    <label><?= $staffPercentage ?>%</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -387,11 +410,10 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
                                             </div>
                                             <?php endforeach; ?>
                                             <!-- Department  end -->
-                                                    
                                         </div>
                                     </div>
                                     <!-- Page-body end -->
-                                    
+
                                 </div>
                                 <div id="styleSelector"> </div>
                             </div>
@@ -403,13 +425,16 @@ while ($departmentRow = $departmentResult->fetch_assoc()) {
     </div>
 
     <!-- Required Jquery -->
-    <?php include('../includes/scripts.php')?>
+    <?php include('../includes/scripts.php') ?>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
 
-        gtag('config', 'UA-23581568-13');
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
     </script>
 </body>
 
